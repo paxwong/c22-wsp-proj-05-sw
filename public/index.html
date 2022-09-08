@@ -8,12 +8,21 @@
 			background: #000;
             font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
 		}
-
+		.hidden_box{
+			background:rgb(9,7,7);
+			height: 300px;
+			width: 300px;
+		}
+		.hidden_box:hover{
+			background: white;
+		}
 		.crcl {
 			width: 80px;
 			height: 80px;
 			border-radius: 100%;
 			position: relative;
+			top:-50%;
+			left:-50%;
 			background-image: url(
 "https://pngimg.com/uploads/pokeball/pokeball_PNG29.png"
 				);
@@ -125,8 +134,8 @@
 			}
 
 			100% {
-				left: 600px;
-				top: 200px;
+				left: -600px;
+				top: -200px;
 			}
 		}
 
@@ -188,6 +197,7 @@
 			<!-- <button onclick="easy()">EASY</button> -->
 			<button onclick="start()">Start!</button>
 			<!-- <button onclick="hard()">HARD</button> -->
+			<div class="hidden_box"></div>
 		</div>
 		<div class="display_score">
 			<h2>Score</h2>
