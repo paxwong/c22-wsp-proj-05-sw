@@ -1,0 +1,53 @@
+:root {
+    --themeGreen: rgb(93,164,151);
+    --themeDark: rgb(45,56,70);
+    --themeWhite: #ffffff;
+  }
+
+body{
+    height: 100vh;
+    background: var(--themeDark);
+    color: var(--themeDark);
+    font-weight: bold;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.signup-container {
+    box-sizing: border-box;
+    display: flex;
+    flex-wrap: nowrap;
+    flex-direction: column;
+    justify-content: space-between;
+    background: var(--themeGreen);
+    height: 800px;
+    width: 600px;
+    border-radius: 2.5%;
+    border: var(--themeWhite) solid 2px;
+    padding: 25px;
+    font-size: 1.5rem;
+}
+
+.signup-div{
+    font-size: 2rem;
+}
+
+form{
+    display: flex;
+    flex-direction: column;
+    align-content: center;
+    padding: 3rem 0;
+}
+
+input{
+    height: 1.5rem;
+}
+
+input[type="submit"] {
+    width: 50%;
+}
+
+#sign-up-link{
+    color: var(--themeWhite);
+}

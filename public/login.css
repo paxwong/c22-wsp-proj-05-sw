@@ -5,17 +5,49 @@
   }
 
 body{
+    height: 100vh;
     background: var(--themeGreen);
     color: var(--themeWhite);
     font-weight: bold;
-    font-size: 2rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .login-container {
+    box-sizing: border-box;
     display: flex;
-    background: var(--themeDark)
+    flex-wrap: nowrap;
+    flex-direction: column;
+    justify-content: space-between;
+    background: var(--themeDark);
+    height: 800px;
+    width: 600px;
+    border-radius: 2.5%;
+    border: var(--themeWhite) solid 2px;
+    padding: 25px;
+    font-size: 1.5rem;
+}
+
+.login-div{
+    font-size: 2rem;
+}
+
+form{
+    display: flex;
+    flex-direction: column;
+    align-content: center;
+    padding: 3rem 0;
 }
 
 input{
     height: 1.5rem;
+}
+
+input[type="submit"] {
+    width: 50%;
+}
+
+#sign-up-link{
+    color: var(--themeGreen);
 }
