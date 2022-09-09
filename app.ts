@@ -46,5 +46,5 @@ app.use((req, res) => {
 app.listen(8080, () => {
 	// Auto create a folder
 	// fs.mkdirSync(uploadDir, { recursive: true })
-	console.log('Listening on port 8080')
+	console.log('Listening on http://localhost:8080')
 })
