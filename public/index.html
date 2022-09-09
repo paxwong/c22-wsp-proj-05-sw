@@ -25,8 +25,8 @@
 		for the whole animation */
 		@keyframes movement {
 			0% {
-				left: 0px;
-				top: 0px
+				left: 1000px;
+				top: 1000px
 			}
 
 			5% {
@@ -125,8 +125,8 @@
 			}
 
 			100% {
-				left: 600px;
-				top: 200px;
+				left: 1000px;
+				top: 1000px;
 			}
 		}
 
@@ -174,6 +174,23 @@
 			box-shadow: 0px 10px 20px 10px white;
 			transition-duration: 1s;
 		}
+
+        .redirect{
+            background-color:  rgb(7, 6, 6);
+            width: 1em;
+			height: 1em;
+            display: flex;
+            align-items: baseline;
+            justify-content: flex-end;
+            transform: translate(200px, 200px);
+        }
+
+        .redirect:hover {
+            background-color: rgb(141, 0, 0);
+            width: 1em;
+			height: 1em;
+       
+        }
 	</style>
 </head>
 
@@ -194,7 +211,12 @@
 			<h2 id="score">0</h2>
 		</div>
 		<button onclick="restart()">RESTART</button>
+        <a class="redirect" href="../homepage.html">
+        </a>
 	</div>
+   
+
+
 
 	<script>
 
