@@ -1,0 +1,21 @@
+:root {
+    --themeGreen: rgb(93,164,151);
+    --themeDark: rgb(45,56,70);
+    --themeWhite: #ffffff;
+  }
+
+body{
+    background: var(--themeGreen);
+    color: var(--themeWhite);
+    font-weight: bold;
+    font-size: 2rem;
+}
+
+.login-container {
+    display: flex;
+    background: var(--themeDark)
+}
+
+input{
+    height: 1.5rem;
+}
