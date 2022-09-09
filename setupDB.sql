@@ -1,0 +1,63 @@
+psql -U postgres
+
+CREATE DATABASE killer;
+
+\c killer
+
+CREATE TABLE users (
+    id SERIAL PRIMARY KEY,
+    username VARCHAR(255) NOT NULL,
+    password VARCHAR(255) NOT NULL,
+    created_at TIMESTAMP NOT NULL,
+    updated_at TIMESTAMP NOT NULL,
+    account_type VARCHAR(255) NOT NULL,
+    skills_id INTEGER,
+    task_completion INTEGER NOT NULL
+);
+
+CREATE TABLE orders (
+    id SERIAL PRIMARY KEY,
+    bounty INTEGER NOT NULL,
+    expiration TIMESTAMP NOT NULL,
+    target_id INTEGER NOT NULL,
+    liked INTEGER NOT NULL,
+    created_at TIMESTAMP NOT NULL,
+    updated_at TIMESTAMP NOT NULL,
+    status VARCHAR(255) NOT NULL,
+    evidence VARCHAR(255),
+    client_id INTEGER NOT NULL,
+    FOREIGN KEY (target_id) REFERENCES target_list(id),
+    FOREIGN KEY (client_id) REFERENCES users(id)
+);
+
+CREATE TABLE target_list (
+    id SERIAL PRIMARY KEY,
+    name VARCHAR(255) NOT NULL,
+    nationality VARCHAR(255),
+    age INTEGER,
+    company VARCHAR(255),
+    living_district VARCHAR(255),
+    remarks VARCHAR(255),
+    created_at TIMESTAMP NOT NULL,
+    updated_at TIMESTAMP NOT NULL
+);
+
+CREATE TABLE photos (
+    id SERIAL PRIMARY KEY,
+    target_id INTEGER NOT NULL,
+    photo TIMESTAMP NOT NULL,
+    FOREIGN KEY (target_id) REFERENCES target_list(id)
+);
+
+CREATE TABLE skills (
+    id SERIAL PRIMARY KEY,
+    skills VARCHAR(255) NOT NULL
+);
+
+CREATE TABLE killer_advertisement (
+    id SERIAL PRIMARY KEY,
+    killer_id INTEGER NOT NULL,
+    content TEXT NOT NULL,
+    status VARCHAR(255) NOT NULL,
+);
+
