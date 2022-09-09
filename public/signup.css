@@ -1,12 +1,12 @@
 :root {
-    --themeGreen: rgb(93,164,151);
-    --themeDark: rgb(45,56,70);
+    --themeGreen: rgb(93, 164, 151);
+    --themeDark: rgb(45, 56, 70);
     --themeWhite: #ffffff;
-  }
+}
 
-body{
+body {
     height: 100vh;
-    background: var(--themeDark);
+    background-image: url(/bg.png);
     color: var(--themeDark);
     font-weight: bold;
     display: flex;
@@ -29,18 +29,18 @@ body{
     font-size: 1.5rem;
 }
 
-.signup-div{
+.signup-div {
     font-size: 2rem;
 }
 
-form{
+form {
     display: flex;
     flex-direction: column;
     align-content: center;
     padding: 3rem 0;
 }
 
-input{
+input {
     height: 1.5rem;
 }
 
@@ -48,6 +48,6 @@ input[type="submit"] {
     width: 50%;
 }
 
-#sign-up-link{
+#sign-up-link {
     color: var(--themeWhite);
 }
