@@ -6,7 +6,7 @@
 
 body {
     height: 100vh;
-    background-image: url(/bg.png);
+    background-image: url(./bg.png);
     color: var(--themeDark);
     font-weight: bold;
     display: flex;

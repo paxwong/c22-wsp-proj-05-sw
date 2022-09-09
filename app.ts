@@ -18,9 +18,24 @@ import express from 'express'
 // }
 
 export const app = express()
+
+app.use(express.json())
+
+app.get('/login', async (req, res) => {
+	const username = req.body.username
+	const password = req.body.password
+
+	if (!username || !password){
+		res.status(400).json({
+			message: 'Invalid username or password'
+		})
+	}
+
+	
+
+})
 // const server = new http.Server(app)
 // export const io = new SocketIO(server)
-// app.use(express.json())
 // app.use(express.urlencoded({ extended: true }))
 // app.use(sessionMiddleware)
 
