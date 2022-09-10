@@ -1,8 +1,10 @@
 body {
-    /* color: black; */
     width: 100vw;
     height: 100vh;
-    background-image: radial-gradient(rgb(1, 49, 49), rgba(11, 20, 20));
+    background-color: rgb(12, 20, 21);
+    /* color: rgb(16, 79, 77) */
+
+    color: rgb(25, 169, 161);
 }
 
 .header-content {
@@ -10,7 +12,7 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background-color: white;
+    background-color: rgb(12, 20, 21);
     padding: 30px;
     position: fixed;
     top: 0;
@@ -38,7 +40,7 @@ body {
     display: block;
     position: absolute;
     background-color: rgba(255, 255, 255, 0.7);
-    width: 100px;
+    width: 150px;
     margin-top: 15px;
 
 }
@@ -91,7 +93,7 @@ a {
 }
 
 a:-webkit-any-link {
-    color: black;
+    color: rgb(25, 169, 161);
     cursor: pointer;
     text-decoration: none;
 }
@@ -99,19 +101,83 @@ a:-webkit-any-link {
 .container {
     width: 100%;
     height: 100%;
-    padding: 50px;
-    margin: auto;
-    text-decoration: black;
+    padding: 60px;
+    margin-top: 150px;
+    text-decoration: rgb(25, 169, 161);
     z-index: 10;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
 }
 
 .wallet {
-    border-style: solid;
-    border-color: black;
-    padding: 5px;
+    width: 160px;
+    height: 60px;
+    border-radius: 6px;
+    box-shadow: 4px 4px 10px rgb(80, 227, 148);
+    padding: 0px;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgb(12, 20, 21);
+}
+
+.wallet::before {
+    content: "";
+    background-image: conic-gradient(rgb(25, 169, 161) 20deg,
+            transparent 120deg);
+    width: 160px;
+    height: 60px;
+    position: absolute;
+    animation: animate 2s linear infinite;
+}
+
+@keyframes animate {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(-360deg);
+    }
+}
+
+.wallet::after {
+    content: "Connect to wallet";
+    width: 150px;
+    height: 52px;
+    position: absolute;
+    border-radius: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: rgb(25, 169, 161);
+    background-color: rgb(12, 20, 21);
+    inset: 5px;
+    /* box-shadow: inset 10px 10px 10px rgb(80, 227, 148); */
+}
+
+
+
+.wallet-text {
+    color: rgb(80, 227, 148);
 }
 
 .container>h3 {
     color: black;
-    text-decoration: black;
+    text-decoration: rgb(25, 169, 161);
+}
+
+.square {
+    width: 200px;
+    height: 200px;
+    margin: 10px;
+    background-color: red;
+}
+
+h3 {
+    text-align: center;
 }
