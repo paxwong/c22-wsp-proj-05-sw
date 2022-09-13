@@ -1,6 +1,7 @@
 body {
     background-color: rgb(12, 20, 21);
     color: rgb(25, 169, 161);
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
 }
 
 #contract-form {
