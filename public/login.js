@@ -15,7 +15,8 @@ async function login() {
             })
         })
         if (res.ok) {
-            console.log('login successful')
+            alert('Login successfully')
+            location.replace('http://localhost:8080/chatroom.html')
         }
 })}
 

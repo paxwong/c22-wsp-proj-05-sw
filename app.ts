@@ -92,7 +92,9 @@ app.post('/login', async (req, res) => {
 
 	req.session.name = dbUser.username
 	req.session.isloggedIn = true
-	res.redirect('/')
+	res.status(200).json({
+		message: 'Login successfully'
+	})
 })
 
 // for testing session, can delete in the end
