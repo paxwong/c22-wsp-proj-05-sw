@@ -4,11 +4,11 @@ import { userRoutes } from './routes/userRoute'
 // import { uploadDir } from './utils/upload'
 import { logger } from './utils/logger'
 // import { memosRoutes } from './routes/memoRoute'
-// import http from 'http'
-// import { Server as SocketIO } from 'socket.io'
+import http from 'http'
+import { Server as SocketIO } from 'socket.io'
 // import { loggingUserRoute } from './utils/guard'
 import { grantExpress, sessionMiddleware } from './utils/middleware'
-// import { setIO } from './utils/setIO'
+import { setIO } from './utils/setIO'
 
 declare module 'express-session' {
 	interface SessionData {
@@ -34,8 +34,8 @@ app.get('/login', async (req, res) => {
 	
 
 })
-// const server = new http.Server(app)
-// export const io = new SocketIO(server)
+const server = new http.Server(app)
+export const io = new SocketIO(server)
 app.use(express.urlencoded({ extended: true }))
 app.use(sessionMiddleware)
 
@@ -57,7 +57,7 @@ app.use(express.static('public')) // auto to do next()
 app.use((req, res) => {
 	res.redirect('/404.html')
 })
-// setIO(io)
+setIO(io)
 app.listen(8080, () => {
 	// Auto create a folder
 	// fs.mkdirSync(uploadDir, { recursive: true })
