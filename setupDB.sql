@@ -65,5 +65,6 @@ CREATE TABLE referral (
     id SERIAL PRIMARY KEY,
     code VARCHAR(255) NOT NULL,
     killer_id INTEGER NOT NULL,
+    status VARCHAR(255) NOT NULL,
     FOREIGN KEY (killer_id) REFERENCES users(id)
 );
