@@ -16,5 +16,9 @@ export function setIO(value: SocketIO) {
 		// if (!socket.request['session'].user) {
 		// 	socket.disconnect()
 		// }
+
+
+		//add chatroom .emit .on logic here
+
 	})
 }
