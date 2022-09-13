@@ -58,7 +58,7 @@ app.use((req, res) => {
 	res.redirect('/404.html')
 })
 setIO(io)
-app.listen(8080, () => {
+server.listen(8080, () => {
 	// Auto create a folder
 	// fs.mkdirSync(uploadDir, { recursive: true })
 	console.log('Listening on http://localhost:8080')
