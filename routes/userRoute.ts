@@ -7,7 +7,7 @@ import { logger } from '../utils/logger'
 
 export const userRoutes = express.Router()
 userRoutes.get('/me', getMe)
-userRoutes.get('/login/google', loginGoogle)
+// userRoutes.get('/login/google', loginGoogle)
 userRoutes.post('/register', register)
 userRoutes.get('/', getAllUsers)
 userRoutes.get('/liked-memo/:userId', getLikedMemoByUserId)
@@ -111,59 +111,59 @@ async function getMe(req: express.Request, res: express.Response) {
 		}
 	})
 }
-async function loginGoogle(req: express.Request, res: express.Response) {
-	try {
-		// 如果google in 成功，就會拎到 一個 access token
-		// access token 係用黎換番google 既 user profile
-		const accessToken = req.session?.['grant'].response.access_token
+// async function loginGoogle(req: express.Request, res: express.Response) {
+// 	try {
+// 		// 如果google in 成功，就會拎到 一個 access token
+// 		// access token 係用黎換番google 既 user profile
+// 		const accessToken = req.session?.['grant'].response.access_token
 
-		// fetch google API, 拎 user profile
-		const fetchRes = await fetch(
-			'https://www.googleapis.com/oauth2/v2/userinfo',
-			{
-				method: 'get',
-				headers: {
-					Authorization: `Bearer ${accessToken}`
-				}
-			}
-		)
-		const googleProfile = await fetchRes.json()
-		logger.info(googleProfile)
+// 		// fetch google API, 拎 user profile
+// 		const fetchRes = await fetch(
+// 			'https://www.googleapis.com/oauth2/v2/userinfo',
+// 			{
+// 				method: 'get',
+// 				headers: {
+// 					Authorization: `Bearer ${accessToken}`
+// 				}
+// 			}
+// 		)
+// 		const googleProfile = await fetchRes.json()
+// 		logger.info(googleProfile)
 
-		// check 下 db有無呢個user存在
-		const users = (
-			await client.query(`SELECT * FROM users WHERE username = $1`, [
-				googleProfile.email
-			])
-		).rows
-		let user = users[0]
+// 		// check 下 db有無呢個user存在
+// 		const users = (
+// 			await client.query(`SELECT * FROM users WHERE username = $1`, [
+// 				googleProfile.email
+// 			])
+// 		).rows
+// 		let user = users[0]
 
-		// 如果 user 不存在，馬上 create 一個
-		if (!user) {
-			//get a random 32 bit string
-			const randomString = crypto.randomBytes(32).toString('hex')
-			let hashedPassword = await hashPassword(randomString)
-			// Create the user when the user does not exist
-			user = (
-				await client.query(
-					`INSERT INTO users (username,password)
-	            VALUES ($1,$2) RETURNING *`,
-					[googleProfile.email, hashedPassword]
-				)
-			).rows[0]
-		}
+// 		// 如果 user 不存在，馬上 create 一個
+// 		if (!user) {
+// 			//get a random 32 bit string
+// 			const randomString = crypto.randomBytes(32).toString('hex')
+// 			let hashedPassword = await hashPassword(randomString)
+// 			// Create the user when the user does not exist
+// 			user = (
+// 				await client.query(
+// 					`INSERT INTO users (username,password)
+// 	            VALUES ($1,$2) RETURNING *`,
+// 					[googleProfile.email, hashedPassword]
+// 				)
+// 			).rows[0]
+// 		}
 
-		// 最後當佢 login 成功處理
-		// set google profile 入去 req session
-		if (req.session) {
-			req.session['user'] = googleProfile
-		}
-		res.redirect('/')
-	} catch (error) {
-		console.log(error)
-		res.redirect('/index.html?error=google login fail')
-	}
-}
+// 		// 最後當佢 login 成功處理
+// 		// set google profile 入去 req session
+// 		if (req.session) {
+// 			req.session['user'] = googleProfile
+// 		}
+// 		res.redirect('/')
+// 	} catch (error) {
+// 		console.log(error)
+// 		res.redirect('/index.html?error=google login fail')
+// 	}
+// }
 
 async function register(req: Request, res: Response) {
 	try {
