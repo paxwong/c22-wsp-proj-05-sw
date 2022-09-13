@@ -25,7 +25,7 @@ let sessionMiddleware = expressSession({
 declare module 'express-session' {
 	interface SessionData {
 		name?: string
-		isloggedin?: boolean
+		isloggedIn?: boolean
 	}
 }
 
@@ -33,7 +33,7 @@ app.use(sessionMiddleware)
 
 
 
-// sign up account with unique referral code, will fail if referral code doesn't exist
+// SIGN UP account with unique referral code, will fail if referral code doesn't exist
 app.post('/signup', async (req, res) => {
 	const username = req.body.username
 	const password = req.body.password
@@ -90,19 +90,16 @@ app.post('/login', async (req, res) => {
 	return
 	}
 
-	// let {
-	// 	password: dbUserPassword,
-	// 	id,
-	// 	created_at,
-	// 	updated_at,
-	// 	...sessionUser
-	// } = dbUser
 	req.session.name = dbUser.username
-	req.session.isloggedin = true
-
-	res.status(200).redirect('/homepage.html')
-
+	req.session.isloggedIn = true
+	res.redirect('/')
 })
+
+// for testing session, can delete in the end
+app.get('/session', (req, res) => {
+	res.json(req.session)	
+})
+
 const server = new http.Server(app)
 export const io = new SocketIO(server)
 app.use(express.urlencoded({ extended: true }))
