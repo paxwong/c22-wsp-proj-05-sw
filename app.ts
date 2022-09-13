@@ -1,5 +1,7 @@
 import express from 'express'
 import { userRoutes } from './routes/userRoute'
+import { client } from './utils/db'
+import { checkPassword, hashPassword } from './hash'
 // import fs from 'fs'
 // import { uploadDir } from './utils/upload'
 import { logger } from './utils/logger'
@@ -21,10 +23,40 @@ export const app = express()
 
 app.use(express.json())
 
-app.get('/login', async (req, res) => {
+
+// sign up account with unique referral code, will fail if referral code doesn't exist
+app.post('/signup', async (req, res) => {
 	const username = req.body.username
 	const password = req.body.password
+	const referral = req.body.referral
 
+	if (!username || !password || !referral) {
+		res.status(400).json({
+			message: 'Missing information'
+		})
+		return
+	}
+
+	let result = await client.query(`SELECT * FROM REFERRAL WHERE code = $1`, [referral])
+	let isReferred = result.rows[0]
+	if (!isReferred) {
+		res.status(400).json({
+			message: 'Invalid Referral Code'
+		})
+		return
+	}
+
+	let hashedPassword = await hashPassword(password)
+	await client.query(`INSERT INTO USERS (username, password, created_at, updated_at, account_type) values ($1, $2, NOW(), NOW(), $3)`,
+	[username, hashedPassword, 'killer'])
+	res.json({ message: 'User created' })
+}
+)
+
+app.post('/login', async (req, res) => {
+	const username = req.body.username
+	const password = req.body.password
+	console.log(username, password)
 	if (!username || !password){
 		res.status(400).json({
 			message: 'Invalid username or password'
