@@ -4,7 +4,7 @@ async function login() {
         event.preventDefault();
         const username = event.target.username.value;
         const password = event.target.password.value;
-        const res = await fetch('login', {
+        const res = await fetch('/login', {
             method: 'POST',
             headers: {
                 "Content-Type": "application/json"

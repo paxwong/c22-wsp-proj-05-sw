@@ -12,7 +12,7 @@ CREATE TABLE users (
     updated_at TIMESTAMP NOT NULL,
     account_type VARCHAR(255) NOT NULL,
     skills_id INTEGER,
-    task_completion INTEGER NOT NULL
+    task_completion INTEGER NOT NULL DEFAULT 0
 );
 
 CREATE TABLE orders (
@@ -54,10 +54,16 @@ CREATE TABLE skills (
     skills VARCHAR(255) NOT NULL
 );
 
-CREATE TABLE killer_advertisement (
+CREATE TABLE killer_advertisements (
     id SERIAL PRIMARY KEY,
     killer_id INTEGER NOT NULL,
     content TEXT NOT NULL,
     status VARCHAR(255) NOT NULL,
 );
 
+CREATE TABLE referral (
+    id SERIAL PRIMARY KEY,
+    code VARCHAR(255) NOT NULL,
+    killer_id INTEGER NOT NULL,
+    FOREIGN KEY (killer_id) REFERENCES users(id)
+);
