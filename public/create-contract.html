@@ -37,6 +37,11 @@
                     <textarea name="mission-description" id="mission-description"></textarea>
                 </label>
             </div>
+            <div class="bounty">
+                <label for="bounty">Target Bounty :
+                    <input type="number" name="bounty" id="bounty" />
+                </label>
+            </div>
             <div class="profile">
                 <label for="profile"> Taget Profile :
                     <input type="file" name="profile" id="profile" />
@@ -46,8 +51,13 @@
                 <input type="submit" value="submit" />
             </div>
         </form>
+
+        <div id="display-container">
+            <div></div>
+        </div>
     </div>
-    <script src="./create.js"></script>
+    <script src="/create.js"></script>
+    <script src="/socket.io/socket.io.js"></script>
 </body>
 
 </html>
