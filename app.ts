@@ -57,7 +57,7 @@ app.post('/signup', async (req, res) => {
 
 	let hashedPassword = await hashPassword(password)
 	await client.query(`INSERT INTO USERS (username, password, created_at, updated_at, account_type) values ($1, $2, NOW(), NOW(), $3)`,
-	[username, hashedPassword, 'admin'])
+		[username, hashedPassword, 'admin'])
 	res.json({ message: 'User created' })
 }
 )
@@ -65,11 +65,11 @@ app.post('/signup', async (req, res) => {
 app.post('/login', async (req, res) => {
 	const username = req.body.username
 	const password = req.body.password
-	if (!username || !password){
+	if (!username || !password) {
 		res.status(400).json({
 			message: 'Missing username or password'
 		})
-	return
+		return
 	}
 
 	let userResult = await client.query(`SELECT * FROM users WHERE username = $1`, [username])
@@ -79,7 +79,7 @@ app.post('/login', async (req, res) => {
 		res.status(400).json({
 			message: 'Invalid username or password'
 		})
-	return
+		return
 	}
 
 	let isMatched = await checkPassword(password, dbUser.password)
@@ -87,7 +87,7 @@ app.post('/login', async (req, res) => {
 		res.status(400).json({
 			message: 'Invalid username or password'
 		})
-	return
+		return
 	}
 
 	req.session.name = dbUser.username
@@ -97,9 +97,26 @@ app.post('/login', async (req, res) => {
 	})
 })
 
+// POST Contracts
+
+app.post('/order', async (req, res) => {
+	// refer to create.js, req.body." " = ContractObject's keys
+	let name = req.body.name
+	let age = req.body.age
+	let nationality = req.body.nationality
+	let location = req.body.location
+	let description = req.body.missionDescription
+
+	console.log(`server: Target name : ${name} , Mission description: ${description}`)
+	// let entry = await client.query(`INSERT INTO XXXX (XXXX, XXXX, XXX) values ($1, $2, $3)`, [name, xxxx])
+	// res.json({ success: true })
+})
+
+
+
 // for testing session, can delete in the end
 app.get('/session', (req, res) => {
-	res.json(req.session)	
+	res.json(req.session)
 })
 
 const server = new http.Server(app)
