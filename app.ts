@@ -126,10 +126,13 @@ app.post('/order', async (req, res) => {
 	let nationality = req.body.nationality
 	let location = req.body.location
 	let description = req.body.missionDescription
+	let bounty = req.body.bounty
 
 	console.log(`server: Target name : ${name} , Mission description: ${description}`)
-	// let entry = await client.query(`INSERT INTO XXXX (XXXX, XXXX, XXX) values ($1, $2, $3)`, [name, xxxx])
-	// res.json({ success: true })
+
+
+	let contractResult = await client.query(`INSERT INTO target_list (name, age, nationality, living_district, created_at, updated_at) 
+	values ($1, $2, $3, $4, NOW(), NOW()) `, [name, age, nationality, location])
 })
 
 
