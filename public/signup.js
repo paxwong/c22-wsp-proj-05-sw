@@ -17,7 +17,8 @@ async function signup() {
             })
         })
         if (res.ok) {
-            console.log('Signup Successful')
+            alert("Account created successfully")
+            location.replace('http://localhost:8080/login.html')
         }
 })}
 

@@ -2,276 +2,39 @@
 <html lang="en">
 
 <head>
-	<style>
-		body {
-			margin: 0px;
-			background: #000;
-            font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
-		}
-		.hidden_box{
-			background:rgb(9,7,7);
-			height: 300px;
-			width: 300px;
-		}
-		.hidden_box:hover{
-			background: white;
-		}
-		.crcl {
-			width: 80px;
-			height: 80px;
-			border-radius: 100%;
-			position: relative;
-			top:-50%;
-			left:-50%;
-			background-image: url(
-"https://pngimg.com/uploads/pokeball/pokeball_PNG29.png"
-				);
-			background-size: cover;
-			animation: movement;
-		}
-
-		/* To set the positions for the logo
-		for the whole animation */
-		@keyframes movement {
-			0% {
-				left: 1000px;
-				top: 1000px
-			}
-
-			5% {
-				left: 300px;
-				top: 200px
-			}
-
-			10% {
-				left: 600px;
-				top: 100px
-			}
-
-			15% {
-				left: 600px;
-				top: 600px
-			}
-
-			20% {
-				left: 300px;
-				top: 600px
-			}
-
-			25% {
-				left: 600px;
-				top: 400px
-			}
-
-			30% {
-				left: 100px;
-				top: 0px
-			}
-
-			35% {
-				left: 600px;
-				top: 200px
-			}
-
-			40% {
-				left: 100px;
-				top: 500px
-			}
-
-			45% {
-				left: 0px;
-				top: 600px
-			}
-
-			50% {
-				left: 600px;
-				top: 600px
-			}
-
-			55% {
-				left: 300px;
-				top: 200px
-			}
-
-			60% {
-				left: 600px;
-				top: 100px
-			}
-
-			65% {
-				left: 800px;
-				top: 600px
-			}
-
-			70% {
-				left: 300px;
-				top: 600px
-			}
-
-			75% {
-				left: 600px;
-				top: 400px
-			}
-
-			80% {
-				left: 100px;
-				top: 0px
-			}
-
-			85% {
-				left: 600px;
-				top: 200px
-			}
-
-			90% {
-				left: 100px;
-				top: 500px
-			}
-
-			95% {
-				left: 0px;
-				top: 600px
-			}
-
-			100% {
-				left: -600px;
-				top: -200px;
-			}
-		}
-
-		.details {
-			float: right;
-			width: 500px;
-			height: 100vh;
-			position: relative;
-			background-color: rgb(7, 6, 6);
-			color: white;
-			display: block;
-			text-align: center;
-		}
-
-		.ground {
-			float: left;
-		}
-
-		.level {
-			display: flex;
-			margin: 10px;
-			margin-top: 25px;
-		}
-
-		.display_score {
-			margin-top: 25px;
-		}
-
-		button {
-			border-radius: 25px;
-			width: 8em;
-			height: 3em;
-			font-size: 20px;
-			border: 2px solid white;
-			background: transparent;
-			color: white;
-			margin: 10px;
-			cursor: pointer;
-            
-		}
-
-		button:hover {
-			background-color: white;
-			color: rgb(6, 148, 25);
-			box-shadow: 0px 10px 20px 10px white;
-			transition-duration: 1s;
-		}
-
-        .redirect{
-            background-color:  rgb(7, 6, 6);
-            width: 1em;
-			height: 1em;
-            display: flex;
-            align-items: baseline;
-            justify-content: flex-end;
-            transform: translate(200px, 200px);
-        }
-
-        .redirect:hover {
-            background-color: rgb(141, 0, 0);
-            width: 1em;
-			height: 1em;
-       
-        }
-	</style>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Bot Test</title>
+	<link rel="stylesheet" href="./index.css">
 </head>
 
 <body>
-	<div class="ground">
-		<div id="circle" onclick="count()"></div>
+	<div class="main-container">
+		<!-- <img class="man" src="manwithname.gif"> -->
+		<div class="end"></div>
 	</div>
-	<div class="details">
-		<h1>Let's play a game!</h1>
-		<h3>Click the Pokemon ball to achieve the highest score!</h3>
-		<div class="level">
-			<!-- <button onclick="easy()">EASY</button> -->
-			<button onclick="start()">Start!</button>
-			<!-- <button onclick="hard()">HARD</button> -->
-			<a class="hidden_box" href="../chatroom.html"></a>
+	<div class="info-container">
+		<div class="info-header">Are You A Good Guy?</div>
+		<div class="info-content">To enter our website, you have make your hands dirty first.
 		</div>
-		<div class="display_score">
-			<h2>Score</h2>
-			<h2 id="score">0</h2>
+
+		<div class="grandtotal">
+			<div class="score-info">Bob has died for</div>
+			<div class="score">0</div>
+			<div class="score-info">times</div>
 		</div>
-		<button onclick="restart()">RESTART</button>
-        <a class="redirect" href="../homepage.html">
-        </a>
+		<div class="subtotal">
+			<div class="score-info">You have killed Bob for</div>
+			<div class="score">0</div>
+			<div class="score-info">times</div>
+		</div>
+
+		<button class="start-button">Start</button>
+		<!-- <button>Restart</button> -->
+		<div class="hidden-box"></div>
 	</div>
-   
-
-
-
-	<script>
-
-		// Setting the level to Easy by having the
-		// duration of the whole animation to the maximum
-		// function easy() {
-		// 	document.getElementById('circle')
-		// 		.style.animationDuration = '50s';
-		// 	document.getElementById('circle')
-		// 		.className = 'crcl';
-		// }
-
-		// Setting the level to Medium by having the
-		// duration of the whole animation to the maximum
-		function start() {
-			document.getElementById('circle')
-				.style.animationDuration = '12s';
-			document.getElementById('circle')
-				.className = 'crcl';
-		}
-
-		// Setting the level to Hard by having the
-		// duration of the whole animation to the maximum
-		// function hard() {
-		// 	document.getElementById('circle')
-		// 		.style.animationDuration = '12s';
-		// 	document.getElementById('circle')
-		// 		.className = 'crcl';
-		// }
-
-		let cnt = 0;
-
-		// Function to count the number of taps
-		// and display the score
-		function count() {
-			cnt = parseInt(1) + parseInt(cnt);
-			var scr = document.getElementById('score');
-			scr.innerHTML = cnt;
-		}
-
-		// Restart the game by refreshing the page
-		function restart() {
-			window.location.reload();
-		}
-	</script>
+	<script src="./index.js"></script>
 </body>
-	
+
 </html>
