@@ -1,10 +1,10 @@
 import express, { Request, Response } from 'express'
+// import { io } from '../app'
+import { io } from '../Utils/setIO'
+
 import { client } from '../utils/db'
 import { checkPassword, hashPassword } from '../utils/hash'
-import fetch from 'cross-fetch'
-import crypto from 'crypto'
 import { logger } from '../utils/logger'
-
 export const userRoutes = express.Router()
 userRoutes.get('/me', getMe)
 // userRoutes.get('/login/google', loginGoogle)
@@ -13,7 +13,6 @@ userRoutes.get('/', getAllUsers)
 userRoutes.get('/liked-memo/:userId', getLikedMemoByUserId)
 userRoutes.post('/login', login)
 userRoutes.get('/logout', logout)
-
 async function getLikedMemoByUserId(req: Request, res: Response) {
 	let userId = req.params.userId
 
@@ -196,3 +195,39 @@ async function getAllUsers(req: Request, res: Response) {
 	logger.debug(JSON.stringify(userResult.rows, null, 4))
 	res.json(userResult.rows)
 }
+
+userRoutes.post('/speak/:username', async(req, res)=>{
+	let targetUser = req.params.username
+	if (!targetUser){
+		res.status(400).json({
+			message:"Invalid target user"
+		})
+	}
+	if (['killer, client'].indexOf(req.session.user.account_type) != -1  ){
+		// You are either killer / client
+
+		let result = await client.query('select * from users where username = $1', [targetUser])
+		let dbUser = result.rows[0]
+		if (!dbUser){
+			res.status(400).json({
+				message:"Invalid target user"
+			})
+			return
+		}
+
+		if (dbUser.account_type != 'admin'){
+			res.status(400).json({
+				message:"You can only speak to admin"
+			})
+			return
+		}
+
+		io.to(targetUser).emit('private-msg', `Msg from ${req.session.user.username}`)
+	    res.end('ok')
+		
+	}
+
+	
+
+	
+})
