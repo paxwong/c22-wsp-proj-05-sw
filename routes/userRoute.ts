@@ -107,7 +107,7 @@ async function getMe(req: express.Request, res: express.Response) {
 	res.json({
 		message: 'Success retrieve user',
 		data: {
-			user: req.session['user'] ? req.session['user'] : null
+			user: req.session ? req.session : null
 		}
 	})
 }
