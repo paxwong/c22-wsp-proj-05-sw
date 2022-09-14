@@ -22,22 +22,22 @@ let sessionMiddleware = expressSession({
 	secret: 'kill kill kill kill kill kill kill kill kill kill kill kill kill kill kill kill kill kill',
 	resave: true,
 	saveUninitialized: true,
-	cookie:{secure:false}
+	cookie: { secure: false }
 })
 
 declare module 'express-session' {
 	interface SessionData {
 		name?: string
 		isloggedIn?: boolean
-		user ?:any
+		user?: any
 	}
 }
 
 app.use(sessionMiddleware)
-io.use((socket,next)=>{
-    let req = socket.request as express.Request
-    let res = req.res as express.Response
-    sessionMiddleware(req, res, next as express.NextFunction)
+io.use((socket, next) => {
+	let req = socket.request as express.Request
+	let res = req.res as express.Response
+	sessionMiddleware(req, res, next as express.NextFunction)
 });
 // SIGN UP account with unique referral code, will fail if referral code doesn't exist
 app.post('/signup', async (req, res) => {
@@ -95,48 +95,48 @@ app.post('/login', async (req, res) => {
 		})
 		return
 	}
-	let {password: _, ...filteredUser} = dbUser
-	req.session['user'] = filteredUser 
+	let { password: _, ...filteredUser } = dbUser
+	req.session['user'] = filteredUser
 	res.status(200).json({
 		message: 'Login successfully'
 	})
 })
 
 // POST Contracts
-app.post('/speak/:username', async(req, res)=>{
+app.post('/speak/:username', async (req, res) => {
 	let targetUser = req.params.username
-	if (!targetUser){
+	if (!targetUser) {
 		res.status(400).json({
-			message:"Invalid target user"
+			message: "Invalid target user"
 		})
 	}
-	if (['killer, client'].indexOf(req.session.user.account_type) != -1  ){
+	if (['killer, client'].indexOf(req.session.user.account_type) != -1) {
 		// You are either killer / client
 
 		let result = await client.query('select * from users where username = $1', [targetUser])
 		let dbUser = result.rows[0]
-		if (!dbUser){
+		if (!dbUser) {
 			res.status(400).json({
-				message:"Invalid target user"
+				message: "Invalid target user"
 			})
 			return
 		}
 
-		if (dbUser.account_type != 'admin'){
+		if (dbUser.account_type != 'admin') {
 			res.status(400).json({
-				message:"You can only speak to admin"
+				message: "You can only speak to admin"
 			})
 			return
 		}
 
 		io.to(targetUser).emit('private-msg', `Msg from ${req.session.user.username}`)
-	    res.end('ok')
-		
+		res.end('ok')
+
 	}
 
-	
 
-	
+
+
 })
 
 app.post('/order', async (req, res) => {
@@ -153,9 +153,17 @@ app.post('/order', async (req, res) => {
 
 	let contractResult = await client.query(`INSERT INTO target_list (name, age, nationality, living_district, created_at, updated_at) 
 	values ($1, $2, $3, $4, NOW(), NOW()) `, [name, age, nationality, location])
+
+
 })
 
+// retrieve contract
 
+app.get('/order', async (req, res) => {
+	let results = await client.query('select * from target_list ')
+	res.json(results.rows)
+	res.status(200);
+})
 
 // for testing session, can delete in the end
 app.get('/session', (req, res) => {
