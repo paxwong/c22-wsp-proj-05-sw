@@ -3,7 +3,7 @@ import { userRoutes } from './routes/userRoute'
 import expressSession from 'express-session'
 import { client } from './utils/db'
 import { checkPassword, hashPassword } from './hash'
-// import fs from 'fs'
+import fs from 'fs'
 // import { uploadDir } from './utils/upload'
 import { logger } from './utils/logger'
 // import { memosRoutes } from './routes/memoRoute'
@@ -11,10 +11,30 @@ import http from 'http'
 import { Server as SocketIO } from 'socket.io'
 // import { loggingUserRoute } from './utils/guard'
 import { setIO } from './utils/setIO'
+import formidable from 'formidable' //npm install formidable @types/formidable
 
 export const app = express()
 app.use(express.json())
 app.use(express.urlencoded())
+
+// open 'uploads' folder
+const uploadDir = 'uploads'
+fs.mkdirSync(uploadDir, { recursive: true })
+
+const form = formidable({
+	uploadDir,
+	keepExtensions: true,
+	maxFiles: 1,
+	maxFileSize: 200 * 1024 ** 2, // the default limit is 200KB
+	filter: part => part.mimetype?.startsWith('image/') || false,
+});
+
+app.post('/contract-image', (req, res) => {
+	form.parse(req, (err, fields, files) => {
+		// console.log({ err, fields, files })
+		res.end('uploaded')
+	})
+})
 
 let sessionMiddleware = expressSession({
 	secret: 'kill kill kill kill kill kill kill kill kill kill kill kill kill kill kill kill kill kill',
