@@ -1,7 +1,7 @@
 import express from 'express'
 import { logger } from '../utils/logger'
 // import jsonfile from 'jsonfile'
-import { io } from '../app'
+import { io } from '../Utils/setIO'
 import { formParse } from '../utils/upload'
 import { client } from '../utils/db'
 import { isLoggedin } from '../utils/guard'

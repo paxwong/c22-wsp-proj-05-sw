@@ -2,9 +2,10 @@ import { Server as SocketIO } from 'socket.io'
 import express from 'express'
 import { sessionMiddleware } from './middleware'
 
-let io: SocketIO
-export function setIO(value: SocketIO) {
-	io = value
+import { server } from '../app'
+export const io = new SocketIO(server)
+
+export function setIO() {
 	io.on('connection', function (socket) {
 		const req = socket.request as express.Request;
 		console.log('new socket connected: ', socket.id)
