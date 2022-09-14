@@ -35,16 +35,23 @@ contractData.addEventListener("submit", async function (e) {
         },
         body: JSON.stringify(contractObject)
     })
-    const contractContent = await res.json();
-    if (res.ok) {
-        // function here
-        document.querySelector('#display-container').innerHTML += `
-        <div>Target name : ${contractObject.name} </div>
-        `
+    // const contractContent = await res.json();
+    // if (res.ok) {
 
-    } else {
+    // }
 
-    }
+    // if (res.ok) {
+    //     // function here
+    //     for (let result of results) {
+
+    //     }
+    //     document.querySelector('#display-container').innerHTML += `
+    //     <div>Target name : ${} </div>
+    //     `
+
+    // } else {
+
+    // }
     // const result = await res.json()
     // document.querySelector('#').innerHTML = result
 })
@@ -53,4 +60,17 @@ contractData.addEventListener("submit", async function (e) {
 // formidable
 
 
+// async function getData() {
+//     let res2 = await fetch("/order")
 
+//     let datas = res2.json()
+
+//     for (let data of datas) {
+//         document.querySelector('#display-container').innerHTML += `
+
+//             <div class="contract"> </div>
+//         `
+
+//     }
+// }
+// getData()
