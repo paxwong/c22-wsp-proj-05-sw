@@ -97,8 +97,17 @@ app.post('/login', async (req, res) => {
 
 // POST Contracts
 
-app.post('/post', (req, res) => {
+app.post('/order', async (req, res) => {
+	// refer to create.js, req.body." " = ContractObject's keys
+	let name = req.body.name
+	let age = req.body.age
+	let nationality = req.body.nationality
+	let location = req.body.location
+	let description = req.body.missionDescription
 
+	console.log(`server: Target name : ${name} , Mission description: ${description}`)
+	// let entry = await client.query(`INSERT INTO XXXX (XXXX, XXXX, XXX) values ($1, $2, $3)`, [name, xxxx])
+	// res.json({ success: true })
 })
 
 
