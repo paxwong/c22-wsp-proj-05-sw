@@ -3,7 +3,7 @@ import { userRoutes } from './routes/userRoute'
 import expressSession from 'express-session'
 import { client } from './utils/db'
 import { checkPassword, hashPassword } from './hash'
-import fs from 'fs'
+// import fs from 'fs'
 // import { uploadDir } from './utils/upload'
 import { logger } from './utils/logger'
 // import { memosRoutes } from './routes/memoRoute'
@@ -11,48 +11,34 @@ import http from 'http'
 import { Server as SocketIO } from 'socket.io'
 // import { loggingUserRoute } from './utils/guard'
 import { setIO } from './utils/setIO'
-import formidable from 'formidable' //npm install formidable @types/formidable
+// import {chatroom} from './utils/chatroom';
 
 export const app = express()
+export const server = new http.Server(app)
+export const io = new SocketIO(server)
 app.use(express.json())
-app.use(express.urlencoded())
-
-// open 'uploads' folder
-const uploadDir = 'uploads'
-fs.mkdirSync(uploadDir, { recursive: true })
-
-const form = formidable({
-	uploadDir,
-	keepExtensions: true,
-	maxFiles: 1,
-	maxFileSize: 200 * 1024 ** 2, // the default limit is 200KB
-	filter: part => part.mimetype?.startsWith('image/') || false,
-});
-
-app.post('/contract-image', (req, res) => {
-	form.parse(req, (err, fields, files) => {
-		// console.log({ err, fields, files })
-		res.end('uploaded')
-	})
-})
 
 let sessionMiddleware = expressSession({
 	secret: 'kill kill kill kill kill kill kill kill kill kill kill kill kill kill kill kill kill kill',
 	resave: true,
-	saveUninitialized: true
+	saveUninitialized: true,
+	cookie:{secure:false}
 })
 
 declare module 'express-session' {
 	interface SessionData {
 		name?: string
 		isloggedIn?: boolean
+		user ?:any
 	}
 }
 
 app.use(sessionMiddleware)
-
-
-
+io.use((socket,next)=>{
+    let req = socket.request as express.Request
+    let res = req.res as express.Response
+    sessionMiddleware(req, res, next as express.NextFunction)
+});
 // SIGN UP account with unique referral code, will fail if referral code doesn't exist
 app.post('/signup', async (req, res) => {
 	const username = req.body.username
@@ -109,15 +95,49 @@ app.post('/login', async (req, res) => {
 		})
 		return
 	}
-
-	req.session.name = dbUser.username
-	req.session.isloggedIn = true
+	let {password: _, ...filteredUser} = dbUser
+	req.session['user'] = filteredUser 
 	res.status(200).json({
 		message: 'Login successfully'
 	})
 })
 
 // POST Contracts
+app.post('/speak/:username', async(req, res)=>{
+	let targetUser = req.params.username
+	if (!targetUser){
+		res.status(400).json({
+			message:"Invalid target user"
+		})
+	}
+	if (['killer, client'].indexOf(req.session.user.account_type) != -1  ){
+		// You are either killer / client
+
+		let result = await client.query('select * from users where username = $1', [targetUser])
+		let dbUser = result.rows[0]
+		if (!dbUser){
+			res.status(400).json({
+				message:"Invalid target user"
+			})
+			return
+		}
+
+		if (dbUser.account_type != 'admin'){
+			res.status(400).json({
+				message:"You can only speak to admin"
+			})
+			return
+		}
+
+		io.to(targetUser).emit('private-msg', `Msg from ${req.session.user.username}`)
+	    res.end('ok')
+		
+	}
+
+	
+
+	
+})
 
 app.post('/order', async (req, res) => {
 	// refer to create.js, req.body." " = ContractObject's keys
@@ -141,14 +161,11 @@ app.post('/order', async (req, res) => {
 app.get('/session', (req, res) => {
 	res.json(req.session)
 })
+// app.use(chatroom)
 
-const server = new http.Server(app)
-export const io = new SocketIO(server)
-app.use(express.urlencoded({ extended: true }))
-app.use(sessionMiddleware)
 
 // app.use(grantExpress as express.RequestHandler)
-// app.use('/user', loggingUserRoute, userRoutes)
+app.use('/user', userRoutes)
 // app.use('/memos', memosRoutes)
 app.get('/test-logger', (req, res) => {
 	logger.error('This is error')
