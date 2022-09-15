@@ -25,23 +25,24 @@ let sessionMiddleware = expressSession({
 	secret: 'kill kill kill kill kill kill kill kill kill kill kill kill kill kill kill kill kill kill',
 	resave: true,
 	saveUninitialized: true,
-	cookie:{secure:false}
+	cookie: { secure: false }
 })
 
 declare module 'express-session' {
 	interface SessionData {
 		name?: string
 		isloggedIn?: boolean
-		user ?:any
+		user?: any
 	}
 }
 
 app.use(sessionMiddleware)
-io.use((socket,next)=>{
+io.use((socket, next) => {
 	let req = socket.request as express.Request
 	let res = req.res as express.Response
 	sessionMiddleware(req, res, next as express.NextFunction
-)});
+	)
+});
 
 
 // SIGN UP account with unique referral code, will fail if referral code doesn't exist
@@ -101,14 +102,14 @@ app.post('/login', async (req, res) => {
 		return
 	}
 	// console.log("dbUser: ", dbUser)
-	let {password: _, ...filteredUser} = dbUser
+	let { password: _, ...filteredUser } = dbUser
 	// console.log("filteredUser: ", filteredUser)
 	// console.log("_: ", _)
 	// console.log("password: ", password)
 	// console.log("dbUser: ", dbUser)
 
 
-	req.session['user'] = filteredUser 
+	req.session['user'] = filteredUser
 	req.session.save()
 	res.status(200).json({
 		message: 'Login successfully'
@@ -116,11 +117,11 @@ app.post('/login', async (req, res) => {
 })
 
 app.post('/counter', async (req, res) => {
-		// console.log(req.body.counter) // 1
-		// let counter = req.body.counter
-		let result = await client.query(`UPDATE kill_count SET count = count + 1 WHERE ID = 1
-		`) 
-		res.status(200).send('Success')
+	// console.log(req.body.counter) // 1
+	// let counter = req.body.counter
+	let result = await client.query(`UPDATE kill_count SET count = count + 1 WHERE ID = 1
+		`)
+	res.status(200).send('Success')
 })
 
 app.get('/counter', async (req, res) => {
@@ -147,6 +148,12 @@ app.post('/order', async (req, res) => {
 	values ($1, $2, $3, $4, NOW(), NOW()) `, [name, age, nationality, location])
 })
 
+// fetch the data
+
+app.get('/order', async (req, res) => {
+	let missionResult = await client.query(`SELECT * from target_list`)
+	res.json(missionResult.rows)
+})
 
 // for testing session, can delete in the end
 app.get('/session', (req, res) => {
