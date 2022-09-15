@@ -239,7 +239,7 @@ userRoutes.post("/admin/chat", async(req, res)=>{
 	let channel = req.session?.user?.username || 'zeus'
 	console.log(message);
 	
-	io.to(channel).emit('private_msg', `Msg is ${message}`)
+	io.to(channel).emit('private_msg', `${channel}: Msg is ${message}`)
 	res.json({channel})
 	return
 })
