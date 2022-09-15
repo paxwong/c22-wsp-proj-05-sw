@@ -7,7 +7,7 @@ import { checkPassword, hashPassword } from './hash'
 // import { uploadDir } from './utils/upload'
 import { logger } from './utils/logger'
 // import { memosRoutes } from './routes/memoRoute'
-import http from 'http'
+import http, { request } from 'http'
 // import { Server as SocketIO } from 'socket.io'
 // import { loggingUserRoute } from './utils/guard'
 // import {chatroom} from './utils/chatroom';
@@ -49,7 +49,7 @@ app.post('/signup', async (req, res) => {
 		return
 	}
 
-	let result = await client.query(`SELECT * FROM REFERRAL WHERE code = $1`, [referral])
+	let result = await client.query(`SELECT * FROM referral WHERE code = $1`, [referral])
 	let isReferred = result.rows[0]
 	if (!isReferred) {
 		res.status(400).json({
@@ -59,7 +59,7 @@ app.post('/signup', async (req, res) => {
 	}
 
 	let hashedPassword = await hashPassword(password)
-	await client.query(`INSERT INTO USERS (username, password, created_at, updated_at, account_type) values ($1, $2, NOW(), NOW(), $3)`,
+	await client.query(`INSERT INTO users (username, password, created_at, updated_at, account_type) values ($1, $2, NOW(), NOW(), $3)`,
 		[username, hashedPassword, 'admin'])
 	res.json({ message: 'User created' })
 }
@@ -100,9 +100,17 @@ app.post('/login', async (req, res) => {
 })
 
 app.post('/counter', async (req, res) => {
-		console.log(req.body.counter) // 1
-		let counter = req.body.counter
-		let result = await client.query(``) 
+		// console.log(req.body.counter) // 1
+		// let counter = req.body.counter
+		let result = await client.query(`UPDATE kill_count SET count = count + 1 WHERE ID = 1
+		`) 
+		res.status(200).send('Success')
+})
+
+app.get('/counter', async (req, res) => {
+	let result = await client.query(`SELECT * from kill_count`)
+	let counter = result.rows[0].count
+	res.json(counter)
 })
 
 // POST Contracts
