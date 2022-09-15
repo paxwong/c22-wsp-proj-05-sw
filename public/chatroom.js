@@ -1,27 +1,69 @@
 const socket = io.connect();
 console.log("testing");
 
-socket.on('private-msg',msg=>{
-    alert(msg)
-})
+socket.on("private_msg", (data) => {
+  console.log("data: ", data)
+
+
+  // if (document.querySelector('#chatroom_playerName').innerHTML === from.username) {
+  //   document.querySelector(
+  //     "#message_display"
+  //   ).innerHTML += `<div>${from.username}:${content}</div>`;
+  //   document.querySelector('#message_display').scrollTop = document.querySelector('#message_display').scrollHeight
+  // }
+});
+
+
 let content = document.querySelector("#chat-form").value;
 
-document.querySelector("#chat-form").addEventListener("submit",(e)=> {
-e.preventDefault();
-// socket.emit("private_message", {
-//     content,
-//     to: toPlayer.id,
-//   });
-//   document.querySelector(
-//     "#message_display"
-//   ).innerHTML += `<div>${sender.username}:${content}</div>`;
-//   document.querySelector("#message_content").value = "";
-//   document.querySelector('#message_display').scrollTop = document.querySelector('#message_display').scrollHeight
+const messageData = document.getElementById("chat-form");
+messageData.addEventListener("submit", async function (e) {
+  e.preventDefault();
+  console.log("yoyoy")
+  // const contractObject = {};
+  const messageObject = {
+    message: "Hihi",
+
+  };
+
+  // console.log(messageObject);
+
+  const res = await fetch("/user/admin/chat", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json; charset = utf-8",
+    },
+    body: JSON.stringify(messageObject)
+  })
+  const data = await res.json();
+  console.log(data)
+  if (res.ok) {
+
+  }
+
+
+  // const res = await fetch('/speak/:username', {
+  //     method: "POST",
+  //     headers: {
+  //         "Content-Type": "application/json; charset = utf-8",
+  //     },
+  //     body: JSON.stringify(contractObject)
+  // })
+  // };
+
+  // socket.emit("private_message", {
+  //     content,
+  //     to: toPlayer.id,
+  //   });
+  //   document.querySelector(
+  //     "#message_display"
+  //   ).innerHTML += `<div>${sender.username}:${content}</div>`;
+  //   document.querySelector("#message_content").value = "";
+  //   document.querySelector('#message_display').scrollTop = document.querySelector('#message_display').scrollHeight
 
 
 
 })
-
 
 // document.querySelector("#playerName").innerText = playerName;
 
@@ -58,9 +100,9 @@ e.preventDefault();
 //       }
 
 //     });
-    // document
-    //   .querySelector("#chat-form")
-    //   .addEventListener("submit", sendMessage);
+// document
+//   .querySelector("#chat-form")
+//   .addEventListener("submit", sendMessage);
 //   });
 // });
 // function initPlayerList(roomList) {
@@ -80,14 +122,6 @@ e.preventDefault();
 
 //   document.querySelector("#playerList").innerHTML = playerListContent;
 // }
-socket.on("private_message", ({ content, from }) => {
-  if (document.querySelector('#chatroom_playerName').innerHTML === from.username) {
-    document.querySelector(
-      "#message_display"
-    ).innerHTML += `<div>${from.username}:${content}</div>`;
-    document.querySelector('#message_display').scrollTop = document.querySelector('#message_display').scrollHeight
-  }
-});
 
 // async function chat(e) {
 
