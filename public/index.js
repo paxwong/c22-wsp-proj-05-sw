@@ -40,7 +40,7 @@ function createBob() {
         main.insertBefore(dieBob, end)
         setTimeout(() => {
             dieBob.parentNode.removeChild(dieBob)
-        }, 8000)
+        }, 800)
 
         hidden.style.minHeight = '125px';
         hidden.style.maxHeight = '125px';
