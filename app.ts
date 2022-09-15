@@ -14,7 +14,7 @@ import http from 'http'
 
 export const app = express()
 export const server = new http.Server(app)
-import { setIO } from './utils/setIO'
+import { io, setIO } from './utils/setIO'
 
 // import { io } from './Utils/setIO'
 app.use(express.json())
@@ -35,6 +35,12 @@ declare module 'express-session' {
 }
 
 app.use(sessionMiddleware)
+
+io.use((socket,next)=>{
+    let req = socket.request as express.Request
+    let res = req.res as express.Response
+    sessionMiddleware(req, res, next as express.NextFunction
+)});
 
 // SIGN UP account with unique referral code, will fail if referral code doesn't exist
 app.post('/signup', async (req, res) => {
@@ -92,8 +98,17 @@ app.post('/login', async (req, res) => {
 		})
 		return
 	}
+	// console.log("dbUser: ", dbUser)
 	let {password: _, ...filteredUser} = dbUser
+	// console.log("filteredUser: ", filteredUser)
+	// console.log("_: ", _)
+	// console.log("password: ", password)
+	// console.log("dbUser: ", dbUser)
+
+
 	req.session['user'] = filteredUser 
+	req.session.save()
+	setIO()
 	res.status(200).json({
 		message: 'Login successfully'
 	})
@@ -149,7 +164,7 @@ app.use(express.static('public')) // auto to do next()
 app.use((req, res) => {
 	res.redirect('/404.html')
 })
-setIO()
+// setIO()
 server.listen(8080, () => {
 	// Auto create a folder
 	// fs.mkdirSync(uploadDir, { recursive: true })
