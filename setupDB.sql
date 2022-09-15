@@ -70,5 +70,6 @@ CREATE TABLE referral (
 );
 
 CREATE TABLE kill_count (
-    count INTEGER NOT NULL DEFAULT 0
+    id SERIAL PRIMARY KEY,
+    count INTEGER NOT NULL
 );
