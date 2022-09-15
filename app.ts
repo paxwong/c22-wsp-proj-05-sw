@@ -8,30 +8,33 @@ import { checkPassword, hashPassword } from './hash'
 import { logger } from './utils/logger'
 // import { memosRoutes } from './routes/memoRoute'
 import http from 'http'
-import { Server as SocketIO } from 'socket.io'
+// import { Server as SocketIO } from 'socket.io'
 // import { loggingUserRoute } from './utils/guard'
-import { setIO } from './utils/setIO'
+// import {chatroom} from './utils/chatroom';
 
 export const app = express()
+export const server = new http.Server(app)
+import { setIO } from './utils/setIO'
+
+// import { io } from './Utils/setIO'
 app.use(express.json())
-app.use(express.urlencoded())
 
 let sessionMiddleware = expressSession({
 	secret: 'kill kill kill kill kill kill kill kill kill kill kill kill kill kill kill kill kill kill',
 	resave: true,
-	saveUninitialized: true
+	saveUninitialized: true,
+	cookie:{secure:false}
 })
 
 declare module 'express-session' {
 	interface SessionData {
 		name?: string
 		isloggedIn?: boolean
+		user ?:any
 	}
 }
 
 app.use(sessionMiddleware)
-
-
 
 // SIGN UP account with unique referral code, will fail if referral code doesn't exist
 app.post('/signup', async (req, res) => {
@@ -89,9 +92,8 @@ app.post('/login', async (req, res) => {
 		})
 		return
 	}
-
-	req.session.name = dbUser.username
-	req.session.isloggedIn = true
+	let {password: _, ...filteredUser} = dbUser
+	req.session['user'] = filteredUser 
 	res.status(200).json({
 		message: 'Login successfully'
 	})
@@ -104,6 +106,41 @@ app.post('/counter', async (req, res) => {
 })
 
 // POST Contracts
+// app.post('/speak/:username', async(req, res)=>{
+// 	let targetUser = req.params.username
+// 	if (!targetUser){
+// 		res.status(400).json({
+// 			message:"Invalid target user"
+// 		})
+// 	}
+// 	if (['killer, client'].indexOf(req.session.user.account_type) != -1  ){
+// 		// You are either killer / client
+
+// 		let result = await client.query('select * from users where username = $1', [targetUser])
+// 		let dbUser = result.rows[0]
+// 		if (!dbUser){
+// 			res.status(400).json({
+// 				message:"Invalid target user"
+// 			})
+// 			return
+// 		}
+
+// 		if (dbUser.account_type != 'admin'){
+// 			res.status(400).json({
+// 				message:"You can only speak to admin"
+// 			})
+// 			return
+// 		}
+
+// 		io.to(targetUser).emit('private-msg', `Msg from ${req.session.user.username}`)
+// 	    res.end('ok')
+		
+// 	}
+
+	
+
+	
+// })
 
 app.post('/order', async (req, res) => {
 	// refer to create.js, req.body." " = ContractObject's keys
@@ -112,10 +149,13 @@ app.post('/order', async (req, res) => {
 	let nationality = req.body.nationality
 	let location = req.body.location
 	let description = req.body.missionDescription
+	let bounty = req.body.bounty
 
 	console.log(`server: Target name : ${name} , Mission description: ${description}`)
-	// let entry = await client.query(`INSERT INTO XXXX (XXXX, XXXX, XXX) values ($1, $2, $3)`, [name, xxxx])
-	// res.json({ success: true })
+
+
+	let contractResult = await client.query(`INSERT INTO target_list (name, age, nationality, living_district, created_at, updated_at) 
+	values ($1, $2, $3, $4, NOW(), NOW()) `, [name, age, nationality, location])
 })
 
 
@@ -124,14 +164,11 @@ app.post('/order', async (req, res) => {
 app.get('/session', (req, res) => {
 	res.json(req.session)
 })
+// app.use(chatroom)
 
-const server = new http.Server(app)
-export const io = new SocketIO(server)
-app.use(express.urlencoded({ extended: true }))
-app.use(sessionMiddleware)
 
 // app.use(grantExpress as express.RequestHandler)
-// app.use('/user', loggingUserRoute, userRoutes)
+app.use('/user', userRoutes)
 // app.use('/memos', memosRoutes)
 app.get('/test-logger', (req, res) => {
 	logger.error('This is error')
@@ -148,7 +185,7 @@ app.use(express.static('public')) // auto to do next()
 app.use((req, res) => {
 	res.redirect('/404.html')
 })
-setIO(io)
+setIO()
 server.listen(8080, () => {
 	// Auto create a folder
 	// fs.mkdirSync(uploadDir, { recursive: true })

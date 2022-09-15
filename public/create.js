@@ -1,13 +1,15 @@
 // function to input the contract details into inner HTML
 // Get data from the form and display it
 
-async function displayContract() {
-    const res = await fetch("/order");
-    const contractData = await res.json();
+// async function displayContract() {
+//     const res = await fetch("/order");
+//     const contractData = await res.json();
 
-    let htmlStr = ``;
-    for (const )
-}
+//     let htmlStr = '';
+//     for (let contract of contractData) {
+//         htmlStr += ``
+//     }
+// }
 
 const contractData = document.getElementById("contract-form");
 contractData.addEventListener("submit", async function (e) {
@@ -20,6 +22,7 @@ contractData.addEventListener("submit", async function (e) {
         nationality: contractData["nationality"].value,
         location: contractData["location"].value,
         missionDescription: contractData["mission-description"].value,
+        bounty: contractData["bounty"].value,
 
     };
 
@@ -32,11 +35,42 @@ contractData.addEventListener("submit", async function (e) {
         },
         body: JSON.stringify(contractObject)
     })
-    if (res.status === 200) {
-        // function here
-    }
+    // const contractContent = await res.json();
+    // if (res.ok) {
+
+    // }
+
+    // if (res.ok) {
+    //     // function here
+    //     for (let result of results) {
+
+    //     }
+    //     document.querySelector('#display-container').innerHTML += `
+    //     <div>Target name : ${} </div>
+    //     `
+
+    // } else {
+
+    // }
     // const result = await res.json()
     // document.querySelector('#').innerHTML = result
 })
 
 
+// formidable
+
+
+// async function getData() {
+//     let res2 = await fetch("/order")
+
+//     let datas = res2.json()
+
+//     for (let data of datas) {
+//         document.querySelector('#display-container').innerHTML += `
+
+//             <div class="contract"> </div>
+//         `
+
+//     }
+// }
+// getData()
