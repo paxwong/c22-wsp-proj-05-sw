@@ -68,3 +68,7 @@ CREATE TABLE referral (
     status VARCHAR(255) NOT NULL,
     FOREIGN KEY (killer_id) REFERENCES users(id)
 );
+
+CREATE TABLE kill_count (
+    count INTEGER NOT NULL DEFAULT 0
+);

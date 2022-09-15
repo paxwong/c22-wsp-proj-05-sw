@@ -97,6 +97,12 @@ app.post('/login', async (req, res) => {
 	})
 })
 
+app.post('/counter', async (req, res) => {
+		console.log(req.body.counter) // 1
+		let counter = req.body.counter
+		let result = await client.query(``) 
+})
+
 // POST Contracts
 
 app.post('/order', async (req, res) => {
