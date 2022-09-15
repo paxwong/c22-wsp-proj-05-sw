@@ -8,13 +8,15 @@ import { checkPassword, hashPassword } from './hash'
 import { logger } from './utils/logger'
 // import { memosRoutes } from './routes/memoRoute'
 import http, { request } from 'http'
-// import { Server as SocketIO } from 'socket.io'
+import { Server as SocketIO } from 'socket.io'
+import { setIO } from './Utils/setIO'
 // import { loggingUserRoute } from './utils/guard'
 // import {chatroom} from './utils/chatroom';
 
 export const app = express()
 export const server = new http.Server(app)
-import { setIO } from './utils/setIO'
+export const io = new SocketIO(server)
+
 
 // import { io } from './Utils/setIO'
 app.use(express.json())
@@ -35,6 +37,12 @@ declare module 'express-session' {
 }
 
 app.use(sessionMiddleware)
+io.use((socket,next)=>{
+	let req = socket.request as express.Request
+	let res = req.res as express.Response
+	sessionMiddleware(req, res, next as express.NextFunction
+)});
+
 
 // SIGN UP account with unique referral code, will fail if referral code doesn't exist
 app.post('/signup', async (req, res) => {
@@ -92,8 +100,16 @@ app.post('/login', async (req, res) => {
 		})
 		return
 	}
+	// console.log("dbUser: ", dbUser)
 	let {password: _, ...filteredUser} = dbUser
+	// console.log("filteredUser: ", filteredUser)
+	// console.log("_: ", _)
+	// console.log("password: ", password)
+	// console.log("dbUser: ", dbUser)
+
+
 	req.session['user'] = filteredUser 
+	req.session.save()
 	res.status(200).json({
 		message: 'Login successfully'
 	})
@@ -157,7 +173,7 @@ app.use(express.static('public')) // auto to do next()
 app.use((req, res) => {
 	res.redirect('/404.html')
 })
-setIO()
+setIO(io)
 server.listen(8080, () => {
 	// Auto create a folder
 	// fs.mkdirSync(uploadDir, { recursive: true })
