@@ -28,7 +28,7 @@ contractData.addEventListener("submit", async function (e) {
 
     // console.log(contractObject);
 
-    const res = await fetch("/order", {
+    const res = await fetch('/order', {
         method: "POST",
         headers: {
             "Content-Type": "application/json; charset = utf-8",
@@ -58,19 +58,3 @@ contractData.addEventListener("submit", async function (e) {
 
 
 // formidable
-
-
-// async function getData() {
-//     let res2 = await fetch("/order")
-
-//     let datas = res2.json()
-
-//     for (let data of datas) {
-//         document.querySelector('#display-container').innerHTML += `
-
-//             <div class="contract"> </div>
-//         `
-
-//     }
-// }
-// getData()
