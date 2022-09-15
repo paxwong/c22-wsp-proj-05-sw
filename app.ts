@@ -114,41 +114,6 @@ app.get('/counter', async (req, res) => {
 })
 
 // POST Contracts
-// app.post('/speak/:username', async(req, res)=>{
-// 	let targetUser = req.params.username
-// 	if (!targetUser){
-// 		res.status(400).json({
-// 			message:"Invalid target user"
-// 		})
-// 	}
-// 	if (['killer, client'].indexOf(req.session.user.account_type) != -1  ){
-// 		// You are either killer / client
-
-// 		let result = await client.query('select * from users where username = $1', [targetUser])
-// 		let dbUser = result.rows[0]
-// 		if (!dbUser){
-// 			res.status(400).json({
-// 				message:"Invalid target user"
-// 			})
-// 			return
-// 		}
-
-// 		if (dbUser.account_type != 'admin'){
-// 			res.status(400).json({
-// 				message:"You can only speak to admin"
-// 			})
-// 			return
-// 		}
-
-// 		io.to(targetUser).emit('private-msg', `Msg from ${req.session.user.username}`)
-// 	    res.end('ok')
-		
-// 	}
-
-	
-
-	
-// })
 
 app.post('/order', async (req, res) => {
 	// refer to create.js, req.body." " = ContractObject's keys
@@ -165,7 +130,6 @@ app.post('/order', async (req, res) => {
 	let contractResult = await client.query(`INSERT INTO target_list (name, age, nationality, living_district, created_at, updated_at) 
 	values ($1, $2, $3, $4, NOW(), NOW()) `, [name, age, nationality, location])
 })
-
 
 
 // for testing session, can delete in the end
