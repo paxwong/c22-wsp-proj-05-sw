@@ -3,16 +3,20 @@ import express from 'express'
 import { sessionMiddleware } from './middleware'
 
 import { server } from '../app'
-export const io = new SocketIO(server)
+export let io : SocketIO
 
-export function setIO() {
+export function setIO(value : SocketIO) {
+	io = value
+
 	io.on('connection', function (socket) {
 		const req = socket.request as express.Request;
 		console.log('new socket connected: ', socket.id)
+		console.log('session: ', req.session )
 
 		if (req.session && req.session.user){
 			console.log('joining socket room :', req.session!.user!['username'])
 			socket.join(req.session!.user!['username'])
+		
 		}
 
 		// 如果無login ， 就連socket 都無得用
@@ -21,7 +25,7 @@ export function setIO() {
 		// }
 
 
-		//add chatroom .emit .on logic here
+		//add chatroom .on logic here
 
 	})
 }

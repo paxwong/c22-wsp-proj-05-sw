@@ -1,5 +1,4 @@
 import express, { Request, Response } from 'express'
-// import { io } from '../app'
 import { io } from '../Utils/setIO'
 
 import { client } from '../utils/db'
@@ -10,41 +9,41 @@ userRoutes.get('/me', getMe)
 // userRoutes.get('/login/google', loginGoogle)
 userRoutes.post('/register', register)
 userRoutes.get('/', getAllUsers)
-userRoutes.get('/liked-memo/:userId', getLikedMemoByUserId)
+// userRoutes.get('/liked-memo/:userId', getLikedMemoByUserId)
 userRoutes.post('/login', login)
 userRoutes.get('/logout', logout)
-async function getLikedMemoByUserId(req: Request, res: Response) {
-	let userId = req.params.userId
+// async function getLikedMemoByUserId(req: Request, res: Response) {
+// 	let userId = req.params.userId
 
-	if (!Number(userId)) {
-		res.status(400).json({
-			message: 'Invalid user id'
-		})
-		return
-	}
+// 	if (!Number(userId)) {
+// 		res.status(400).json({
+// 			message: 'Invalid user id'
+// 		})
+// 		return
+// 	}
 
-	let result = await client.query(
-		`
-	select 
-	memos.id,
-	memos.content,
-	memos.image,
-	memos.created_at,
-	memos.updated_at
-	from likes inner join memos on memos.id = likes.memo_id
-	where likes.user_id = $1
-`,
-		[userId]
-	)
+// 	let result = await client.query(
+// 		`
+// 	select 
+// 	memos.id,
+// 	memos.content,
+// 	memos.image,
+// 	memos.created_at,
+// 	memos.updated_at
+// 	from likes inner join memos on memos.id = likes.memo_id
+// 	where likes.user_id = $1
+// `,
+// 		[userId]
+// 	)
 
-	res.json({
-		message: 'Success',
-		data: {
-			memos: result.rows,
-			memoCount: result.rows.length
-		}
-	})
-}
+// 	res.json({
+// 		message: 'Success',
+// 		data: {
+// 			memos: result.rows,
+// 			memoCount: result.rows.length
+// 		}
+// 	})
+// }
 async function login(req: Request, res: Response) {
 	console.log('userRoutes - [/login]')
 	const username = req.body.username
@@ -88,6 +87,7 @@ async function login(req: Request, res: Response) {
 		updated_at,
 		...sessionUser
 	} = dbUser
+	console.log(sessionUser)
 	req.session['user'] = sessionUser
 
 	res.status(200).json({
@@ -230,4 +230,16 @@ userRoutes.post('/speak/:username', async(req, res)=>{
 	
 
 	
+})
+
+//add chatroom .emit logic here
+userRoutes.post("/admin/chat", async(req, res)=>{
+	const message = req.body.message
+	console.log('req session username',req.session?.user?.username)
+	let channel = req.session?.user?.username || 'zeus'
+	console.log(message);
+	
+	io.to(channel).emit('private_msg', `${channel}: Msg is ${message}`)
+	res.json({channel})
+	return
 })
