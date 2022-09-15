@@ -17,10 +17,11 @@ startButton.addEventListener('click', function () {
 
 function createBob() {
     console.log()
-    const newBob = document.createElement('div')
+    const newBob = document.createElement('img')
     newBob.className = `bobRun`
     newBob.style.animationDuration = '10s'
     newBob.style.top = `${Math.random() * 80}vh`
+    newBob.src = './bobrun.gif'
     main.insertBefore(newBob, end)
     setTimeout(() => {
         newBob.parentNode.removeChild(newBob)
@@ -31,14 +32,15 @@ function createBob() {
         let positionX = newBob.getBoundingClientRect().x
         let positionY = newBob.getBoundingClientRect().y
         newBob.parentNode.removeChild(newBob)
-        const dieBob = document.createElement('div')
+        const dieBob = document.createElement('img')
         dieBob.className = `dieBob`
         dieBob.style.top = `${positionY}px`
         dieBob.style.left = `${positionX}px`
+        dieBob.src = await switchImage()
         main.insertBefore(dieBob, end)
         setTimeout(() => {
             dieBob.parentNode.removeChild(dieBob)
-        }, 800)
+        }, 8000)
 
         hidden.style.minHeight = '125px';
         hidden.style.maxHeight = '125px';
@@ -64,3 +66,13 @@ async function refreshCounter() {
     let counter = await result.json()
     score.textContent = counter
 }
+
+
+async function switchImage() {
+    const res = await fetch(
+      'http://localhost:8080/bobdie.gif',
+    )
+    const result = await res.blob()
+    const objectURL = URL.createObjectURL(result)
+    return objectURL
+  }
