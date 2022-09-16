@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="create-contract.css">
+    <link rel="stylesheet" href="create.css">
     <title>Create Contract</title>
 </head>
 
@@ -17,8 +17,21 @@
                     <input type="text" name="targetName" id="targetName" />
                 </label>
             </div>
-
-
+            <div class="age">
+                <label for="age">Age :
+                    <input type="number" name="age" id="age" />
+                </label>
+            </div>
+            <div class="nationality">
+                <label for="nationality"> Nationality :
+                    <input type="text" name="nationality" id="nationality" />
+                </label>
+            </div>
+            <div class="location">
+                <label for="location">Location :
+                    <input type="text" name="location" id="location" />
+                </label>
+            </div>
             <div class="mission-description">
                 <label for="mission-description">Mission description :
                     <textarea name="missionDescription" id="missionDescription"></textarea>
@@ -39,9 +52,11 @@
             </div>
         </form>
 
-
+        <div id="display-container">
+            <div></div>
+        </div>
     </div>
-    <script src="/create-contract.js"></script>
+    <script src="/create.js"></script>
     <script src="/socket.io/socket.io.js"></script>
 </body>
 

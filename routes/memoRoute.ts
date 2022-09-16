@@ -131,26 +131,19 @@ export const memosRoutes = express.Router()
 
 memosRoutes.post('/order', async (req, res) => {
 	try {
-		console.log(req.body)
-		// const {
-		// 	filename: image,
-		// 	fields
-		// } = await formParseBetter(req)
+		// console.log(req)
+		const {
+			filename: image,
+			fields
+		}: any = await formParseBetter(req)
+		console.log("name", fields.targetName)
+		console.log("form submission", image, fields)
 
-		// let { text: content, fromSocketId } = fields
-		// let result = await client.query(
-		// 'INSERT INTO memos (content,image) values ($1,$2) RETURNING ID',
-		// [content, image]
-		// )
-		// let newMemoId = result.rows[0].id
-		// io.emit('new-memo', {
-		// 	fromSocketId,
-		// 	memo: {
-		// 		content,
-		// 		image,
-		// 		id: newMemoId
-		// 	}
-		// })
+		let result = await client.query(
+			`INSERT INTO orders (bounty, expiration, target_id, liked, created_at, updated_at, status, client_id) values 
+			($1, NOW(), $2, $3, NOW(), NOW(), $4, $5) `,
+			[fields.bounty, fields.targetName, 0, 'pending', 1]
+		)
 		res.json({
 			message: 'Upload successful'
 		})

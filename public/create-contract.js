@@ -1,5 +1,5 @@
 
-const contractData = document.getElementById("contract-form");
+const contractData = document.querySelector("#contract-form");
 contractData.addEventListener("submit", async function (e) {
     console.log(contractData);
 
@@ -9,9 +9,7 @@ contractData.addEventListener("submit", async function (e) {
 
 
     formData.append('targetName', form.targetName.value)
-    formData.append('age', form.age.value)
-    formData.append('nationality', form.nationality.value)
-    formData.append('location', form.location.value)
+    formData.append('bounty', form.bounty.value)
     formData.append('missionDescription', form.missionDescription.value)
     formData.append('image', form.image.files[0])
 
@@ -20,18 +18,26 @@ contractData.addEventListener("submit", async function (e) {
 
     console.log(formData);
 
-    const res = await fetch('/order', {
+    const res = await fetch('/memos/order', {
         method: "POST",
-        // headers: {
-        //     "Content-Type": "application/json; charset = utf-8",
-        // },
-        // body: JSON.stringify(contractObject)
+
+
         body: formData,
     })
     const result = await res.json()
-    document.querySelector('#contract-form').innerHTML = result
+    console.log('form result', result)
+
+
 })
 
 
+// <form class="decision-form">
+// <label for="id"><input name="id" value="${data.id}"></label>
+// <label for="decision" value="123">Status</label>
+// <select name="decision" id="status">
+//     <option value="approved">Approve</option>
+//     <option value="rejected">Reject</option>
+// </select>
+// <input type="submit" value="Submit" />
+// </form>
 
-// formidable
