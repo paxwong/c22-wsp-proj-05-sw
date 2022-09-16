@@ -223,3 +223,33 @@ h3 {
     padding: 10px;
     margin: 5px;
 }
+
+input {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto;
+}
+
+label {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto;
+}
+
+label[for="id"]{
+    display: none;
+}
+
+select {
+    margin-bottom: 10px;
+    margin-top: 10px;
+}
+
+form {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto;
+}

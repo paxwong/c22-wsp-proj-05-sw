@@ -20,8 +20,6 @@ socket.on("private_msg", content => {
   // }
 // });
 
-
-
 const messageData = document.getElementById("chat-form");
 
 messageData.addEventListener("submit", async function (e) {
@@ -33,9 +31,6 @@ messageData.addEventListener("submit", async function (e) {
   messageObject.message = messageData.message.value;
   console.log(messageObject)
   form.reset()
-   
-
-  // console.log(messageObject);
 
   const res = await fetch("/user/admin/chat", {
     method: "POST",
@@ -47,7 +42,7 @@ messageData.addEventListener("submit", async function (e) {
   const content = await res.json();
   console.log(content + "message back on earth")
   if (res.ok) {
-    displayMessage( messageObject.message)
+    // displayMessage( messageObject.message)
   }
 
 })
