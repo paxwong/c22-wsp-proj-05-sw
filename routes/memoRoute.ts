@@ -5,6 +5,8 @@ import { io } from '../Utils/setIO'
 import { formParse } from '../utils/upload'
 import { client } from '../utils/db'
 import { isLoggedin } from '../utils/guard'
+import formidable from 'formidable'
+import fs from "fs"
 export const memosRoutes = express.Router()
 
 memosRoutes.get('/like-count/:memoId', async (req, res) => {
@@ -126,35 +128,30 @@ memosRoutes.get('/', async (req, res) => {
 	res.json(memoResult.rows)
 	return
 })
+// const uploadDir = 'uploads'
+// const form = formidable({
+// 	uploadDir,
+// 	keepExtensions: true,
+// 	maxFiles: 1,
+// 	maxFileSize: 200 * 1024 ** 2, // the default limit is 200KB
+// 	filter: part => part.mimetype?.startsWith('image/') || false,
+// })
 
-memosRoutes.post('/formidable', async (req, res) => {
-	try {
-		console.log('post- formidable')
-		const {
-			filename: image,
-			text: content,
-			fromSocketId
-		} = await formParse(req)
+// memosRoutes.post('/order', async (req, res) => {
+// 	try {
+// 		form.parse(req, (err, fields, files) => {
 
-		let result = await client.query(
-			'INSERT INTO memos (content,image) values ($1,$2) RETURNING ID',
-			[content, image]
-		)
-		let newMemoId = result.rows[0].id
-		io.emit('new-memo', {
-			fromSocketId,
-			memo: {
-				content,
-				image,
-				id: newMemoId
-			}
-		})
-		res.json({
-			message: 'Upload successful'
-		})
-	} catch (e) {
-		console.log(e)
-		res.status(400).send('Upload Fail')
-		return
-	}
-})
+// 		})
+
+
+
+
+// 		res.json({
+// 			message: 'Upload successful'
+// 		})
+// 	} catch (e) {
+// 		console.log(e)
+// 		res.status(400).send('Upload Fail')
+// 		return
+// 	}
+// })
