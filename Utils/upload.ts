@@ -11,6 +11,34 @@ const form = formidable({
 	filter: (part) => part.mimetype?.startsWith('image/') || false
 })
 
+export const formParseBetter = (req: express.Request) => {
+	return new Promise((resolve, reject) => {
+
+		form.parse(req, (err, fields, files: Files) => {
+			if (err) {
+				console.log('err in form parsing', err)
+				reject(err)
+			}
+			try {
+				let file = Array.isArray(files.image)
+					? files.image[0]
+					: files.image
+				const filename = file ? file.newFilename : null
+
+				// Get File Name
+				resolve({
+					fields,
+					filename
+				})
+			} catch (error) {
+				console.log('error in form parsing', error)
+				console.log('err in form parsing', err)
+				reject(error)
+			}
+		})
+	})
+}
+
 export const formParse = (req: express.Request) => {
 	return new Promise<any>((resolve, reject) => {
 		// req.body => fields :36
@@ -36,7 +64,7 @@ export const formParse = (req: express.Request) => {
 				resolve({
 					filename,
 					text,
-					fromSocketId
+
 				})
 			} catch (error) {
 				console.log('error in form parsing', error)
