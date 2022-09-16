@@ -5,7 +5,7 @@ async function signup() {
         const username = event.target.username.value;
         const password = event.target.password.value;
         const referral = event.target.referral.value;
-        const res = await fetch('/signup', {
+        const res = await fetch('/signup/killer', {
             method: 'POST',
             headers: {
                 "Content-Type": "application/json"

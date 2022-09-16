@@ -47,7 +47,7 @@ io.use((socket, next) => {
 
 
 // SIGN UP account with unique referral code, will fail if referral code doesn't exist
-app.post('/signup', async (req, res) => {
+app.post('/signup/killer', async (req, res) => {
 	const username = req.body.username
 	const password = req.body.password
 	const referral = req.body.referral
@@ -69,9 +69,27 @@ app.post('/signup', async (req, res) => {
 	}
 
 	let hashedPassword = await hashPassword(password)
-	await client.query(`INSERT INTO users (username, password, created_at, updated_at, account_type) values ($1, $2, NOW(), NOW(), $3)`,
-		[username, hashedPassword, 'admin'])
-	res.json({ message: 'User created' })
+	await client.query(`INSERT INTO users (username, password, created_at, account_type) values ($1, $2, NOW(), $3)`,
+		[username, hashedPassword, 'killer'])
+	res.json({ message: 'Killer account created' })
+}
+)
+
+app.post('/signup/client', async (req, res) => {
+	const username = req.body.username
+	const password = req.body.password
+
+	if (!username || !password) {
+		res.status(400).json({
+			message: 'Missing information'
+		})
+		return
+	}
+
+	let hashedPassword = await hashPassword(password)
+	await client.query(`INSERT INTO users (username, password, created_at, account_type) values ($1, $2, NOW(), $3)`,
+		[username, hashedPassword, 'client'])
+	res.json({ message: 'Client account created' })
 }
 )
 
