@@ -15,6 +15,7 @@ body {
 
 h1 {
     font-weight: bold;
+    font-size: 24px;
     margin: 0;
     color: rgb(25, 169, 161);
 }
@@ -43,6 +44,10 @@ button {
 
 button:active {
     transform: scale(0.95);
+}
+
+.previous:active {
+    transform: none;
 }
 
 button:focus {
@@ -205,10 +210,6 @@ input[type=text] {
 
 .container.right-panel-active .overlay-right {
     transform: translateX(20%);
-}
-
-.signin-logo {
-    font-size: 45px;
 }
 
 a {
