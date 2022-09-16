@@ -7,7 +7,7 @@ import fs from 'fs'
 import formidable from 'formidable'
 // import { uploadDir } from './utils/upload'
 import { logger } from './utils/logger'
-// import { memosRoutes } from './routes/memoRoute'
+import { memosRoutes } from './routes/memoRoute'
 import http, { request } from 'http'
 import { Server as SocketIO } from 'socket.io'
 import { setIO } from './Utils/setIO'
@@ -137,21 +137,11 @@ const form = formidable({
 	uploadDir,
 	keepExtensions: true,
 	maxFiles: 1,
-	maxFileSize: 200 * 1024 ** 2,
+	maxFileSize: 20000 * 1024 ** 2,
 	filter: part => part.mimetype?.startsWith('image/') || false,
 })
 
-app.post('/order', (req, res) => {
-	form.parse(req, (err, fields, files) => {
-		console.log({ err, fields, files })
-		res.json("upload successful")
-	})
-})
-
-// POST Contracts
-
 app.post('/order', async (req, res) => {
-	// refer to create.js, req.body." " = ContractObject's keys
 	let name = req.body.name
 	let age = req.body.age
 	let nationality = req.body.nationality
@@ -162,9 +152,62 @@ app.post('/order', async (req, res) => {
 	console.log(`server: Target name : ${name} , Mission description: ${description}`)
 
 
+
+	// const formParse = (req: express.Request) => {
+	// 	return new Promise<any>((resolve, reject) => {
+	// 		// req.body => fields :36
+	// 		form.parse(req, (err, fields, files: Files) => {
+	// 			if (err) {
+	// 				console.log('err in form parsing', err)
+	// 				reject(err)
+	// 			}
+	// 			try {
+	// 				const text = fields.text
+	// 				const fromSocketId = fields.fromSocketId
+	// 				let file = Array.isArray(files.image)
+	// 					? files.image[0]
+	// 					: files.image
+	// 				console.log(file)
+	// 				const filename = file ? file.newFilename : null
+
+	// 				console.log({
+	// 					filename,
+	// 					text
+	// 				})
+	// 				// Get File Name
+	// 				resolve({
+	// 					filename,
+	// 					text,
+	// 					fromSocketId
+	// 				})
+	// 			} catch (error) {
+	// 				console.log('error in form parsing', error)
+	// 				reject(error)
+	// 			}
+	// 		})
+	// 	})
+	// }
 	let contractResult = await client.query(`INSERT INTO target_list (name, age, nationality, living_district, created_at, updated_at) 
 	values ($1, $2, $3, $4, NOW(), NOW()) `, [name, age, nationality, location])
 })
+
+// POST Contracts
+
+// app.post('/order', async (req, res) => {
+// refer to create.js, req.body." " = ContractObject's keys
+// 	let name = req.body.name
+// 	let age = req.body.age
+// 	let nationality = req.body.nationality
+// 	let location = req.body.location
+// 	let description = req.body.missionDescription
+// 	let bounty = req.body.bounty
+
+// 	console.log(`server: Target name : ${name} , Mission description: ${description}`)
+
+
+// 	let contractResult = await client.query(`INSERT INTO target_list (name, age, nationality, living_district, created_at, updated_at) 
+// 	values ($1, $2, $3, $4, NOW(), NOW()) `, [name, age, nationality, location])
+// })
 
 // fetch the data from contracts
 
@@ -182,7 +225,7 @@ app.get('/session', (req, res) => {
 
 // app.use(grantExpress as express.RequestHandler)
 app.use('/user', userRoutes)
-// app.use('/memos', memosRoutes)
+app.use('/memos', memosRoutes)
 app.get('/test-logger', (req, res) => {
 	logger.error('This is error')
 	logger.warn('This is warn')
