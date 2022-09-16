@@ -3,7 +3,8 @@ import { userRoutes } from './routes/userRoute'
 import expressSession from 'express-session'
 import { client } from './utils/db'
 import { checkPassword, hashPassword } from './hash'
-// import fs from 'fs'
+import fs from 'fs'
+import formidable from 'formidable'
 // import { uploadDir } from './utils/upload'
 import { logger } from './utils/logger'
 // import { memosRoutes } from './routes/memoRoute'
@@ -130,6 +131,23 @@ app.get('/counter', async (req, res) => {
 	res.json(counter)
 })
 
+//formidable
+const uploadDir = 'uploads'
+const form = formidable({
+	uploadDir,
+	keepExtensions: true,
+	maxFiles: 1,
+	maxFileSize: 200 * 1024 ** 2,
+	filter: part => part.mimetype?.startsWith('image/') || false,
+})
+
+app.post('/order', (req, res) => {
+	form.parse(req, (err, fields, files) => {
+		console.log({ err, fields, files })
+		res.json("upload successful")
+	})
+})
+
 // POST Contracts
 
 app.post('/order', async (req, res) => {
@@ -148,7 +166,7 @@ app.post('/order', async (req, res) => {
 	values ($1, $2, $3, $4, NOW(), NOW()) `, [name, age, nationality, location])
 })
 
-// fetch the data
+// fetch the data from contracts
 
 app.get('/order', async (req, res) => {
 	let missionResult = await client.query(`SELECT * from target_list`)
