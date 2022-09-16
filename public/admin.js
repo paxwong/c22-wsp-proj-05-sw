@@ -8,7 +8,7 @@ async function getData() {
     let html = ""
 
     for (let data of datas) {
-        html +=`
+        html += `
             <div class="contract-container">
                 <div class="contract-profile">
                     <div class="target-picture"></div>
@@ -29,9 +29,9 @@ async function getData() {
                     <li>
                         <div class="description">Mission description: ${data.description}</div>
                     </li>
-                    <form action="#">
-                        <label for="id"><input value="${data.id}"></label>
-                        <label for="status">Status</label>
+                    <form class="decision-form">
+                        <label for="id"><input name="id" value="${data.id}"></label>
+                        <label for="decision" value="123">Status</label>
                         <select name="decision" id="status">
                             <option value="approved">Approve</option>
                             <option value="rejected">Reject</option>
@@ -46,10 +46,42 @@ async function getData() {
 
     const container = document.querySelector('.container')
     container.innerHTML = html
-
 }
-getData()
 
 
 
 
+async function formAddEventListener() {
+    let decisions = document.querySelectorAll('.decision-form')
+    for (let decision of decisions) {
+        decision.addEventListener('submit', async (event) => {
+            event.preventDefault();
+            const id = event.target.id.value;
+            const status = event.target.decision.value;
+            // console.log(id, status)
+            const res = await fetch('/decision', {
+                method: 'POST',
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    id,
+                    status
+                })
+            })
+            if (res.ok) {
+                console.log(`success`)
+            }
+        }
+        )
+    }
+}
+
+
+
+async function init() {
+await getData()
+await formAddEventListener()
+}
+
+init()

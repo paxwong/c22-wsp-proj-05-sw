@@ -131,6 +131,12 @@ app.get('/counter', async (req, res) => {
 	res.json(counter)
 })
 
+app.post('/decision', async (req, res) => {
+	const id = req.body.id
+	const status = req.body.status
+	await client.query('UPDATE target_list SET status = $1 WHERE id = $2', [status, id])	
+})
+
 //formidable
 const uploadDir = 'uploads'
 const form = formidable({
