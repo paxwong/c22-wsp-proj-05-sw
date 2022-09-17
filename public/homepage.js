@@ -4,7 +4,7 @@ async function getData() {
     let res2 = await fetch('/order')
 
     let datas = await res2.json()
-    console.log(datas)
+    // console.log(datas)
     let html = ""
 
     for (let data of datas) {
@@ -43,3 +43,17 @@ getData()
 
 
 
+async function logout() {
+    const logout = document.querySelector('.logout');
+    logout.addEventListener('click', async function (event) {
+        event.preventDefault();
+        const res = await fetch('/logout', {
+            method: 'DELETE',
+        })
+        if (res.ok) {
+            alert('Logout successfully')
+            // location.replace('http://localhost:8080/chatroom.html')
+        }
+})}
+
+logout()

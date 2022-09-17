@@ -135,6 +135,13 @@ app.post('/login', async (req, res) => {
 	})
 })
 
+app.delete('/logout', async function (req, res) {
+	req.session['user'] = ''
+	res.status(200).json({
+		message: 'Logout successfully'
+	})
+})
+
 app.post('/counter', async (req, res) => {
 	// console.log(req.body.counter) // 1
 	// let counter = req.body.counter
