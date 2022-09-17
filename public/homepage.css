@@ -93,9 +93,9 @@ div.navbar {
 }
 
 .navbar>ul>li:hover {
-    width: 80px;
-    background-color: rgb(12, 20, 21);
-    box-shadow: 4px 4px 10px rgb(80, 227, 148);
+    width: 70px;
+    background-color: transparent;
+    /* box-shadow: 4px 4px 10px rgb(80, 227, 148); */
     border-radius: 6px;
 }
 
@@ -107,6 +107,7 @@ a:-webkit-any-link {
     color: rgb(25, 169, 161);
     cursor: pointer;
     text-decoration: none;
+    background-color: transparent;
 }
 
 .container {
@@ -240,7 +241,7 @@ h3 {
     padding: 50px;
     text-align: center;
     background-color: white;
-    
+
     /* width: 400px; */
     /* border-radius: 10% */
 }
@@ -249,7 +250,7 @@ h3 {
     position: relative;
 } */
 
-.bi-x-lg{
+.bi-x-lg {
     position: absolute;
     top: 5%;
     right: 3%;
@@ -258,29 +259,28 @@ h3 {
     color: black;
 }
 
-.bi-x-lg:hover{
+.bi-x-lg:hover {
     cursor: pointer;
 }
 
-.metamask{
+.metamask {
     display: flex;
     justify-content: space-between;
     font-size: 2rem;
 }
 
-.metamask:hover{
+.metamask:hover {
     cursor: pointer;
 }
 
-.metamask img{
+.metamask img {
     width: 5%;
     height: 5%;
 }
 
-.wallet-opener{
+.wallet-opener {
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
     width: 90%;
 }
-
