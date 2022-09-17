@@ -136,7 +136,7 @@ a:-webkit-any-link {
     background-color: rgb(12, 20, 21);
 }
 
-.wallet::before {
+/* .wallet::before {
     content: "";
     background-image: conic-gradient(rgb(25, 169, 161) 20deg,
             transparent 120deg);
@@ -144,7 +144,7 @@ a:-webkit-any-link {
     height: 60px;
     position: absolute;
     animation: animate 2s linear infinite;
-}
+} */
 
 @keyframes animate {
     0% {
@@ -157,7 +157,7 @@ a:-webkit-any-link {
 }
 
 .wallet::after {
-    content: "Connect to wallet";
+    /* content: "Connect to wallet"; */
     width: 150px;
     height: 52px;
     position: absolute;
@@ -223,3 +223,64 @@ h3 {
     padding: 10px;
     margin: 5px;
 }
+
+* {
+    box-sizing: border-box;
+}
+
+/* The popup form - hidden by default */
+.form-popup {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border: 3px solid rgba(25, 169, 162, 0.516);
+    z-index: 9;
+    padding: 50px;
+    text-align: center;
+    background-color: white;
+    
+    /* width: 400px; */
+    /* border-radius: 10% */
+}
+
+/* .form-popup-container{
+    position: relative;
+} */
+
+.bi-x-lg{
+    position: absolute;
+    top: 5%;
+    right: 3%;
+    font-size: 2rem;
+    font-weight: 600;
+    color: black;
+}
+
+.bi-x-lg:hover{
+    cursor: pointer;
+}
+
+.metamask{
+    display: flex;
+    justify-content: space-between;
+    font-size: 2rem;
+}
+
+.metamask:hover{
+    cursor: pointer;
+}
+
+.metamask img{
+    width: 5%;
+    height: 5%;
+}
+
+.wallet-opener{
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    width: 90%;
+}
+

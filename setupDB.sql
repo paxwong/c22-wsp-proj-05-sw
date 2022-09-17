@@ -46,22 +46,21 @@ CREATE TABLE kill_count (
     id SERIAL PRIMARY KEY,
     count INTEGER NOT NULL
 );
--- CREATE TABLE photos (
---     id SERIAL PRIMARY KEY,
---     target_id INTEGER NOT NULL,
---     photo VARCHAR(255) NOT NULL, 
---     FOREIGN KEY (target_id) REFERENCES target_list(id)
--- );
 
--- CREATE TABLE referral (
---     id SERIAL PRIMARY KEY,
---     code VARCHAR(255) NOT NULL,
---     killer_id INTEGER NOT NULL,
---     status VARCHAR(255) NOT NULL,
---     FOREIGN KEY (killer_id) REFERENCES users(id)
--- );
+CREATE TABLE photos (
+    id SERIAL PRIMARY KEY,
+    target_id INTEGER NOT NULL,
+    photo VARCHAR(255) NOT NULL, 
+    FOREIGN KEY (target_id) REFERENCES target_list(id)
+);
 
-
+CREATE TABLE referral (
+    id SERIAL PRIMARY KEY,
+    code VARCHAR(255) NOT NULL,
+    killer_id INTEGER NOT NULL,
+    status VARCHAR(255) NOT NULL,
+    FOREIGN KEY (killer_id) REFERENCES users(id)
+);
 
 -- NOT USING / FOR FUTURE USES
 -- CREATE TABLE skills (
