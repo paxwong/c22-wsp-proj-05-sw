@@ -17,6 +17,7 @@ h1 {
     font-weight: bold;
     margin: 0;
     color: rgb(25, 169, 161);
+    margin-bottom: 10px;
 }
 
 p {
@@ -39,6 +40,7 @@ button {
     text-transform: uppercase;
     transition: transform 80ms ease-in;
     cursor: pointer;
+    margin-top: 15px;
 }
 
 button:active {
@@ -52,6 +54,7 @@ button:focus {
 button.ghost {
     background-color: transparent;
     border-color: rgba(25, 169, 162, 0.516);
+    margin-top: 15px;
 }
 
 form {
@@ -209,13 +212,19 @@ input[type=text] {
 
 .signin-logo {
     font-size: 45px;
+    margin-top: 5px;
 }
 
 a {
     text-decoration: none;
     color: antiquewhite;
+
 }
 
 a:hover {
     font-size: larger;
+}
+
+.refercode {
+    margin-top: 20px;
 }
