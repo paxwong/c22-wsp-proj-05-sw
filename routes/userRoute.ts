@@ -90,9 +90,10 @@ async function login(req: Request, res: Response) {
 	console.log(sessionUser)
 	req.session['user'] = sessionUser
 
-	res.status(200).json({
-		message: 'Success login'
-	})
+	// res.status(200).json({
+	// 	message: 'Success login'
+	// })
+	res.redirect('/homepage.html')
 }
 
 function logout(req: Request, res: Response) {
@@ -233,13 +234,14 @@ userRoutes.post('/speak/:username', async(req, res)=>{
 })
 
 //add chatroom .emit logic here
-userRoutes.post("/admin/chat", async(req, res)=>{
+userRoutes.post("/chat", async(req, res)=>{
 	const message = req.body.message
-	console.log('req session username',req.session?.user?.username)
-	let channel = req.session?.user?.username || 'zeus'
-	console.log(message);
+	// console.log('req session username',req.session?.user?.username)
+	let channel = req.session?.user?.username
+	// console.log(message);
 	
-	io.to(channel).emit('private_msg', `${channel}: ${message}`)
+	io.emit('private_msg', `${channel}: ${message}`)
+	// io.to(channel).emit('private_msg', `${channel}: ${message}`)
 	res.json({channel})
 	return
 })
