@@ -46,7 +46,7 @@ async function getData() {
     container.innerHTML = html
 
 }
-getData()
+// getData()
 
 
 
@@ -70,7 +70,7 @@ function openForm() {
     document.querySelector("#wallet-login").style.display = "block";
 }
 
-xButton.addEventListener('click', function() {
+xButton.addEventListener('click', function () {
     document.querySelector("#wallet-login").style.display = "none"
 })
 
