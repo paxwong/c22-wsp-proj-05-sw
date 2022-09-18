@@ -1,10 +1,11 @@
 body {
+    font-family: 'Cinzel', serif;
     width: 100vw;
     height: 100vh;
     background-color: rgb(12, 20, 21);
     /* color: rgb(16, 79, 77) */
     color: rgb(25, 169, 161);
-    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    /* font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif; */
 }
 
 .header {
