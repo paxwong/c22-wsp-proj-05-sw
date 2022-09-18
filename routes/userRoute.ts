@@ -234,7 +234,7 @@ userRoutes.post('/speak/:username', async(req, res)=>{
 })
 
 //add chatroom .emit logic here
-userRoutes.post("/chat", async(req, res)=>{
+userRoutes.post("/admin/chat", async(req, res)=>{
 	const message = req.body.message
 	// console.log('req session username',req.session?.user?.username)
 	let channel = req.session?.user?.username
