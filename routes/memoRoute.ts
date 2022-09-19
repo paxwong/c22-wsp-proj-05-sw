@@ -33,9 +33,9 @@ memosRoutes.post('/order', async (req, res) => {
 		} else {
 			let result = await client.query(
 				`INSERT INTO orders 
-				(bounty, expiration, target_id, liked, created_at, updated_at, status, client_id) values 
-			($1, NOW(), $2, $3, NOW(), NOW(), $4, $5) `,
-				[fields.bounty, target.rows[0].id, 0, 'pending', 1]
+				(bounty, expiration, target_id, liked, created_at, updated_at, status, description, client_id) values 
+			($1, NOW(), $2, $3, NOW(), NOW(), $4, $5, $6) `,
+				[fields.bounty, target.rows[0].id, 0, 'pending', fields.missionDescription, req.session.id]
 			)
 			res.json({
 				message: 'Upload successful'
@@ -48,7 +48,7 @@ memosRoutes.post('/order', async (req, res) => {
 	}
 })
 
-<<<<<<< HEAD
+
 // client personal contracts (pending, aprroved)
 
 memosRoutes.get('/clients-order', async (req: any, res: any) => {
@@ -57,30 +57,30 @@ memosRoutes.get('/clients-order', async (req: any, res: any) => {
 	res.json(clientResult)
 
 })
-=======
+
 
 memosRoutes.post('/target', async (req, res) => {
-		try {
+	try {
 		// console.log(req)
 		const {
 			filename: image,
 			fields
 		}: any = await formParseBetter(req)
 
-		let {targetName, nationality, age, company, location, remarks} = fields
+		let { targetName, nationality, age, company, location, remarks } = fields
 
 		await client.query(`
 		INSERT INTO target_list 
 		(name, nationality, age, company, living_district, remarks, created_at) values
-		($1, $2, $3, $4, $5, $6, NOW())`, 
-		[targetName, nationality, !age ? null : age, company, location, remarks])
-		res.status(200).json({message: 'Upload successful'})
+		($1, $2, $3, $4, $5, $6, NOW())`,
+			[targetName, nationality, !age ? null : age, company, location, remarks])
+		res.status(200).json({ message: 'Upload successful' })
 		return;
 	} catch (e) {
 		console.log(e)
-		res.status(400).json({ message: 'Upload Fail'})
+		res.status(400).json({ message: 'Upload Fail' })
 		return
 	}
 })
 
->>>>>>> e6ce736bf94f8bb5f7a55421f42425d3c6930033
+// >>>>>>> e6ce736bf94f8bb5f7a55421f42425d3c6930033

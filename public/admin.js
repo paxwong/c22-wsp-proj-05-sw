@@ -1,13 +1,14 @@
 const socket = io.connect();
 
 async function getData() {
-    let res2 = await fetch('/order')
-
-    let datas = await res2.json()
-    console.log(datas)
+    // let res2 = await fetch('/order')
+    // let datas = await res2.json()
+    let clientData = await fetch('/memos/clients-order')
+    let datas = await clientData.json()
+    // console.log(datas)
     let html = ""
 
-    for (let data of datas) {
+    for (let data of datas.rows) {
         html += `
             <div class="contract-container">
                 <div class="contract-profile">
@@ -27,7 +28,7 @@ async function getData() {
                         <div class="target-location">Location: ${data.location}</div>
                     </li>
                     <li>
-                        <div class="description">Mission description: ${data.description}</div>
+                        <div class="description">Mission description: ${data.missionDescription}</div>
                     </li>
                     <form class="decision-form">
                         <label for="id"><input name="id" value="${data.id}"></label>
@@ -80,8 +81,8 @@ async function formAddEventListener() {
 
 
 async function init() {
-await getData()
-await formAddEventListener()
+    await getData()
+    await formAddEventListener()
 }
 
 init()

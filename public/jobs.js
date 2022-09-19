@@ -11,9 +11,9 @@ async function getData() {
     // }
     console.log(datas.rows)
 
-    let html = ""
+    // let html = ""
 
-    const container = document.querySelector('.container')
+    // const container = document.querySelector('.container')
 
     for (let data of datas.rows) {
 
