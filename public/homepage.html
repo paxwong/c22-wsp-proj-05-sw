@@ -15,7 +15,11 @@
         href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.9.1/font/bootstrap-icons.min.css"
         integrity="sha512-5PV92qsds/16vyYIJo3T/As4m2d8b6oWYfoqV+vtizRB6KhF1F9kYzWzQmsO6T3z3QG2Xdhrx7FQ+5R1LiQdUA=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css"
+        integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous" />
+    </head>    
     <link rel="stylesheet" href="homepage.css">
+    <!-- <link rel="stylesheet" href="pop-up-chat.css"> -->
     <title>Homepage</title>
 </head>
 
@@ -83,34 +87,51 @@
 
 
     <!-- //chatbox -->
-    <div class="chat-container">
-        <header class="chat-header">
-            <h1><i class="fas fa-comments"></i>HITMAN</h1>
-            <a id="leave-btn" class="btn">Leave Room</a>
-        </header>
-        <main class="chat-main">
-            <div class="chat-sidebar">
-                <h3><i class="fas fa-comments"></i>Room </h3>
-                <!-- <h2 id="room-name">Public</h2> -->
-                <h3><i class="fas fa-users"></i> Users</h3>
-                <ul id="users"></ul>
+    <div id="chat-bubble">
+        <div class="chat-container">
+          <div class="chat-header">
+            <div class="user-avatar" onclick="openChatBubble()">
+              <div class="img-container">
+                <img src="https://source.unsplash.com/random/35x35">
+              </div>
+              <div class="user-status-info">
+                <div>Chatroom</div>
+                <p>Active now</p>
+              </div>
             </div>
-            <div class="chat-messages">Say Something</div>
-        </main>
-        <div class="chat-form-container">
-            <form id="chat-form">
-                <input name="message" id="msg" type="text" placeholder="Enter Message" required autocomplete="off" />
-                <button class="btn" type="submit"><i class="fas fa-paper-plane"></i> Send</button>
-            </form>
+
+            <a href="#" onclick="openChatBubble()">
+              <img src="./icons/close.svg">
+            </a>
+            </nav>
+          </div>
         </div>
-    </div>
+    
+        <div class="chat-body">
+          <div class="sender-other">
+            <div class="chat-messages"></div>
+          </div>
+    
+          <div class="chat-form-container">
+            <form id="chat-form">
+              <input name="message" id="msg" type="text" placeholder="Type a message..." required autocomplete="off" />
+              <button class="btn" type="submit"><i class="fas fa-paper-plane"></i></button>
+            </form>
+          </div>
+        </div>
+      </div>
+      </div>
+      
     <!-- //chatbox -->
 
     </div>
+     <script src="https://cdnjs.cloudflare.com/ajax/libs/qs/6.9.2/qs.min.js"
+        integrity="sha256-TDxXjkAUay70ae/QJBEpGKkpVslXaHHayklIVglFRT4=" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/web3@latest/dist/web3.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.js"></script>
     <script src="/socket.io/socket.io.js"></script>
     <script src="/homepage.js"></script>
+
 </body>
 
 </html>
