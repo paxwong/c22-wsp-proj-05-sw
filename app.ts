@@ -33,7 +33,8 @@ declare module 'express-session' {
 	interface SessionData {
 		name?: string
 		isloggedIn?: boolean
-		user?: any
+		user: any
+		id: number
 	}
 }
 
@@ -329,6 +330,8 @@ app.use(express.static('public')) // auto to do next()
 app.use((req, res) => {
 	res.redirect('/404.html')
 })
+
+
 setIO(io)
 server.listen(8080, () => {
 	// Auto create a folder

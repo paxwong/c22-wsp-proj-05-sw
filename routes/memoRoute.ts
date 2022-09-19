@@ -71,18 +71,18 @@ memosRoutes.post('/target', async (req, res) => {
 			fields
 		}: any = await formParseBetter(req)
 
-		let {targetName, nationality, age, company, location, remarks} = fields
+		let { targetName, nationality, age, company, location, remarks } = fields
 
 		await client.query(`
-		INSERT INTO target_list 
+		INSERT INTO target_list
 		(name, nationality, age, company, living_district, remarks, created_at) values
-		($1, $2, $3, $4, $5, $6, NOW())`, 
-		[targetName, nationality, !age ? null : age, company, location, remarks])
-		res.status(200).json({message: 'Upload successful'})
+		($1, $2, $3, $4, $5, $6, NOW())`,
+			[targetName, nationality, !age ? null : age, company, location, remarks])
+		res.status(200).json({ message: 'Upload successful' })
 		return;
 	} catch (e) {
 		console.log(e)
-		res.status(400).json({ message: 'Upload Fail'})
+		res.status(400).json({ message: 'Upload Fail' })
 		return
 	}
 })
