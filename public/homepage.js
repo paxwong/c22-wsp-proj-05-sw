@@ -62,7 +62,7 @@ async function logout() {
         })
         if (res.ok) {
             // alert('Logout successfully')
-            location.replace('/index.html')
+            location.replace('http://localhost:8080/index.html')
         }
     })
 }
@@ -119,13 +119,13 @@ connectButton.addEventListener('click', function () {
 
 userinfo.addEventListener('click', async function (event) {
     event.preventDefault();
-        const res = await fetch('/userinfo', {
-            method: 'POST',
-        })
-        if (res.ok) {
-            location.replace('/userinformation.html') //have session
-        }
-        if (!res.ok) {
-            location.replace('/loginsignup.html') //no session
-        }
+    const res = await fetch('/userinfo', {
+        method: 'POST',
+    })
+    if (res.ok) {
+        location.replace('http://localhost:8080/chatroom.html') //have session
+    }
+    if (!res.ok) {
+        location.replace('http://localhost:8080/loginsignup.html') //no session
+    }
 })

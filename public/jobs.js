@@ -1,22 +1,51 @@
 async function getData() {
-    let res2 = await fetch('/order')
+    // let res2 = await fetch('/order')
 
-    let datas = await res2.json()
-    console.log(req.session.user)
+    // let datas = await res2.json()
+
+    let clientData = await fetch('/memos/clients-order')
+    let datas = await clientData.json()
+    // if (datas.status === 'pending') {
+    //     console.log(`your contracts ${datas.name}`)
+    //     return
+    // }
+    console.log(datas.rows)
+
+    let html = ""
+
+    const container = document.querySelector('.container')
+
+    for (let data of datas.rows) {
+
+
+        console.log(data.id)
+
+
+
+    }
+    // console.log(datas.status)
+
+
+    // console.log(req.session.user)
     // let html = ""
+
+
     // if (req.session.user.account_type === "client") {
 
+    // }
 
-    // } else if (req.session.user.account_type === "killer") {
+
+
+    // else if (req.session.user.account_type === "killer") {
 
     // } else if (req.session.user.account_type === "admin" && ) {
 
     // }
 
 
-
-    // for (let data of datas) {
-    //     html += `
+    // function getContractData() {
+    //     for (let data of datas) {
+    //         html += `
     //     <div class="contract-container">
     //         <div class="contract-profile">
     //             <div class="target-picture"></div>
@@ -41,10 +70,12 @@ async function getData() {
     //     </div>
     //     `
 
+    //     }
+
+    //     const container = document.querySelector('.container')
+    //     container.innerHTML = html
     // }
 
-    const container = document.querySelector('.container')
-    container.innerHTML = html
 
 }
 getData()
