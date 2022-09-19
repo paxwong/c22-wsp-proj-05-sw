@@ -167,7 +167,7 @@ app.get('/counter', async (req, res) => {
 app.post('/decision', async (req, res) => {
 	const id = req.body.id
 	const status = req.body.status
-	await client.query('UPDATE target_list SET status = $1 WHERE id = $2', [status, id])
+	await client.query('UPDATE orders SET status = $1 WHERE id = $2', [status, id])
 })
 
 app.post('/userinfo', async (req, res) => {
