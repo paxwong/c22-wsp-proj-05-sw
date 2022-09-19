@@ -14,6 +14,12 @@ export const memosRoutes = express.Router()
 // Create contracts
 
 memosRoutes.post('/order', async (req, res) => {
+	if (!req.session.user) {
+		res.status(401).json({
+			message: 'invalid session'
+		})
+		return
+	}
 	try {
 		// console.log(req)
 		const {
@@ -33,9 +39,9 @@ memosRoutes.post('/order', async (req, res) => {
 		} else {
 			let result = await client.query(
 				`INSERT INTO orders 
-				(bounty, expiration, target_id, liked, created_at, updated_at, status, client_id) values 
-			($1, NOW(), $2, $3, NOW(), NOW(), $4, $5) `,
-				[fields.bounty, target.rows[0].id, 0, 'pending', 1]
+				(bounty, target_id, created_at, status, client_id) values 
+			($1, $2, NOW(), $3, $4) `,
+				[fields.bounty, target.rows[0].id, 'pending', req.session.user.id]
 			)
 			res.json({
 				message: 'Upload successful'

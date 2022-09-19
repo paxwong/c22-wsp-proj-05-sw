@@ -132,9 +132,9 @@ userinfo.addEventListener('click', async function (event) {
         }
 })
 
-window.onload(
+window.onload= function() {
     init()
-)
+}
 
 async function init() {
     let result = await fetch('/userinformation')

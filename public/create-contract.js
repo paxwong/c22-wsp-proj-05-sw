@@ -26,20 +26,23 @@ contractData.addEventListener("submit", async function (e) {
     })
     const result = await res.json()
     console.log('form result', result)
-
-    if (req.session) {
+        if (res.status === 401) {
+            alert('Please login first')
+            location.replace('/loginsignup.html')
+            return
+        }
         if (!res.ok) {
             alert('Please create target first')
             location.replace('/create-target.html')
-
-        } else {
-            location.replace('/homepage.html')
+            return
+        } 
+        if (res.ok) {
+            alert(`Order pending admin's approval`)
+            return
+            // location.replace('/homepage.html')
         }
     }
-
-
-
-})
+)
 
 
 // submit redirection

@@ -184,6 +184,18 @@ app.post('/userinfo', async (req, res) => {
 	}
 })
 
+app.get('/userinformation', async (req, res) => {
+		if (!req.session.user) {
+		res.status(400).json({
+			message: 'invalid session'
+		})
+		return
+	}
+	let id = req.session.user.id
+	let result = await client.query('SELECT * from users WHERE id = $1', [id])
+	let data = result.rows[0]
+	res.json(data)
+})
 //formidable
 const uploadDir = 'uploads'
 const form = formidable({
