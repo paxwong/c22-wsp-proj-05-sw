@@ -1,9 +1,9 @@
 ﻿username,password,created_at,updated_at,account_type,task_completion
-Admin,group5,NOW(),NOW(),admin,0
-Client,client,NOW(),NOW(),client,0
-Popo,popo,NOW(),NOW(),client,0
-Scream,scream,NOW(),NOW(),killer,0
-Joker,joker,NOW(),NOW(),killer,0
-John_Wick,johnwick,NOW(),NOW(),killer,0
-Matrix_Leo,matrixleo,NOW(),NOW(),killer,0
-Whiteclothguy,whiteclothguy,NOW(),NOW(),killer,0
+Admin,$2a$10$DW2p6Bu/na2p6hTkNELYzeBV2brkw/qc7aPW21QOXFU5FbtIGhg9i,NOW(),NOW(),admin,0
+Client,$2a$10$zHLWLdVGGETgEVKAyTV1vuVeEvbQacHD3SyMdbA9D.7ySYTwWzOE6,NOW(),NOW(),client,0
+Popo,$2a$10$QoSZwiHCDdi5Kz.rDLmwNerg5f9dO.VdBQdcOos6mu3qkUQeGzPWK,NOW(),NOW(),client,0
+Scream,$2a$10$DdhAlThv/mfzxGOTYyCSV.1wWu.p.gdtPjdaiJZp2p/Hrxb2.C.XC,NOW(),NOW(),killer,0
+Joker,$2a$10$1datiX9Gyf0K99EXVaH8queIXiJO3ExFy.WApJTi3Qvw7l4gNrKcq,NOW(),NOW(),killer,0
+John_Wick,$2a$10$rK.hSR2ZEOgfOEdHzRB.R.ea11HTXfgExSQvC1nBdrP4MiskDlI5a,NOW(),NOW(),killer,0
+Matrix_Leo,$2a$10$ecyJPeoAlkc71B93i.Pq0uT4Mb2BgpMn3OgKdqNe4CYYBlypHXTDa,NOW(),NOW(),killer,0
+Whiteclothesguy,$2a$10$io.n31HXAV5xwQqkPHi.SuJ8LvPKHPRQm7xiwb8Hr6GCatt8u\E5e,NOW(),NOW(),killer,0
