@@ -168,6 +168,7 @@ app.post('/decision', async (req, res) => {
 	const id = req.body.id
 	const status = req.body.status
 	await client.query('UPDATE orders SET status = $1 WHERE id = $2', [status, id])
+	res.status(200).json({message: 'Success'})
 })
 
 app.post('/userinfo', async (req, res) => {

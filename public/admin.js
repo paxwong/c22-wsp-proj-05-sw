@@ -3,14 +3,14 @@ const socket = io.connect();
 async function getData() {
     // let res2 = await fetch('/order')
     // let datas = await res2.json()
-    let clientData = await fetch('/memos/clients-order')
+    let clientData = await fetch('/memos/admin-order')
     let datas = await clientData.json()
-    console.log(datas.rows[0]["bounty"])
+    // console.log(datas.rows[0]["bounty"])
     let html = ""
 
     for (let data of datas.rows) {
-        console.log(data["bounty"])
-        html +=`
+        // console.log(data["bounty"])
+        html += `
             <div class="contract-container">
                 <div class="contract-profile">
                     <div class="target-picture"></div>
@@ -78,7 +78,7 @@ async function formAddEventListener() {
                 })
             })
             if (res.ok) {
-                console.log(`success`)
+                init()
             }
         }
         )
