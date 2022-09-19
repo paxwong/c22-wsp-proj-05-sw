@@ -3,10 +3,17 @@ async function getData() {
 
     let datas = await res2.json()
     console.log(req.session.user)
-
-    // if(req.session.user.account_type === "")
-
     // let html = ""
+    // if (req.session.user.account_type === "client") {
+
+
+    // } else if (req.session.user.account_type === "killer") {
+
+    // } else if (req.session.user.account_type === "admin" && ) {
+
+    // }
+
+
 
     // for (let data of datas) {
     //     html += `
@@ -36,8 +43,8 @@ async function getData() {
 
     // }
 
-    // const container = document.querySelector('.container')
-    // container.innerHTML = html
+    const container = document.querySelector('.container')
+    container.innerHTML = html
 
 }
 getData()
