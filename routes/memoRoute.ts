@@ -60,7 +60,7 @@ memosRoutes.post('/order', async (req, res) => {
 
 memosRoutes.get('/clients-order', async (req: any, res: any) => {
 	console.log("test")
-	let clientResult = await client.query(`select * from orders join target_list on orders.target_id = target_list.id where status = 'pending'`)
+	let clientResult = await client.query(`select orders.id as id, orders.bounty as bounty, orders.description as description, orders.status as status, orders.description as description, target_list.name as name, target_list.nationality as nationality, target_list.age as age, target_list.company as company, target_list.living_district as location, target_list.remarks as remarks from orders join target_list on orders.target_id = target_list.id where status = 'pending'`)
 	res.json(clientResult)
 
 })
