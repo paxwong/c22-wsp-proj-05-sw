@@ -28,7 +28,20 @@ contractData.addEventListener("submit", async function (e) {
     console.log('form result', result)
 
 
+    if (!res.ok) {
+        alert('Please create target first')
+        location.replace('/create-target.html')
+
+    } else {
+        location.replace('/homepage.html')
+    }
+
 })
+
+
+// submit redirection
+
+
 
 
 // <form class="decision-form">

@@ -7,6 +7,7 @@ import { client } from '../utils/db'
 import { isLoggedin } from '../utils/guard'
 import formidable from 'formidable'
 import fs from "fs"
+import { request } from 'http'
 export const memosRoutes = express.Router()
 
 // memosRoutes.get('/like-count/:memoId', async (req, res) => {
@@ -139,14 +140,24 @@ memosRoutes.post('/order', async (req, res) => {
 		console.log("name", fields.targetName)
 		console.log("form submission", image, fields)
 
-		let result = await client.query(
-			`INSERT INTO orders (bounty, expiration, target_id, liked, created_at, updated_at, status, client_id) values 
-			($1, NOW(), $2, $3, NOW(), NOW(), $4, $5) `,
-			[fields.bounty, fields.targetName, 0, 'pending', 1]
+		let target = await client.query(
+			`select * from target_list where name = $1`, [fields.targetName]
 		)
-		res.json({
-			message: 'Upload successful'
-		})
+		let isMatched = target.rows[0]
+		if (!isMatched) {
+			res.status(400).json({ message: 'invalid target' })
+			return
+		} else {
+			let result = await client.query(
+				`INSERT INTO orders 
+				(bounty, expiration, target_id, liked, created_at, updated_at, status, client_id) values 
+			($1, NOW(), $2, $3, NOW(), NOW(), $4, $5) `,
+				[fields.bounty, target.rows[0].id, 0, 'pending', 1]
+			)
+			res.json({
+				message: 'Upload successful'
+			})
+		}
 	} catch (e) {
 		console.log(e)
 		res.status(400).send('Upload Fail')

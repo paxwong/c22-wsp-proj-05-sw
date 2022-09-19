@@ -188,55 +188,65 @@ const form = formidable({
 	filter: part => part.mimetype?.startsWith('image/') || false,
 })
 
-app.post('/order', async (req, res) => {
-	let name = req.body.name
-	let age = req.body.age
-	let nationality = req.body.nationality
-	let location = req.body.location
-	let description = req.body.missionDescription
-	let bounty = req.body.bounty
+// app.post('/order', async (req, res) => {
 
-	console.log(`server: Target name : ${name} , Mission description: ${description}`)
+// 	console.log(req.body);
+
+// 	let targetName = req.body.targetName
+// 	let age = req.body.age
+// 	let nationality = req.body.nationality
+// 	let location = req.body.location
+// 	let description = req.body.missionDescription
+// 	let bounty = req.body.bounty
 
 
 
-	// const formParse = (req: express.Request) => {
-	// 	return new Promise<any>((resolve, reject) => {
-	// 		// req.body => fields :36
-	// 		form.parse(req, (err, fields, files: Files) => {
-	// 			if (err) {
-	// 				console.log('err in form parsing', err)
-	// 				reject(err)
-	// 			}
-	// 			try {
-	// 				const text = fields.text
-	// 				const fromSocketId = fields.fromSocketId
-	// 				let file = Array.isArray(files.image)
-	// 					? files.image[0]
-	// 					: files.image
-	// 				console.log(file)
-	// 				const filename = file ? file.newFilename : null
+// console.log(`server: Target name : ${name} , Mission description: ${description}`)
 
-	// 				console.log({
-	// 					filename,
-	// 					text
-	// 				})
-	// 				// Get File Name
-	// 				resolve({
-	// 					filename,
-	// 					text,
-	// 					fromSocketId
-	// 				})
-	// 			} catch (error) {
-	// 				console.log('error in form parsing', error)
-	// 				reject(error)
-	// 			}
-	// 		})
-	// 	})
-	// }
-	let contractResult = await client.query(`INSERT INTO target_list (name, age, nationality, living_district, created_at, updated_at) 
-	values ($1, $2, $3, $4, NOW(), NOW()) `, [name, age, nationality, location])
-})
+
+// let contractResult = await client.query(`
+// INSERT INTO target_list (name, age, nationality, living_district, created_at, updated_at) 
+// values ($1, $2, $3, $4, NOW(), NOW()) `,
+// 	[targetName, age, nationality, location])
+
+// res.end('test end')
+
+// const formParse = (req: express.Request) => {
+// 	return new Promise<any>((resolve, reject) => {
+// 		// req.body => fields :36
+// 		form.parse(req, (err, fields, files: Files) => {
+// 			if (err) {
+// 				console.log('err in form parsing', err)
+// 				reject(err)
+// 			}
+// 			try {
+// 				const text = fields.text
+// 				const fromSocketId = fields.fromSocketId
+// 				let file = Array.isArray(files.image)
+// 					? files.image[0]
+// 					: files.image
+// 				console.log(file)
+// 				const filename = file ? file.newFilename : null
+
+// 				console.log({
+// 					filename,
+// 					text
+// 				})
+// 				// Get File Name
+// 				resolve({
+// 					filename,
+// 					text,
+// 					fromSocketId
+// 				})
+// 			} catch (error) {
+// 				console.log('error in form parsing', error)
+// 				reject(error)
+// 			}
+// 		})
+// 	})
+// }
+
+// })
 
 // POST Contracts
 
