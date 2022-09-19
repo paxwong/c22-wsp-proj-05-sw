@@ -10,7 +10,7 @@ signUpButton.addEventListener('click', () => {
 signInButton.addEventListener('click', () => {
     container.classList.remove("right-panel-active");
 });
-
+//signup
 async function signup() {
     const loginForm = document.querySelector('.signup-form');
     loginForm.addEventListener('submit', async function (event) {
