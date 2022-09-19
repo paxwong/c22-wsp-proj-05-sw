@@ -27,14 +27,17 @@ contractData.addEventListener("submit", async function (e) {
     const result = await res.json()
     console.log('form result', result)
 
+    if (req.session) {
+        if (!res.ok) {
+            alert('Please create target first')
+            location.replace('/create-target.html')
 
-    if (!res.ok) {
-        alert('Please create target first')
-        location.replace('/create-target.html')
-
-    } else {
-        location.replace('/homepage.html')
+        } else {
+            location.replace('/homepage.html')
+        }
     }
+
+
 
 })
 
