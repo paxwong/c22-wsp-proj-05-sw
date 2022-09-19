@@ -26,11 +26,12 @@ memosRoutes.post('/order', async (req, res) => {
 			filename: image,
 			fields
 		}: any = await formParseBetter(req)
-		console.log("name", fields.targetName)
-		console.log("form submission", image, fields)
+
+		let { targetName, bounty, missionDescription} = fields
+
 
 		let target = await client.query(
-			`select * from target_list where name = $1`, [fields.targetName]
+			`select * from target_list where name = $1`, [targetName]
 		)
 		let isMatched = target.rows[0]
 		if (!isMatched) {
@@ -39,9 +40,9 @@ memosRoutes.post('/order', async (req, res) => {
 		} else {
 			let result = await client.query(
 				`INSERT INTO orders 
-				(bounty, expiration, target_id, liked, created_at, updated_at, status, description, client_id) values 
-			($1, NOW(), $2, $3, NOW(), NOW(), $4, $5, $6) `,
-				[fields.bounty, target.rows[0].id, 0, 'pending', fields.missionDescription, req.session.id]  //added descriptions
+				(bounty, target_id, created_at, status, description, client_id) values 
+			($1, $2, NOW(), $3, $4, $5) `,
+				[parseInt(bounty), target.rows[0].id, 'pending', missionDescription, req.session.user.id]  //added descriptions
 			)
 			res.json({
 				message: 'Upload successful'

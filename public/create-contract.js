@@ -5,13 +5,13 @@ contractData.addEventListener("submit", async function (e) {
 
     e.preventDefault();
     const form = e.target
-    const formData = new FormData()
+    const formData = new FormData(form)
+    
 
-
-    formData.append('targetName', form.targetName.value)
-    formData.append('bounty', form.bounty.value)
-    formData.append('missionDescription', form.missionDescription.value)
-    formData.append('image', form.image.files[0])
+    // formData.append('targetName', form.targetName.value)
+    // formData.append('bounty', form.bounty.value)
+    // formData.append('missionDescription', form.missionDescription.value)
+    // formData.append('image', form.image.files[0])
 
     // formData.append('text', content)
     // formData.append('image', file)
