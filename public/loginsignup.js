@@ -32,7 +32,7 @@ async function login() {
         })
         if (res.ok) {
             // alert('Login successfully')
-            location.replace('http://localhost:8080/homepage.html')
+            location.replace('/homepage.html')
         }
     })
 }
