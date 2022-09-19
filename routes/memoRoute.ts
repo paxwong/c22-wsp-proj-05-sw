@@ -1,7 +1,7 @@
 import express from 'express'
 import { logger } from '../utils/logger'
 // import jsonfile from 'jsonfile'
-import { io } from '../Utils/setIO'
+// import { io } from '../Utils/setIO'
 import { formParse, formParseBetter } from '../utils/upload'
 import { client } from '../utils/db'
 import { isLoggedin } from '../utils/guard'
@@ -48,6 +48,7 @@ memosRoutes.post('/order', async (req, res) => {
 	}
 })
 
+<<<<<<< HEAD
 // client personal contracts (pending, aprroved)
 
 memosRoutes.get('/clients-order', async (req: any, res: any) => {
@@ -56,3 +57,30 @@ memosRoutes.get('/clients-order', async (req: any, res: any) => {
 	res.json(clientResult)
 
 })
+=======
+
+memosRoutes.post('/target', async (req, res) => {
+		try {
+		// console.log(req)
+		const {
+			filename: image,
+			fields
+		}: any = await formParseBetter(req)
+
+		let {targetName, nationality, age, company, location, remarks} = fields
+
+		await client.query(`
+		INSERT INTO target_list 
+		(name, nationality, age, company, living_district, remarks, created_at) values
+		($1, $2, $3, $4, $5, $6, NOW())`, 
+		[targetName, nationality, !age ? null : age, company, location, remarks])
+		res.status(200).json({message: 'Upload successful'})
+		return;
+	} catch (e) {
+		console.log(e)
+		res.status(400).json({ message: 'Upload Fail'})
+		return
+	}
+})
+
+>>>>>>> e6ce736bf94f8bb5f7a55421f42425d3c6930033

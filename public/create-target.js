@@ -1,31 +1,25 @@
 
 const contractData = document.querySelector("#contract-form");
 contractData.addEventListener("submit", async function (e) {
-    console.log(contractData);
-
+    // console.log(contractData);
+    if (!e.target.targetName){
+        alert('Missing information')
+        return
+    }
     e.preventDefault();
     const form = e.target
-    const formData = new FormData()
+    const formData = new FormData(form)
 
+    // formData.append('targetName', form.targetName.value)
+    // formData.append('age', form.age.value)
+    // formData.append('company', form.company.value)
+    // formData.append('nationality', form.nationality.value)
+    // formData.append('location', form.location.value)
+    // formData.append('remarks', form.remarks.value)
+    // formData.append('image', form.image.files[0])
 
-    formData.append('targetName', form.targetName.value)
-    formData.append('age', form.age.value)
-    formData.append('nationality', form.nationality.value)
-    formData.append('location', form.location.value)
-    formData.append('missionDescription', form.missionDescription.value)
-    formData.append('image', form.image.files[0])
-
-    // formData.append('text', content)
-    // formData.append('image', file)
-
-    console.log(formData);
-
-    const res = await fetch('/memos/order', {
+    const res = await fetch('/memos/target', {
         method: "POST",
-        // headers: {
-        //     "Content-Type": "application/json; charset = utf-8",
-        // },
-        // body: JSON.stringify(contractObject)
         body: formData,
     })
     const result = await res.json()
