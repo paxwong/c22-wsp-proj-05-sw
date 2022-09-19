@@ -5,7 +5,7 @@ import express from 'express'
 const form = formidable({
 	uploadDir,
 	keepExtensions: true,
-	maxFiles: 1,
+	maxFiles: 10,
 	maxFileSize: 52428800,
 	// the default limit is 200KB
 	filter: (part) => part.mimetype?.startsWith('image/') || false
@@ -20,15 +20,15 @@ export const formParseBetter = (req: express.Request) => {
 				reject(err)
 			}
 			try {
-				let file = Array.isArray(files.image)
-					? files.image[0]
-					: files.image
-				const filename = file ? file.newFilename : null
+				// let file = Array.isArray(files.image)
+				// ? files.image[0]
+				// : files.image
+				// const filename = file ? file.newFilename : null
 
 				// Get File Name
 				resolve({
 					fields,
-					filename
+					files
 				})
 			} catch (error) {
 				console.log('error in form parsing', error)

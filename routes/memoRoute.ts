@@ -8,13 +8,14 @@ import { isLoggedin } from '../utils/guard'
 import formidable from 'formidable'
 import fs from "fs"
 import { request } from 'http'
+import { collapseTextChangeRangesAcrossMultipleVersions } from 'typescript'
 export const memosRoutes = express.Router()
 
 
 // Create contracts
 
 memosRoutes.post('/order', async (req, res) => {
-	if (!req.session.user) {
+	if (!req.session['user']) {
 		res.status(401).json({
 			message: 'invalid session'
 		})
@@ -23,9 +24,12 @@ memosRoutes.post('/order', async (req, res) => {
 	try {
 		// console.log(req)
 		const {
-			filename: image,
+			files,
 			fields
-		}: any = await formParseBetter(req)
+		}: any = await formParseBetter(req);
+
+		console.log('files = ', files)
+
 
 		let { targetName, bounty, missionDescription } = fields
 
@@ -42,7 +46,7 @@ memosRoutes.post('/order', async (req, res) => {
 				`INSERT INTO orders 
 				(bounty, target_id, created_at, status, description, client_id) values 
 			($1, $2, NOW(), $3, $4, $5) `,
-				[parseInt(bounty), target.rows[0].id, 'pending', missionDescription, req.session.user.id]  //added descriptions
+				[parseInt(bounty), target.rows[0].id, 'pending', missionDescription, req.session['user'].id]  //added descriptions
 			)
 			res.json({
 				message: 'Upload successful'
