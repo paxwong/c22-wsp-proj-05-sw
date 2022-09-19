@@ -153,8 +153,15 @@ app.post('/counter', async (req, res) => {
 
 app.get('/counter', async (req, res) => {
 	let result = await client.query(`SELECT * from kill_count`)
-	let counter = result.rows[0].count
-	res.json(counter)
+	let counter = result.rows[0]
+	let number = 0
+	if (counter) {
+		number = counter.count
+	}
+	if (!counter) {
+	await client.query(`INSERT INTO kill_count (count) VALUES (0)`)
+}
+	res.json(number)
 })
 
 app.post('/decision', async (req, res) => {
@@ -165,14 +172,12 @@ app.post('/decision', async (req, res) => {
 
 app.post('/userinfo', async (req, res) => {
 	if (!req.session.user) {
-		console.log('invalid')
 		res.status(400).json({
 			message: 'invalid session'
 		})
 		return
 	}
 	if (req.session.user.id) {
-		console.log('valid')
 		res.status(200).json({
 			message: 'redirecting'
 		})

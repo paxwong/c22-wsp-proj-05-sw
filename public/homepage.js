@@ -123,9 +123,9 @@ userinfo.addEventListener('click', async function (event) {
         method: 'POST',
     })
     if (res.ok) {
-        location.replace('http://localhost:8080/chatroom.html') //have session
+        location.replace('/userinformation.html') //have session
     }
     if (!res.ok) {
-        location.replace('http://localhost:8080/loginsignup.html') //no session
+        location.replace('/loginsignup.html') //no session
     }
 })

@@ -48,7 +48,7 @@ memosRoutes.post('/order', async (req, res) => {
 	}
 })
 
-
+<<<<<<< HEAD
 // client personal contracts (pending, aprroved)
 
 memosRoutes.get('/clients-order', async (req: any, res: any) => {
@@ -57,7 +57,7 @@ memosRoutes.get('/clients-order', async (req: any, res: any) => {
 	res.json(clientResult)
 
 })
-
+=======
 
 memosRoutes.post('/target', async (req, res) => {
 	try {
@@ -70,7 +70,7 @@ memosRoutes.post('/target', async (req, res) => {
 		let { targetName, nationality, age, company, location, remarks } = fields
 
 		await client.query(`
-		INSERT INTO target_list 
+		INSERT INTO target_list
 		(name, nationality, age, company, living_district, remarks, created_at) values
 		($1, $2, $3, $4, $5, $6, NOW())`,
 			[targetName, nationality, !age ? null : age, company, location, remarks])
@@ -83,4 +83,4 @@ memosRoutes.post('/target', async (req, res) => {
 	}
 })
 
-// >>>>>>> e6ce736bf94f8bb5f7a55421f42425d3c6930033
+>>>>>>> e6ce736bf94f8bb5f7a55421f42425d3c6930033
