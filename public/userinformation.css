@@ -666,3 +666,57 @@ input[type="radio" i] {
     border-radius: 12px;
     border: solid 1px rgba(25, 169, 162, 0.516);
 }
+
+.welcome{
+    text-align: center;
+    font-size: 3rem;
+}
+
+.name-highlight{
+    color:rgb(33, 214, 205);
+    text-shadow: #fff 0.2px 0.2px;
+}
+
+.contract-container {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    width: 300px;
+    height: 550px;
+    margin: 20px;
+    background-image: linear-gradient(rgb(12, 20, 21), rgb(5, 34, 32));
+    border-radius: 12px;
+    border: solid 1px rgba(25, 169, 162, 0.516);
+}
+
+
+.contract-profile {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-top: 10px;
+}
+
+.target-picture {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    border: solid 1px rgba(25, 169, 162, 0.516);
+}
+
+.target-details {
+    list-style: none;
+    margin-top: 10px;
+    border-top: solid 1px rgba(25, 169, 162, 0.516);
+}
+
+.target-details>li {
+    padding: 10px;
+    margin: 5px;
+}
+
+.previous-cases {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}

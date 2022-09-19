@@ -59,16 +59,15 @@ memosRoutes.post('/order', async (req, res) => {
 	}
 })
 
-// 
-// client personal contracts (pending, aprroved)
-
 memosRoutes.get('/admin-order', async (req: any, res: any) => {
-	// console.log("test")
 	let clientResult = await client.query(`select orders.id as id, orders.bounty as bounty, orders.description as description, orders.status as status, orders.description as description, target_list.name as name, target_list.nationality as nationality, target_list.age as age, target_list.company as company, target_list.living_district as location, target_list.remarks as remarks from orders join target_list on orders.target_id = target_list.id where status = 'pending'`)
 	res.json(clientResult)
-
 })
-// =======
+
+memosRoutes.get('/user-order', async (req: any, res: any) => {
+	let clientResult = await client.query(`select orders.client_id as id, orders.bounty as bounty, orders.description as description, orders.status as status, orders.description as description, target_list.name as name, target_list.nationality as nationality, target_list.age as age, target_list.company as company, target_list.living_district as location, target_list.remarks as remarks from orders join target_list on orders.target_id = target_list.id where orders.client_id = $1`, [req.session.user.id])
+	res.json(clientResult)
+})
 
 memosRoutes.post('/target', async (req, res) => {
 	try {

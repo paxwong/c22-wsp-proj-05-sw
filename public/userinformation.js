@@ -7,52 +7,6 @@ let account = null;
 let signature = null;
 let message = "Signing message in wallet";
 
-async function getData() {
-    let res2 = await fetch('/order')
-
-    let datas = await res2.json()
-    console.log(req.session.user)
-
-    // if(req.session.user.account_type === "")
-
-    // let html = ""
-
-    // for (let data of datas) {
-    //     html += `
-    //     <div class="contract-container">
-    //         <div class="contract-profile">
-    //             <div class="target-picture"></div>
-    //         </div>
-    //         <div class="target-details">
-    //             <li>
-    //                 <div class="target-name">Name: ${data.name}</div>
-    //             </li>
-    //             <li>
-    //                 <div class="target-age">Age: ${data.age}</div>
-    //             </li>
-    //             <li>
-    //                 <div class="target-nationality">Nationality: ${data.nationality}</div>
-    //             </li>
-    //             <li>
-    //                 <div class="target-location">Location: ${data.location}</div>
-    //             </li>
-    //             <li>
-    //                 <div class="description">Mission description: ${data.description}</div>
-    //             </li>
-    //         </div>
-    //     </div>
-    //     `
-
-    // }
-
-    // const container = document.querySelector('.container')
-    // container.innerHTML = html
-
-}
-// getData()
-
-
-
 async function logout() {
     const logout = document.querySelector('.logout');
     logout.addEventListener('click', async function (event) {
@@ -134,11 +88,65 @@ userinfo.addEventListener('click', async function (event) {
 
 window.onload= function() {
     init()
+    getData()
 }
 
 async function init() {
     let result = await fetch('/userinformation')
     result.json().then(function(data) {
-        console.log(data.account_type)
+        console.log(data)
+        document.querySelector('.welcome').innerHTML = `Hi, <span class="name-highlight">${data.username}</span> <br>
+        Welcome to your account profile`
     })
 }
+
+async function getData() {
+    // let res2 = await fetch('/order')
+    // let datas = await res2.json()
+    let userorders = await fetch('/memos/user-order')
+    let datas = await userorders.json()
+    let html = ""
+
+    for (let data of datas.rows) {
+        // console.log(data["bounty"])
+        html += `
+            <div class="contract-container">
+                <div class="contract-profile">
+                    <div class="target-picture"></div>
+                </div>
+                <div class="target-details">
+                    <li>
+                        <div class="target-name">Name: ${data.name}</div>
+                    </li>
+                    <li>
+                        <div class="target-age">Age: ${data.age}</div>
+                    </li>
+                    <li>
+                        <div class="target-nationality">Nationality: ${data.nationality}</div>
+                    </li>
+                    <li>
+                        <div class="target-location">Location: ${data.location}</div>
+                    </li>
+                    <li>
+                        <div class="target-bounty">Bounty: ${data.bounty}</div>
+                    </li>
+                    <li>
+                        <div class="description">Mission Description: ${data.description}</div>
+                    </li>
+                    <li>
+                        <div class="remarks">Target Remark: ${data.remarks}</div>
+                    </li>
+                </div>
+            </div>
+        `
+
+    }
+
+    const container = document.querySelector('.previous-cases')
+    container.innerHTML = html
+}
+
+
+
+
+
