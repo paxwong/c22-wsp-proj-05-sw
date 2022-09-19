@@ -46,7 +46,7 @@ async function getData() {
     container.innerHTML = html
 
 }
-getData()
+// getData()
 
 
 
