@@ -14,3 +14,7 @@ export async function checkPassword(
 	const match = await bcrypt.compare(plainPassword, hashPassword)
 	return match
 }
+
+// create hash password function:
+// hashPassword('whiteclothesguy').then(function(result){
+// console.log(result)})
