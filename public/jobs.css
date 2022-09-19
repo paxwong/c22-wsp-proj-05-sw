@@ -1,11 +1,10 @@
 body {
-    font-family: 'Cinzel', serif;
     width: 100vw;
     height: 100vh;
     background-color: rgb(12, 20, 21);
     /* color: rgb(16, 79, 77) */
     color: rgb(25, 169, 161);
-    /* font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif; */
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
 }
 
 .header {
@@ -84,8 +83,6 @@ div.navbar {
     list-style-type: none;
     display: flex;
     justify-content: space-between;
-    align-items: flex-end;
-    align-content: flex-end;
     margin-left: -45px;
 
 }
@@ -96,10 +93,9 @@ div.navbar {
 }
 
 .navbar>ul>li:hover {
-    /* width: 70px; */
-    /* color:red !important; */
-    background-color: transparent;
-    /* box-shadow: 4px 4px 10px rgb(80, 227, 148); */
+    width: 80px;
+    background-color: rgb(12, 20, 21);
+    box-shadow: 4px 4px 10px rgb(80, 227, 148);
     border-radius: 6px;
 }
 
@@ -111,22 +107,11 @@ a:-webkit-any-link {
     color: rgb(25, 169, 161);
     cursor: pointer;
     text-decoration: none;
-    background-color: transparent;
-    transition: 0.2s all;
 }
 
-a:-webkit-any-link:hover {
-    font-size: 1.2rem;
-    /* font-weight: bold; */
-    color: rgb(33, 214, 205);
-    text-shadow: 0.1px 0.1px #fff;
-    transition: 0.2s all;
-
-}
-
-/* .container {
-    width: 100%;
-    height: 100%;
+.container {
+    /* width: 100%;
+    height: 100%; */
     padding: 60px;
     margin-top: 150px;
     text-decoration: rgb(25, 169, 161);
@@ -135,7 +120,7 @@ a:-webkit-any-link:hover {
     flex-wrap: wrap;
     justify-content: center;
     align-items: center;
-} */
+}
 
 .wallet {
     width: 160px;
@@ -151,7 +136,7 @@ a:-webkit-any-link:hover {
     background-color: rgb(12, 20, 21);
 }
 
-/* .wallet::before {
+.wallet::before {
     content: "";
     background-image: conic-gradient(rgb(25, 169, 161) 20deg,
             transparent 120deg);
@@ -159,7 +144,7 @@ a:-webkit-any-link:hover {
     height: 60px;
     position: absolute;
     animation: animate 2s linear infinite;
-} */
+}
 
 @keyframes animate {
     0% {
@@ -172,7 +157,7 @@ a:-webkit-any-link:hover {
 }
 
 .wallet::after {
-    /* content: "Connect to wallet"; */
+    content: "Connect to wallet";
     width: 150px;
     height: 52px;
     position: absolute;
@@ -188,4 +173,113 @@ a:-webkit-any-link:hover {
 
 .wallet-text {
     color: rgb(80, 227, 148);
+}
+
+h3 {
+    color: rgb(25, 169, 161);
+    text-align: center;
+    font-size: 28px;
+}
+
+.container {
+    display: flex;
+    flex-wrap: wrap;
+
+}
+
+.contract-container {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    width: 300px;
+    height: 550px;
+    margin: 20px;
+    background-image: linear-gradient(rgb(12, 20, 21), rgb(5, 34, 32));
+    border-radius: 12px;
+    border: solid 1px rgba(25, 169, 162, 0.516);
+}
+
+.contract-profile {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-top: 10px;
+}
+
+.target-picture {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    border: solid 1px rgba(25, 169, 162, 0.516);
+}
+
+.target-details {
+    list-style: none;
+    margin-top: 10px;
+    border-top: solid 1px rgba(25, 169, 162, 0.516);
+}
+
+.target-details>li {
+    padding: 10px;
+    margin: 5px;
+}
+
+/* * {
+    box-sizing: border-box;
+} */
+
+/* The popup form - hidden by default */
+.form-popup {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border: 3px solid rgba(25, 169, 162, 0.516);
+    z-index: 9;
+    padding: 50px;
+    text-align: center;
+    background-color: white;
+
+    /* width: 400px; */
+    /* border-radius: 10% */
+}
+
+/* .form-popup-container{
+    position: relative;
+} */
+
+.bi-x-lg {
+    position: absolute;
+    top: 5%;
+    right: 3%;
+    font-size: 2rem;
+    font-weight: 600;
+    color: black;
+}
+
+.bi-x-lg:hover {
+    cursor: pointer;
+}
+
+.metamask {
+    display: flex;
+    justify-content: space-between;
+    font-size: 2rem;
+}
+
+.metamask:hover {
+    cursor: pointer;
+}
+
+.metamask img {
+    width: 5%;
+    height: 5%;
+}
+
+.wallet-opener {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    width: 90%;
 }

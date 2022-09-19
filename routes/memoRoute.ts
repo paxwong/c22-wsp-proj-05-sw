@@ -69,6 +69,17 @@ memosRoutes.get('/user-order', async (req: any, res: any) => {
 	res.json(clientResult)
 })
 
+
+//killer side looking for contracts
+
+memosRoutes.get('/killer-order', async (req: any, res: any) => {
+
+	let killerResult = await client.query(`select orders.id as id, orders.bounty as bounty, orders.description as description, orders.status as status, orders.description as description, target_list.name as name, target_list.nationality as nationality, target_list.age as age, target_list.company as company, target_list.living_district as location, target_list.remarks as remarks from orders join target_list on orders.target_id = target_list.id where status = 'approved'`)
+	res.json(killerResult)
+
+})
+
+
 memosRoutes.post('/target', async (req, res) => {
 	try {
 		// console.log(req)
