@@ -1,7 +1,7 @@
 const socket = io.connect();
 let xButton = document.querySelector('.bi-x-lg');
 let connectButton = document.querySelector('.metamask')
-
+let userinfo = document.querySelector('.bi-person-bounding-box')
 
 let account = null;
 let signature = null;
@@ -116,3 +116,16 @@ connectButton.addEventListener('click', function () {
 
 
 // signMessage()
+
+userinfo.addEventListener('click', async function (event) {
+    event.preventDefault();
+        const res = await fetch('/userinfo', {
+            method: 'POST',
+        })
+        if (res.ok) {
+            location.replace('http://localhost:8080/chatroom.html') //have session
+        }
+        if (!res.ok) {
+            location.replace('http://localhost:8080/loginsignup.html') //no session
+        }
+})

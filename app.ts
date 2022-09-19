@@ -45,7 +45,6 @@ io.use((socket, next) => {
 	)
 });
 
-
 // SIGN UP account with unique referral code, will fail if referral code doesn't exist
 app.post('/signup/killer', async (req, res) => {
 	const username = req.body.username
@@ -159,7 +158,24 @@ app.get('/counter', async (req, res) => {
 app.post('/decision', async (req, res) => {
 	const id = req.body.id
 	const status = req.body.status
-	await client.query('UPDATE target_list SET status = $1 WHERE id = $2', [status, id])	
+	await client.query('UPDATE target_list SET status = $1 WHERE id = $2', [status, id])
+})
+
+app.post('/userinfo', async (req, res) => {
+	if (!req.session.user) {
+		console.log('invalid')
+		res.status(400).json({
+			message: 'invalid session'
+		})
+		return
+	}
+	if (req.session.user.id) {
+		console.log('valid')
+		res.status(200).json({
+			message: 'redirecting'
+		})
+		return
+	}
 })
 
 //formidable
