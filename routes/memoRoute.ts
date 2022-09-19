@@ -39,9 +39,9 @@ memosRoutes.post('/order', async (req, res) => {
 		} else {
 			let result = await client.query(
 				`INSERT INTO orders 
-				(bounty, target_id, created_at, status, client_id) values 
-			($1, $2, NOW(), $3, $4) `,
-				[fields.bounty, target.rows[0].id, 'pending', req.session.user.id]
+				(bounty, expiration, target_id, liked, created_at, updated_at, status, description, client_id) values 
+			($1, NOW(), $2, $3, NOW(), NOW(), $4, $5, $6) `,
+				[fields.bounty, target.rows[0].id, 0, 'pending', fields.missionDescription, req.session.id]  //added descriptions
 			)
 			res.json({
 				message: 'Upload successful'
@@ -54,6 +54,7 @@ memosRoutes.post('/order', async (req, res) => {
 	}
 })
 
+// 
 // client personal contracts (pending, aprroved)
 
 memosRoutes.get('/clients-order', async (req: any, res: any) => {
@@ -62,9 +63,10 @@ memosRoutes.get('/clients-order', async (req: any, res: any) => {
 	res.json(clientResult)
 
 })
+// =======
 
 memosRoutes.post('/target', async (req, res) => {
-		try {
+	try {
 		// console.log(req)
 		const {
 			filename: image,
@@ -86,4 +88,8 @@ memosRoutes.post('/target', async (req, res) => {
 		return
 	}
 })
+
+
+
+
 
