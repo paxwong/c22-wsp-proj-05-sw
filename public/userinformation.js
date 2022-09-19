@@ -124,7 +124,7 @@ userinfo.addEventListener('click', async function (event) {
             method: 'POST',
         })
         if (res.ok) {
-            await location.replace('/userinformation.html')
+            location.replace('/userinformation.html')
               //have session
         }
         if (!res.ok) {

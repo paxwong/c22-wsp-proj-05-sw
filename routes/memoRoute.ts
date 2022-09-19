@@ -48,7 +48,6 @@ memosRoutes.post('/order', async (req, res) => {
 	}
 })
 
-<<<<<<< HEAD
 // client personal contracts (pending, aprroved)
 
 memosRoutes.get('/clients-order', async (req: any, res: any) => {
@@ -57,7 +56,6 @@ memosRoutes.get('/clients-order', async (req: any, res: any) => {
 	res.json(clientResult)
 
 })
-=======
 
 memosRoutes.post('/target', async (req, res) => {
 		try {
@@ -83,4 +81,3 @@ memosRoutes.post('/target', async (req, res) => {
 	}
 })
 
->>>>>>> e6ce736bf94f8bb5f7a55421f42425d3c6930033

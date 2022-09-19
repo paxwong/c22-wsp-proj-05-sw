@@ -171,14 +171,12 @@ app.post('/decision', async (req, res) => {
 
 app.post('/userinfo', async (req, res) => {
 	if (!req.session.user) {
-		console.log('invalid')
 		res.status(400).json({
 			message: 'invalid session'
 		})
 		return
 	}
 	if (req.session.user.id) {
-		console.log('valid')
 		res.status(200).json({
 			message: 'redirecting'
 		})
