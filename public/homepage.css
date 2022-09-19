@@ -84,6 +84,8 @@ div.navbar {
     list-style-type: none;
     display: flex;
     justify-content: space-between;
+    align-items: flex-end;
+    align-content: flex-end;
     margin-left: -45px;
 
 }
@@ -94,7 +96,8 @@ div.navbar {
 }
 
 .navbar>ul>li:hover {
-    width: 70px;
+    /* width: 70px; */
+    /* color:red !important; */
     background-color: transparent;
     /* box-shadow: 4px 4px 10px rgb(80, 227, 148); */
     border-radius: 6px;
@@ -109,6 +112,16 @@ a:-webkit-any-link {
     cursor: pointer;
     text-decoration: none;
     background-color: transparent;
+    transition: 0.2s all;
+}
+
+a:-webkit-any-link:hover {
+    font-size: 1.2rem;
+    /* font-weight: bold; */
+    color: rgb(33, 214, 205);
+    text-shadow: 0.1px 0.1px #fff;
+    transition: 0.2s all;
+
 }
 
 /* .container {

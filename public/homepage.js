@@ -58,8 +58,8 @@ async function logout() {
             method: 'DELETE',
         })
         if (res.ok) {
-            alert('Logout successfully')
-            // location.replace('http://localhost:8080/chatroom.html')
+            // alert('Logout successfully')
+            location.replace('http://localhost:8080/index.html')
         }
     })
 }

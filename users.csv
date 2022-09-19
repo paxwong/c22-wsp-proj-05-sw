@@ -1,0 +1,9 @@
+﻿username,password,created_at,updated_at,account_type,task_completion
+Admin,group5,NOW(),NOW(),admin,0
+Client,client,NOW(),NOW(),client,0
+Popo,popo,NOW(),NOW(),client,0
+Scream,scream,NOW(),NOW(),killer,0
+Joker,joker,NOW(),NOW(),killer,0
+John_Wick,johnwick,NOW(),NOW(),killer,0
+Matrix_Leo,matrixleo,NOW(),NOW(),killer,0
+Whiteclothguy,whiteclothguy,NOW(),NOW(),killer,0
