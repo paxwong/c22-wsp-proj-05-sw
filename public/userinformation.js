@@ -62,7 +62,7 @@ async function logout() {
         })
         if (res.ok) {
             // alert('Logout successfully')
-            location.replace('/index.html')
+            location.replace('http://localhost:8080/index.html')
         }
     })
 }
@@ -117,15 +117,28 @@ connectButton.addEventListener('click', function () {
 
 // signMessage()
 
+
 userinfo.addEventListener('click', async function (event) {
     event.preventDefault();
         const res = await fetch('/userinfo', {
             method: 'POST',
         })
         if (res.ok) {
-            location.replace('/userinformation.html') //have session
+            await location.replace('/userinformation.html')
+              //have session
         }
         if (!res.ok) {
             location.replace('/loginsignup.html') //no session
         }
 })
+
+window.onload(
+    init()
+)
+
+async function init() {
+    let result = await fetch('/userinformation')
+    result.json().then(function(data) {
+        console.log(data.account_type)
+    })
+}

@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="create.css">
+    <link rel="stylesheet" href="create-target.css">
     <title>Create Contract</title>
 </head>
 
@@ -13,13 +13,18 @@
     <div class="contract-container">
         <form id="contract-form">
             <div class="target-name">
-                <label for="targetName">Target Name :
+                <label for="targetName">Target Name <span class="red">*</span>:
                     <input type="text" name="targetName" id="targetName" />
                 </label>
             </div>
             <div class="age">
                 <label for="age">Age :
                     <input type="number" name="age" id="age" />
+                </label>
+            </div>
+            <div class="company">
+                <label for="company">Company :
+                    <input type="text" name="company" id="company" />
                 </label>
             </div>
             <div class="nationality">
@@ -32,14 +37,9 @@
                     <input type="text" name="location" id="location" />
                 </label>
             </div>
-            <div class="mission-description">
-                <label for="mission-description">Mission description :
-                    <textarea name="missionDescription" id="missionDescription"></textarea>
-                </label>
-            </div>
-            <div class="bounty">
-                <label for="bounty">Target Bounty :
-                    <input type="number" name="bounty" id="bounty" />
+            <div class="remarks">
+                <label for="remarks">Target remarks :
+                    <textarea name="remarks" id="remarks"></textarea>
                 </label>
             </div>
             <div class="profile">
@@ -56,7 +56,7 @@
             <div></div>
         </div>
     </div>
-    <script src="/create.js"></script>
+    <script src="/create-target.js"></script>
     <script src="/socket.io/socket.io.js"></script>
 </body>
 
