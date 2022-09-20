@@ -2,135 +2,100 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500&family=Dosis&family=League+Gothic&display=swap"
-        rel="stylesheet">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.css" />
-    <link rel="stylesheet"
-        href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.9.1/font/bootstrap-icons.min.css"
-        integrity="sha512-5PV92qsds/16vyYIJo3T/As4m2d8b6oWYfoqV+vtizRB6KhF1F9kYzWzQmsO6T3z3QG2Xdhrx7FQ+5R1LiQdUA=="
-        crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css"
-        integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous" />
-    </head>    
-    <link rel="stylesheet" href="homepage.css">
-    <!-- <link rel="stylesheet" href="pop-up-chat.css"> -->
-    <title>Homepage</title>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500&family=Dosis&family=League+Gothic&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.css" />
+  <link rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.9.1/font/bootstrap-icons.min.css"
+    integrity="sha512-5PV92qsds/16vyYIJo3T/As4m2d8b6oWYfoqV+vtizRB6KhF1F9kYzWzQmsO6T3z3QG2Xdhrx7FQ+5R1LiQdUA=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css"
+    integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous" />
+</head>
+<link rel="stylesheet" href="homepage.css">
+<!-- <link rel="stylesheet" href="pop-up-chat.css"> -->
+<title>Homepage</title>
 </head>
 
 <body>
-    <div class="form-popup" id="wallet-login">
-        <div class="form-popup-container">
-            <h1>Select wallet</h1>
-            <button class="metamask"><img src="metamask.png" /> Connect to Metamask</button>
-            <i class="bi bi-x-lg"></i>
-        </div>
+  <div class="form-popup" id="wallet-login">
+    <div class="form-popup-container">
+      <h1>Select wallet</h1>
+      <button class="metamask"><img src="metamask.png" /> Connect to Metamask</button>
+      <i class="bi bi-x-lg"></i>
     </div>
-    <div class="header">
-        <div class="header-content">
-            <div class="header-logo">
+  </div>
+  <div class="header">
+    <div class="header-content">
+      <div class="header-logo">
 
-                <div class="select-bar"><i class="bi bi-list"></i>
-                    <div class="select-bar-sub-menu">
-                        <ul>
-                            <li><a href="#">Profile</a></li>
-                            <li><a href="#" class="logout">Logout</a></li>
-                        </ul>
-                    </div>
-                </div>
-
-
-                <div class="logo"><i class="bi bi-person-bounding-box"></i></div>
-            </div>
-            <div class="navbar">
-                <ul>
-                    <li><a class="creative_link" href="/homepage.html">Home</a></li>
-                    <li><a class="creative_link" href="/jobs.html">Jobs</a></li>
-                    <li><a class="creative_link" href="/create-contract.html">Contracts</a></li>
-
-                </ul>
-            </div>
-            <div class="wallet">
-                <a href="#" class="wallet-opener">
-                    <div class="wallet-text">Connect to </div>
-                    <div class="wallet-address">Wallet</div>
-                </a>
-            </div>
-        </div>
-    </div>
-
-    <div class="container">
-        <div class="container-carousel">
-            <input class="button-carousel" type="radio" name="position" checked />
-            <input class="button-carousel" type="radio" name="position" />
-            <input class="button-carousel" type="radio" name="position" />
-            <input class="button-carousel" type="radio" name="position" />
-            <input class="button-carousel" type="radio" name="position" />
-            <main id="carousel">
-                <div class="item"></div>
-                <div class="item"></div>
-                <div class="item"></div>
-                <div class="item"></div>
-                <div class="item"></div>
-            </main>
-        </div>
-    </div>
-
-    <div></div>
-
-
-
-
-    <!-- //chatbox -->
-    <div id="chat-bubble">
-        <div class="chat-container">
-          <div class="chat-header">
-            <div class="user-avatar" onclick="openChatBubble()">
-              <div class="img-container">
-                <img src="https://source.unsplash.com/random/35x35">
-              </div>
-              <div class="user-status-info">
-                <div>Chatroom</div>
-                <p>Active now</p>
-              </div>
-            </div>
-
-            <a href="#" onclick="openChatBubble()">
-              <img src="./icons/close.svg">
-            </a>
-            </nav>
+        <div class="select-bar"><i class="bi bi-list"></i>
+          <div class="select-bar-sub-menu">
+            <ul>
+              <li><a href="#">Profile</a></li>
+              <li><a href="#" class="logout">Logout</a></li>
+            </ul>
           </div>
         </div>
-    
-        <div class="chat-body">
-          <div class="sender-other">
-            <div class="chat-messages"></div>
-          </div>
-    
-          <div class="chat-form-container">
-            <form id="chat-form">
-              <input name="message" id="msg" type="text" placeholder="Type a message..." required autocomplete="off" />
-              <button class="btn" type="submit"><i class="fas fa-paper-plane"></i></button>
-            </form>
-          </div>
-        </div>
+
+
+        <div class="logo"><i class="bi bi-person-bounding-box"></i></div>
       </div>
-      </div>
-      
-    <!-- //chatbox -->
+      <div class="navbar">
+        <ul>
+          <li><a class="creative_link" href="/homepage.html">Home</a></li>
+          <li><a class="creative_link" href="/jobs.html">Jobs</a></li>
+          <li><a class="creative_link" href="/create-contract.html">Contracts</a></li>
 
+        </ul>
+      </div>
+      <div class="wallet">
+        <a href="#" class="wallet-opener">
+          <div class="wallet-text">Connect to </div>
+          <div class="wallet-address">Wallet</div>
+        </a>
+      </div>
     </div>
-     <script src="https://cdnjs.cloudflare.com/ajax/libs/qs/6.9.2/qs.min.js"
-        integrity="sha256-TDxXjkAUay70ae/QJBEpGKkpVslXaHHayklIVglFRT4=" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/web3@latest/dist/web3.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.js"></script>
-    <script src="/socket.io/socket.io.js"></script>
-    <script src="/homepage.js"></script>
+  </div>
+
+  <div class="container">
+    <div class="container-carousel">
+      <input class="button-carousel" type="radio" name="position" checked />
+      <input class="button-carousel" type="radio" name="position" />
+      <input class="button-carousel" type="radio" name="position" />
+      <input class="button-carousel" type="radio" name="position" />
+      <input class="button-carousel" type="radio" name="position" />
+      <main id="carousel">
+        <div class="item"></div>
+        <div class="item"></div>
+        <div class="item"></div>
+        <div class="item"></div>
+        <div class="item"></div>
+      </main>
+    </div>
+  </div>
+
+  <div></div>
+
+
+
+
+  <!-- //chatbox -->
+  <div class="chatchatchat">
+    
+  </div>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/qs/6.9.2/qs.min.js"
+    integrity="sha256-TDxXjkAUay70ae/QJBEpGKkpVslXaHHayklIVglFRT4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/web3@latest/dist/web3.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.js"></script>
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="/homepage.js"></script>
 
 </body>
 

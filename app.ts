@@ -171,20 +171,20 @@ app.post('/decision', async (req, res) => {
 	res.status(200).json({message: 'Success'})
 })
 
-app.post('/userinfo', async (req, res) => {
-	if (!req.session.user) {
-		res.status(400).json({
-			message: 'invalid session'
-		})
-		return
-	}
-	if (req.session.user.id) {
-		res.status(200).json({
-			message: 'redirecting'
-		})
-		return
-	}
-})
+// app.post('/userinfo', async (req, res) => {
+// 	if (!req.session.user) {
+// 		res.status(400).json({
+// 			message: 'invalid session'
+// 		})
+// 		return
+// 	}
+// 	if (req.session.user.id) {
+// 		res.status(200).json({
+// 			message: 'redirecting'
+// 		})
+// 		return
+// 	}
+// })
 
 app.get('/userinformation', async (req, res) => {
 		if (!req.session.user) {
