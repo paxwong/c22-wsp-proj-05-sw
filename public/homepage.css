@@ -8,6 +8,7 @@ body {
     /* font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif; */
 }
 
+
 .header {
     height: 200px;
 }
@@ -19,7 +20,7 @@ body {
     align-items: center;
     background-color: rgb(12, 20, 21);
     padding: 30px;
-    position: fixed;
+    position: relative;
     top: 0;
     left: 0;
     right: 0;
@@ -191,13 +192,8 @@ a:-webkit-any-link:hover {
     color: rgb(80, 227, 148);
 }
 
-/* h3 {
-    color: rgb(25, 169, 161);
-    text-align: center;
-    font-size: 28px;
-}
 
-.container {
+/* .container {
     display: flex;
     flex-wrap: wrap;
 
@@ -209,7 +205,7 @@ a:-webkit-any-link:hover {
     flex-direction: column;
     width: 300px;
     height: 500px;
-    margin: 20px;
+
     background-image: linear-gradient(rgb(12, 20, 21), rgb(5, 34, 32));
     border-radius: 12px;
     border: solid 1px rgba(25, 169, 162, 0.516);
@@ -223,21 +219,31 @@ a:-webkit-any-link:hover {
 }
 
 .target-picture {
-    width: 150px;
-    height: 150px;
+    position: relative;
+    width: 230px;
+    height: 230px;
     border-radius: 50%;
     border: solid 1px rgba(25, 169, 162, 0.516);
 }
 
+.target-picture>img {
+
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+}
+
 .target-details {
     list-style: none;
-    margin-top: 10px;
+    margin-top: 20px;
     border-top: solid 1px rgba(25, 169, 162, 0.516);
 }
 
 .target-details>li {
     padding: 10px;
-    margin: 5px;
+
+    margin-top: 10px;
+    margin-left: 10px;
 } */
 
 * {
@@ -545,11 +551,15 @@ a:-webkit-any-link:hover {
 
 /* carousel */
 
+.container {
+    position: relative;
+}
+
 .container-carousel {
     height: 600px;
     margin: 0;
     display: grid;
-    grid-template-rows: 500px 100px;
+    grid-template-rows: 600px 100px;
     grid-template-columns: 1fr 30px 30px 30px 30px 30px 1fr;
     align-items: center;
     justify-items: center;
@@ -560,7 +570,7 @@ main#carousel {
     grid-row: 1 / 2;
     grid-column: 1 / 8;
     width: 1200px;
-    height: 500px;
+    height: 600px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -580,14 +590,54 @@ div.item {
     justify-content: center;
     align-items: center;
     width: 300px;
-    height: 400px;
-    background-color: coral;
+    height: 500px;
     --r: calc(var(--position) - var(--offset));
     --abs: max(calc(var(--r) * -1), var(--r));
     transition: all 0.25s linear;
     transform: rotateY(calc(-10deg * var(--r))) translateX(calc(-300px * var(--r)));
     z-index: calc((var(--position) - var(--abs)));
+    background-image: linear-gradient(rgb(12, 20, 21), rgb(5, 34, 32));
+    border-radius: 12px;
+    border: solid 1px rgba(25, 169, 162, 0.516);
+
+    /* display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    width: 300px;
+    height: 550px;
+    margin: 20px;
+    background-image: linear-gradient(rgb(12, 20, 21), rgb(5, 34, 32));
+    border-radius: 12px;
+    border: solid 1px rgba(25, 169, 162, 0.516); */
 }
+
+h1 {
+    text-align: center;
+}
+
+.item-image {
+    height: 230px;
+    width: 230px;
+    border-radius: 50%;
+    margin-bottom: 100px;
+}
+
+.item-image>img {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    padding: 5px;
+}
+
+.item-name {
+    text-align: center;
+    margin-top: 5px;
+}
+
+.item-special {
+    margin-top: 10px;
+}
+
 
 div.item:nth-of-type(1) {
     --offset: 1;
@@ -695,10 +745,4 @@ input[type="radio" i] {
     background-image: linear-gradient(rgb(12, 20, 21), rgb(5, 34, 32));
     border-radius: 12px;
     border: solid 1px rgba(25, 169, 162, 0.516);
-}
-
-.item>img {
-    width: 200px;
-    height: 200px;
-
 }
