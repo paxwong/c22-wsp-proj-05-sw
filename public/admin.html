@@ -15,6 +15,13 @@
 </head>
 
 <body>
+    <div class="form-popup" id="wallet-login">
+        <div class="form-popup-container">
+            <h1>Select wallet</h1>
+            <button class="metamask"><img src="metamask.png" /> Connect to Metamask</button>
+            <i class="bi bi-x-lg"></i>
+        </div>
+    </div>
     <div class="header">
         <div class="header-content">
             <div class="header-logo">
@@ -23,7 +30,7 @@
                     <div class="select-bar-sub-menu">
                         <ul>
                             <li><a href="#">Profile</a></li>
-                            <li><a href="#">Logout</a></li>
+                            <li><a href="#" class="logout">Logout</a></li>
                         </ul>
                     </div>
                 </div>
@@ -33,14 +40,16 @@
             </div>
             <div class="navbar">
                 <ul>
-                    <li><a class="creative_link" href="#">Home</a></li>
-                    <li><a class="creative_link" href="#">Jobs</a></li>
-                    <li><a class="creative_link" href="#">Contracts</a></li>
+                    <li><a class="creative_link" href="/homepage.html">Home</a></li>
+                    <li><a class="creative_link" href="/jobs.html">Jobs</a></li>
+                    <li><a class="creative_link" href="/create-contract.html">Contracts</a></li>
+
                 </ul>
             </div>
             <div class="wallet">
                 <a href="#" class="wallet-opener">
-                    <!-- <div class="wallet-text">Connect to Wallet <i class="bi bi-wallet2"></i></div> -->
+                    <div class="wallet-text">Connect to </div>
+                    <div class="wallet-address">Wallet</div>
                 </a>
             </div>
         </div>

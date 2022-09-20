@@ -121,6 +121,7 @@ a:-webkit-any-link:hover {
     color: rgb(33, 214, 205);
     text-shadow: 0.1px 0.1px #fff;
     transition: 0.2s all;
+    background-color: transparent;
 
 }
 
@@ -500,7 +501,7 @@ a:-webkit-any-link:hover {
     max-height: 200px;
     width: 300px;
     overflow-y: scroll;
-    
+
 }
 
 .chat-messages .message {
