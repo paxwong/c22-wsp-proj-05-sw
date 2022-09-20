@@ -240,8 +240,15 @@ userRoutes.post("/admin/chat", async(req, res)=>{
 	let channel = req.session?.user?.username
 	// console.log(message);
 	
+	if (!channel){
+		res.status(400).json({
+			message:"Login to chat"
+		})
+	}
+	if (channel){
 	io.emit('private_msg', `${channel}: ${message}`)
 	// io.to(channel).emit('private_msg', `${channel}: ${message}`)
 	res.json({channel})
 	return
+	}
 })
