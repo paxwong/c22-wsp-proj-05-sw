@@ -74,26 +74,26 @@ connectButton.addEventListener('click', function () {
 
 userinfo.addEventListener('click', async function (event) {
     event.preventDefault();
-        const res = await fetch('/userinfo', {
-            method: 'POST',
-        })
-        if (res.ok) {
-            location.replace('/userinformation.html')
-              //have session
-        }
-        if (!res.ok) {
-            location.replace('/loginsignup.html') //no session
-        }
+    const res = await fetch('/userinfo', {
+        method: 'POST',
+    })
+    if (res.ok) {
+        location.replace('/userinformation.html')
+        //have session
+    }
+    if (!res.ok) {
+        location.replace('/loginsignup.html') //no session
+    }
 })
 
-window.onload= function() {
+window.onload = function () {
     init()
     getData()
 }
 
 async function init() {
     let result = await fetch('/userinformation')
-    result.json().then(function(data) {
+    result.json().then(function (data) {
         console.log(data)
         document.querySelector('.welcome').innerHTML = `Hi, <span class="name-highlight">${data.username}</span> <br>
         Welcome to your account profile`
@@ -109,7 +109,7 @@ async function getData() {
 
     for (let data of datas.rows) {
         // console.log(data["bounty"])
-        html += `
+        html +=`
             <div class="contract-container">
                 <div class="contract-profile">
                     <div class="target-picture"></div>
@@ -135,6 +135,9 @@ async function getData() {
                     </li>
                     <li>
                         <div class="remarks">Target Remark: ${data.remarks}</div>
+                    </li>
+                    <li>
+                    <div class="${data.status}">${data.status}</div>
                     </li>
                 </div>
             </div>
