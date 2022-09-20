@@ -62,6 +62,15 @@ CREATE TABLE referral (
     FOREIGN KEY (killer_id) REFERENCES users(id)
 );
 
+CREATE TABLE evidence (
+    id SERIAL PRIMARY KEY,
+    photo VARCHAR(255) NOT NULL,
+    order_id INTEGER NOT NULL,
+    killer_id INTEGER NOT NULL,
+    FOREIGN KEY (killer_id) REFERENCES users(id),
+    FOREIGN KEY (order_id) REFERENCES orders(id)
+);
+
 -- NOT USING / FOR FUTURE USES
 -- CREATE TABLE skills (
 --     id SERIAL PRIMARY KEY,

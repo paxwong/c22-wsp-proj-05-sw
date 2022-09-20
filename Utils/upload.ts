@@ -20,15 +20,16 @@ export const formParseBetter = (req: express.Request) => {
 				reject(err)
 			}
 			try {
-				// let file = Array.isArray(files.image)
-				// ? files.image[0]
-				// : files.image
-				// const filename = file ? file.newFilename : null
+				let file = Array.isArray(files.image)
+				? files.image[0]
+				: files.image
+				const filename = file ? file.newFilename : null
 
 				// Get File Name
 				resolve({
 					fields,
-					files
+					files,
+					filename
 				})
 			} catch (error) {
 				console.log('error in form parsing', error)

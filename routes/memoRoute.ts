@@ -64,6 +64,40 @@ memosRoutes.get('/admin-order', async (req: any, res: any) => {
 	res.json(clientResult)
 })
 
+memosRoutes.get('/completedJobs', async (req: any, res: any) => {
+	let completedCases = await client.query(`select orders.id as id, orders.bounty as bounty, orders.description as description, orders.status as status, orders.description as description, target_list.name as name, target_list.nationality as nationality, target_list.age as age, target_list.company as company, target_list.living_district as location, target_list.remarks as remarks from orders join target_list on orders.target_id = target_list.id where status = 'completed'`)
+	res.json(completedCases)
+})
+
+memosRoutes.get('/presentJobs', async (req: any, res: any) => {
+	if (!req.session.user || req.session.user.account_type === 'client') {
+		res.status(401).json({ message: 'Unable to retrieve' })
+		return
+	}
+
+	let pendingCases = await client.query(`select orders.id as id, orders.bounty as bounty, orders.description as description, orders.status as status, orders.description as description, target_list.name as name, target_list.nationality as nationality, target_list.age as age, target_list.company as company, target_list.living_district as location, target_list.remarks as remarks from orders join target_list on orders.target_id = target_list.id where status = 'pending'`)
+	res.json(pendingCases)
+})
+
+memosRoutes.post('/evidences', async (req, res) => {
+	try {
+		// console.log(req)
+		const {
+			files,
+			fields,
+			filename
+		}: any = await formParseBetter(req);
+
+		console.log(filename)
+
+
+		// console.log('files = ', filename)
+	} catch (e) {
+		console.log(e)
+		return
+	}
+})
+
 memosRoutes.get('/user-order', async (req: any, res: any) => {
 	let clientResult = await client.query(`select orders.client_id as id, orders.bounty as bounty, orders.description as description, orders.status as status, orders.description as description, target_list.name as name, target_list.nationality as nationality, target_list.age as age, target_list.company as company, target_list.living_district as location, target_list.remarks as remarks from orders join target_list on orders.target_id = target_list.id where orders.client_id = $1`, [req.session.user.id])
 	res.json(clientResult)
