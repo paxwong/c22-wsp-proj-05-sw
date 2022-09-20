@@ -303,19 +303,8 @@ app.get('/session', (req, res) => {
 // app.use(grantExpress as express.RequestHandler)
 app.use('/user', userRoutes)
 
-app.use((req, res, next) => {
-	console.log('be4', req.method, req.path)
-	next();
-})
 app.use('/memos', memosRoutes)
 
-
-
-
-app.use((req, res, next) => {
-	console.log('after', req.method, req.path)
-	next();
-})
 app.get('/test-logger', (req, res) => {
 	logger.error('This is error')
 	logger.warn('This is warn')
