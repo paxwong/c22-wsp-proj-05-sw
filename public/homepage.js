@@ -220,31 +220,31 @@ async function checkSession() {
   </div>`
     }
 
-    // const messageData = document.getElementById("chat-form");
+    const messageData = document.getElementById("chat-form");
 
-    // messageData.addEventListener("submit", async function (e) {
-    //   e.preventDefault();
-    //   //   console.log("ready to send to server")
-    //   // const contractObject = {};
-    //   const form = e.target
-    //   const messageObject = {}
-    //   messageObject.message = messageData.message.value;
-    //   console.log(messageObject)
-    //   form.reset()
+    messageData.addEventListener("submit", async function (e) {
+      e.preventDefault();
+      //   console.log("ready to send to server")
+      // const contractObject = {};
+      const form = e.target
+      const messageObject = {}
+      messageObject.message = messageData.message.value;
+      console.log(messageObject)
+      form.reset()
 
-    //   const res = await fetch("/user/admin/chat", {
-    //     method: "POST",
-    //     headers: {
-    //       "Content-Type": "application/json; charset = utf-8",
-    //     },
-    //     body: JSON.stringify(messageObject)
-    //   })
-    //   const content = await res.json();
-    //   //   console.log(content + "message back on earth")
-    //   if (res.ok) {
-    //     // displayMessage( messageObject.message)
-    //   }
+      const res = await fetch("/user/admin/chat", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json; charset = utf-8",
+        },
+        body: JSON.stringify(messageObject)
+      })
+      const content = await res.json();
+      //   console.log(content + "message back on earth")
+      if (res.ok) {
+        // displayMessage( messageObject.message)
+      }
 
-    // })
+    })
   })
 }
