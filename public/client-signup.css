@@ -88,6 +88,10 @@ input[type=text] {
     color: rgb(25, 169, 161);
 }
 
+input[type=password] {
+    color: rgb(25, 169, 161);
+}
+
 .container {
     background-color: rgb(12, 20, 21);
     border-radius: 10px;
