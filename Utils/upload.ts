@@ -1,6 +1,7 @@
 import formidable, { Files } from 'formidable'
 export const uploadDir = 'uploads'
 import express from 'express'
+import { timeStamp } from 'console'
 
 const form = formidable({
 	uploadDir,

@@ -315,6 +315,8 @@ app.get('/test-logger', (req, res) => {
 })
 app.use(express.static('public')) // auto to do next()
 
+app.use(express.static('uploads')) // auto to do next()
+
 // GET /use/promotion
 // app.use('/uploads', express.static('uploads')) // auto to do next()
 app.use((req, res) => {

@@ -141,7 +141,7 @@ async function getEvidence() {
         html += `
         <div class="contract-container">
                 <div class="contract-profile">
-                    <div class="target-picture"></div>
+                    <div class="target-picture"><img src="/${data.photo}"></img></div>
                 </div>
                 <div class="target-details">
                     <li>
@@ -170,7 +170,7 @@ async function getEvidence() {
                         <label for="decision" value="123">Status</label>
                         <select name="decision" id="status">
                             <option value="approved">Approve</option>
-                            <option value="rejected">Reject</option>
+                            <option value="pending">Reject</option>
                         </select>
                         <input type="submit" value="Submit" />
                     </form>
