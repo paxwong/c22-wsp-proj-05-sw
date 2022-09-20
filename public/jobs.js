@@ -1,4 +1,3 @@
-const socket = io.connect();
 
 async function getPresentJobs() {
     let data = await fetch('/memos/presentJobs')
