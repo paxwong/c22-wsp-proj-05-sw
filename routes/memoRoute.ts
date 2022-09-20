@@ -79,6 +79,29 @@ memosRoutes.get('/killer-order', async (req: any, res: any) => {
 
 })
 
+//client side looking for approve contracts
+memosRoutes.get('/client-order-approve', async (req: any, res: any) => {
+
+	let clientResult = await client.query(`select orders.client_id as id, orders.bounty as bounty, orders.description as description, orders.status as status, orders.description as description, target_list.name as name, target_list.nationality as nationality, target_list.age as age, target_list.company as company, target_list.living_district as location, target_list.remarks as remarks from orders join target_list on orders.target_id = target_list.id where status = 'approved', orders.client_id = $1`, [req.session.user.id])
+	res.json(clientResult)
+
+})
+
+//client side looking for pending contracts
+memosRoutes.get('/client-order-pending', async (req: any, res: any) => {
+
+	let clientResult = await client.query(`select orders.client_id as id, orders.bounty as bounty, orders.description as description, orders.status as status, orders.description as description, target_list.name as name, target_list.nationality as nationality, target_list.age as age, target_list.company as company, target_list.living_district as location, target_list.remarks as remarks from orders join target_list on orders.target_id = target_list.id where status = 'pending',orders.client_id = $1`, [req.session.user.id])
+	res.json(clientResult)
+
+})
+
+//client side looking for decline contracts
+memosRoutes.get('/client-order-decline', async (req: any, res: any) => {
+
+	let clientResult = await client.query(`select orders.client_id as id, orders.bounty as bounty, orders.description as description, orders.status as status, orders.description as description, target_list.name as name, target_list.nationality as nationality, target_list.age as age, target_list.company as company, target_list.living_district as location, target_list.remarks as remarks from orders join target_list on orders.target_id = target_list.id where status = 'decline', orders.client_id = $1`, [req.session.user.id])
+	res.json(clientResult)
+
+})
 
 memosRoutes.post('/target', async (req, res) => {
 	try {

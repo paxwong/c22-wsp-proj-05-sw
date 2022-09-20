@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500&family=Dosis&family=League+Gothic&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.css" />
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.9.1/font/bootstrap-icons.min.css"
+        integrity="sha512-5PV92qsds/16vyYIJo3T/As4m2d8b6oWYfoqV+vtizRB6KhF1F9kYzWzQmsO6T3z3QG2Xdhrx7FQ+5R1LiQdUA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="jobs.css">
+    <title>Jobs</title>
+</head>
+
+<body>
+    <div class="form-popup" id="wallet-login">
+        <div class="form-popup-container">
+            <h1>Select wallet</h1>
+            <button class="metamask"><img src="metamask.png" /> Connect to Metamask</button>
+            <i class="bi bi-x-lg"></i>
+        </div>
+    </div>
+    <div class="header">
+        <div class="header-content">
+            <div class="header-logo">
+
+                <div class="select-bar"><i class="bi bi-list"></i>
+                    <div class="select-bar-sub-menu">
+                        <ul>
+                            <li><a href="#">Profile</a></li>
+                            <li><a href="#" class="logout">Logout</a></li>
+                        </ul>
+                    </div>
+                </div>
+
+
+                <div class="logo"><i class="bi bi-person-bounding-box"></i></div>
+            </div>
+            <div class="navbar">
+                <ul>
+                    <li><a class="creative_link" href="/homepage.html">Home</a></li>
+                    <li><a class="creative_link" href="#">Jobs</a></li>
+                    <li><a class="creative_link" href="/create-contract.html">Contracts</a></li>
+
+                </ul>
+            </div>
+            <div class="wallet">
+                <a href="#" class="wallet-opener">
+                    <div class="wallet-text">Connect to </div>
+                    <div class="wallet-address">Wallet</div>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="contract-container-approve">Approved
+            <div class="contract-profile">
+                <div class="target-picture"></div>
+            </div>
+            <div class="target-details">
+                <li>
+                    <div class="target-name">Name: </div>
+                </li>
+                <li>
+                    <div class="target-age">Age: </div>
+                </li>
+                <li>
+                    <div class="target-nationality">Nationality: </div>
+                </li>
+                <li>
+                    <div class="target-location">Location: </div>
+                </li>
+                <li>
+                    <div class="description">Mission description: </div>
+                </li>
+            </div>
+        </div>
+        <div class="contract-container-pending">Pending
+            <div class="contract-profile">
+                <div class="target-picture"></div>
+            </div>
+            <div class="target-details">
+                <li>
+                    <div class="target-name">Name: </div>
+                </li>
+                <li>
+                    <div class="target-age">Age: </div>
+                </li>
+                <li>
+                    <div class="target-nationality">Nationality: </div>
+                </li>
+                <li>
+                    <div class="target-location">Location: </div>
+                </li>
+                <li>
+                    <div class="description">Mission description: </div>
+                </li>
+            </div>
+        </div>
+        <div class="contract-container-decline">Declined
+            <div class="contract-profile">
+                <div class="target-picture"></div>
+            </div>
+            <div class="target-details">
+                <li>
+                    <div class="target-name">Name: </div>
+                </li>
+                <li>
+                    <div class="target-age">Age: </div>
+                </li>
+                <li>
+                    <div class="target-nationality">Nationality: </div>
+                </li>
+                <li>
+                    <div class="target-location">Location: </div>
+                </li>
+                <li>
+                    <div class="description">Mission description: </div>
+                </li>
+            </div>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/web3@latest/dist/web3.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.js"></script>
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="/jobs.js"></script>
+</body>
+
+</html>
