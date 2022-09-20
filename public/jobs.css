@@ -108,20 +108,7 @@ a:-webkit-any-link {
     text-decoration: none;
 }
 
-<<<<<<< HEAD
 .presentJobs {
-=======
-a:-webkit-any-link:hover {
-    font-size: 1.2rem;
-    color: rgb(33, 214, 205);
-    text-shadow: 0.1px 0.1px #fff;
-    transition: 0.2s all;
-    background-color: transparent;
-
-}
-
-.container {
->>>>>>> 2608c635efde5db5661ae21d3ade4276f06cfb0e
     /* width: 100%;
     height: 100%; */
     /* padding: 60px; */
