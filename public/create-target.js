@@ -2,7 +2,7 @@
 const contractData = document.querySelector("#contract-form");
 contractData.addEventListener("submit", async function (e) {
     // console.log(contractData);
-    if (!e.target.targetName){
+    if (!e.target.targetName) {
         alert('Missing information')
         return
     }
@@ -28,7 +28,3 @@ contractData.addEventListener("submit", async function (e) {
     // document.querySelector('#contract-form').innerHTML = result
 
 })
-
-
-
-// formidable

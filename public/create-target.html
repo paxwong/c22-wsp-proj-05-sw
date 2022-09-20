@@ -10,11 +10,60 @@
     <link
         href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500&family=Dosis&family=League+Gothic&display=swap"
         rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.css" />
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.9.1/font/bootstrap-icons.min.css"
+        integrity="sha512-5PV92qsds/16vyYIJo3T/As4m2d8b6oWYfoqV+vtizRB6KhF1F9kYzWzQmsO6T3z3QG2Xdhrx7FQ+5R1LiQdUA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css"
+        integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous" />
+    <link rel="stylesheet" href="header.css">
     <link rel="stylesheet" href="create-target.css">
     <title>Create Contract</title>
 </head>
 
 <body>
+    <div class="form-popup" id="wallet-login">
+        <div class="form-popup-container">
+            <h1>Select wallet</h1>
+            <button class="metamask"><img src="metamask.png" /> Connect to Metamask</button>
+            <i class="bi bi-x-lg"></i>
+        </div>
+    </div>
+    <div class="header">
+        <div class="header-content">
+            <div class="header-logo">
+
+                <div class="select-bar"><i class="bi bi-list"></i>
+                    <div class="select-bar-sub-menu">
+                        <ul>
+                            <li><a href="#">Profile</a></li>
+                            <li><a href="#" class="logout">Logout</a></li>
+                        </ul>
+                    </div>
+                </div>
+
+
+                <div class="logo"><i class="bi bi-person-bounding-box"></i></div>
+            </div>
+            <div class="navbar">
+                <ul>
+                    <li><a class="creative_link" href="/homepage.html">Home</a></li>
+                    <li><a class="creative_link" href="/jobs.html">Jobs</a></li>
+                    <li><a class="creative_link" href="/create-contract.html">Contracts</a></li>
+
+                </ul>
+            </div>
+            <div class="wallet">
+                <a href="#" class="wallet-opener">
+                    <div class="wallet-text">Connect to </div>
+                    <div class="wallet-address">Wallet</div>
+                </a>
+            </div>
+        </div>
+    </div>
+
+
     <div class="contract-container">
         <form id="contract-form">
             <div class="target-name">
@@ -56,13 +105,18 @@
                 <input type="submit" value="submit" />
             </div>
         </form>
-
-        <div id="display-container">
-            <div></div>
-        </div>
     </div>
-    <script src="/create-target.js"></script>
+    <div class="chatchatchat">
+
+    </div>
     <script src="/socket.io/socket.io.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qs/6.9.2/qs.min.js"
+        integrity="sha256-TDxXjkAUay70ae/QJBEpGKkpVslXaHHayklIVglFRT4=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/web3@latest/dist/web3.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.js"></script>
+    <script src="/header.js"></script>
+    <script src="/create-target.js"></script>
+
 </body>
 
 </html>
