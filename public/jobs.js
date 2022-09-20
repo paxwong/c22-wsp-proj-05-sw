@@ -124,8 +124,10 @@ async function submitEvidence() {
 
 
 
-window.onload = (async function () {
+async function init() {
     await getCompletedJobs()
     await getPresentJobs()
     await submitEvidence()
-})
+}
+
+init()
