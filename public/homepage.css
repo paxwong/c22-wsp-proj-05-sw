@@ -360,7 +360,7 @@ a:-webkit-any-link:hover {
     background-color: #1ba71b;
     position: absolute;
     right: 4px;
-    bottom: 4px;
+    bottom: 20px;
     border-radius: 50%;
     border: 2px solid #fff;
   }
@@ -499,6 +499,7 @@ a:-webkit-any-link:hover {
     max-height: 200px;
     width: 300px; 
     overflow-y: scroll;
+    
 }
 
 .chat-messages .message {
@@ -515,9 +516,9 @@ a:-webkit-any-link:hover {
 
 .chat-form-container form {
     display: flex;
-    
+    position: absolute;
   bottom: 0;
-  width: 100%;
+  width: 60%;
   padding-top: 8px;
 }
 
