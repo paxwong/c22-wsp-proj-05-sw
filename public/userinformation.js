@@ -89,6 +89,8 @@ userinfo.addEventListener('click', async function (event) {
 window.onload = function () {
     init()
     getData()
+    checkSession()
+
 }
 
 async function init() {
@@ -109,7 +111,7 @@ async function getData() {
 
     for (let data of datas.rows) {
         // console.log(data["bounty"])
-        html +=`
+        html += `
             <div class="contract-container">
                 <div class="contract-profile">
                     <div class="target-picture"></div>
@@ -149,7 +151,117 @@ async function getData() {
     container.innerHTML = html
 }
 
+// chatroom
+
+socket.on("private_msg", content => {
+    //   console.log("message-data123: ", content)
+    displayMessage(content)
+    const html = document.querySelector('.chat-messages')
+    html.innerHTML += `<div>${channel}: ${content}</div>`
+    console.log(`${channel}: ${content}`)
+    // always scroll to bottom
+    let messageBody = document.querySelector('.chat-messages');
+    messageBody.scrollTop = messageBody.scrollHeight - messageBody.clientHeight;
+})
 
 
 
 
+function displayMessage(msg) {
+    const div = document.createElement("div")
+    div.textContent = msg
+    document.querySelector(".chat-messages").append(div)
+
+}
+
+
+function disconnectAll() {
+    socket.emit('disconnectAll')
+}
+
+
+function openChatBubble() {
+    let element = document.getElementById("chat-bubble");
+    element.classList.toggle("open")
+}
+
+
+// window.onload = (function () {
+//     checkSession()
+// })
+
+async function checkSession() {
+    let session = await fetch('/session')
+    session.json().then(function (data) {
+        if (!data.user) {
+            let bubble = document.querySelector('#chat-bubble')
+            bubble.parentNode.removeChild(bubble)
+        }
+        if (data.user) {
+            document.querySelector('.chatchatchat').innerHTML = `
+        <div id="chat-bubble">
+        <div class="chat-container">
+          <div class="chat-header">
+            <div class="user-avatar" onclick="openChatBubble()">
+              <div class="img-container">
+                <img src="https://source.unsplash.com/random/35x35">
+              </div>
+              <div class="user-status-info">
+                <div>Chatroom</div>
+                <p>Active now</p>
+              </div>
+            </div>
+  
+            <a href="#" onclick="openChatBubble()">
+              <img src="./icons/close.svg">
+            </a>
+            </nav>
+          </div>
+        </div>
+  
+        <div class="chat-body">
+          <div class="sender-other">
+            <div class="chat-messages"></div>
+          </div>
+  
+          <div class="chat-form-container">
+            <form id="chat-form">
+              <input name="message" id="msg" type="text" placeholder="Type a message..." required autocomplete="off" />
+              <button class="btn" type="submit"><i class="fas fa-paper-plane"></i></button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+    </div>`
+        }
+
+        const messageData = document.getElementById("chat-form");
+
+        messageData.addEventListener("submit", async function (e) {
+            e.preventDefault();
+            //   console.log("ready to send to server")
+            // const contractObject = {};
+            const form = e.target
+            const messageObject = {}
+            messageObject.message = messageData.message.value;
+            console.log(messageObject)
+            form.reset()
+
+            const res = await fetch("/user/admin/chat", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json; charset = utf-8",
+                },
+                body: JSON.stringify(messageObject)
+            })
+            const content = await res.json();
+            //   console.log(content + "message back on earth")
+            if (res.ok) {
+                let messageBody = document.querySelector('.chat-messages');
+                messageBody.scrollTop = messageBody.scrollHeight - messageBody.clientHeight;
+            }
+
+        })
+    })
+}
