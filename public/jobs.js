@@ -113,6 +113,9 @@ async function submitEvidence() {
                 method: "POST",
                 body: formData,
             })
+            if (res.ok) {
+                alert(`Successfully uploaded evidence, pending admin's approval`)
+            }
         }
         )
     }

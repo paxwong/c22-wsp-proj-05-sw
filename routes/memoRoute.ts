@@ -60,6 +60,10 @@ memosRoutes.post('/order', async (req, res) => {
 })
 
 memosRoutes.get('/admin-order', async (req: any, res: any) => {
+	if (!req.session.user || req.session.user.account_type === 'client' || req.session.user.account_type === 'killer'){
+		res.status(401).json({message: 'Unauthorized access'})
+		return
+	}
 	let clientResult = await client.query(`select orders.id as id, orders.bounty as bounty, orders.description as description, orders.status as status, orders.description as description, target_list.name as name, target_list.nationality as nationality, target_list.age as age, target_list.company as company, target_list.living_district as location, target_list.remarks as remarks from orders join target_list on orders.target_id = target_list.id where status = 'pending'`)
 	res.json(clientResult)
 })
@@ -75,7 +79,7 @@ memosRoutes.get('/presentJobs', async (req: any, res: any) => {
 		return
 	}
 
-	let pendingCases = await client.query(`select orders.id as id, orders.bounty as bounty, orders.description as description, orders.status as status, orders.description as description, target_list.name as name, target_list.nationality as nationality, target_list.age as age, target_list.company as company, target_list.living_district as location, target_list.remarks as remarks from orders join target_list on orders.target_id = target_list.id where status = 'pending'`)
+	let pendingCases = await client.query(`select orders.id as id, orders.bounty as bounty, orders.description as description, orders.status as status, orders.description as description, target_list.name as name, target_list.nationality as nationality, target_list.age as age, target_list.company as company, target_list.living_district as location, target_list.remarks as remarks from orders join target_list on orders.target_id = target_list.id where status = 'approved'`)
 	res.json(pendingCases)
 })
 
@@ -88,14 +92,23 @@ memosRoutes.post('/evidences', async (req, res) => {
 			filename
 		}: any = await formParseBetter(req);
 
-		console.log(filename)
-
-
+		await client.query(`INSERT INTO evidence (photo, order_id, killer_id) VALUES ($1, $2, $3)`, [filename, fields.id, req.session.user.id])
+		res.status(200).json({message: 'Success'})
 		// console.log('files = ', filename)
 	} catch (e) {
 		console.log(e)
 		return
 	}
+})
+
+memosRoutes.get('/evidences', async (req, res) => {
+	if (!req.session.user || req.session.user.account_type === 'client' || req.session.user.account_type === 'killer'){
+		res.status(401).json({message: 'Unauthorized access'})
+		return
+	}
+	let results = await client.query(`SELECT evidence.id as evidence_id, evidence.photo as photo, orders.bounty as bounty, orders.status as status, orders.description as description, target_list.name as name, target_list.nationality as nationality, target_list.age as age, target_list.company as company, target_list.living_district as location, target_list.remarks as target_remarks FROM evidence JOIN orders ON evidence.order_id = orders.id JOIN target_list ON orders.target_id = target_list.id`)
+	res.json(results)
+
 })
 
 memosRoutes.get('/user-order', async (req: any, res: any) => {

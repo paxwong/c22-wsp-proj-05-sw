@@ -1,12 +1,15 @@
-const socket = io.connect();
-let xButton = document.querySelector('.bi-x-lg');
-let connectButton = document.querySelector('.metamask')
-let userinfo = document.querySelector('.bi-person-bounding-box')
 
-let account = null;
-let signature = null;
-let message = "Signing message in wallet";
+window.onload = (async function () {
+    await checkSession()
+})
 
+async function init() {
+    await getData()
+    await formAddEventListener()
+    await getEvidence()
+}
+
+init()
 
 async function logout() {
     const logout = document.querySelector('.logout');
@@ -27,81 +30,6 @@ logout()
 function openForm() {
     document.querySelector("#wallet-login").style.display = "block";
 }
-
-xButton.addEventListener('click', function () {
-    document.querySelector("#wallet-login").style.display = "none"
-})
-
-
-
-
-
-let wallet = document.querySelector(".wallet");
-wallet.addEventListener('click', async function () {
-    // let PopDisplay = document.querySelector("#wallet-login").style.display
-    if (document.querySelector("#wallet-login").style.display == "block") {
-        document.querySelector("#wallet-login").style.display = "none"
-    } else {
-        document.querySelector("#wallet-login").style.display = "block"
-    }
-})
-
-
-async function checkConnection() {
-    if (window.ethereum) {
-        await window.ethereum.send('eth_requestAccounts');
-        window.web3 = new Web3(window.ethereum);
-
-        let accounts = await web3.eth.getAccounts()
-        account = accounts[0]
-        document.querySelector('.wallet-address').textContent = account; //!!
-        document.querySelector('.wallet-text').textContent = "Connected to"
-    }
-}
-
-async function signMessage() {
-    signature = await web3.eth.personal.sign(message, account);
-    console.log("Signature: " + signature);
-}
-
-connectButton.addEventListener('click', function () {
-    checkConnection();
-    document.querySelector("#wallet-login").style.display = "none"
-})
-
-
-// signMessage()
-
-userinfo.addEventListener('click', async function (event) {
-    event.preventDefault();
-    const res = await fetch('/session')
-    res.json().then(function (data) {
-        if (!data.user) {
-            location.replace('/loginsignup.html') //no session
-            return
-        }
-        if (data.user.account_type === 'admin') {
-            location.replace('/admin.html')
-            return
-        }
-        if (data.user) {
-            location.replace('/userinformation.html') //have session
-            return
-        }
-    })
-})
-
-// --> chatroom //
-socket.on("private_msg", content => {
-    //   console.log("message-data123: ", content)
-    displayMessage(content)
-    const html = document.querySelector('.chat-messages')
-    html.innerHTML += `<div>${channel}: ${content}</div>`
-    console.log(`${channel}: ${content}`)
-    // always scroll to bottom
-    let messageBody = document.querySelector('.chat-messages');
-    messageBody.scrollTop = messageBody.scrollHeight - messageBody.clientHeight;
-})
 
 
 
@@ -125,15 +53,13 @@ function openChatBubble() {
 }
 // --> chatroom //
 
-window.onload = (function () {
-    checkSession()
-})
+
 
 async function checkSession() {
     let session = await fetch('/session')
     session.json().then(function (data) {
         if (!data.user) {
-            let bubble = document.querySelector('#chat-bubble')
+            let bubble = document.querySelector('.chatchatchat')
             bubble.parentNode.removeChild(bubble)
         }
         if (data.user) {
@@ -203,14 +129,65 @@ async function checkSession() {
         })
     })
 }
-
+async function getEvidence() {
+    let results = await fetch ('/memos/evidences')
+    if (!results.ok){
+        document.querySelector('.pendingEvidences').innerHTML = 'UNAUTHORISED'
+        return
+    }
+    let datas = await results.json()
+    let html = ''
+    for (let data of datas.rows) {
+        html += `
+        <div class="contract-container">
+                <div class="contract-profile">
+                    <div class="target-picture"></div>
+                </div>
+                <div class="target-details">
+                    <li>
+                        <div class="target-name">Name: ${data.name}</div>
+                    </li>
+                    <li>
+                        <div class="target-age">Age: ${data.age}</div>
+                    </li>
+                    <li>
+                        <div class="target-nationality">Nationality: ${data.nationality}</div>
+                    </li>
+                    <li>
+                        <div class="target-location">Location: ${data.location}</div>
+                    </li>
+                    <li>
+                        <div class="target-bounty">Bounty: ${data.bounty}</div>
+                    </li>
+                    <li>
+                        <div class="description">Mission Description: ${data.description}</div>
+                    </li>
+                    <li>
+                        <div class="remarks">Target Remark: ${data.remarks}</div>
+                    </li>
+                    <form class="decision-form">
+                        <label for="id"><input name="id" value="${data.id}"></label>
+                        <label for="decision" value="123">Status</label>
+                        <select name="decision" id="status">
+                            <option value="approved">Approve</option>
+                            <option value="rejected">Reject</option>
+                        </select>
+                        <input type="submit" value="Submit" />
+                    </form>
+                </div>
+            </div>`
+    }
+    const container = document.querySelector('.pendingEvidences')
+    container.innerHTML = html
+}
 
 async function getData() {
-    // let res2 = await fetch('/order')
-    // let datas = await res2.json()
     let clientData = await fetch('/memos/admin-order')
+    if (!clientData.ok){
+        document.querySelector('.container').innerHTML = 'UNAUTHORISED'
+        return
+    }
     let datas = await clientData.json()
-    // console.log(datas.rows[0]["bounty"])
     let html = ""
 
     for (let data of datas.rows) {
@@ -292,9 +269,5 @@ async function formAddEventListener() {
 
 
 
-async function init() {
-    await getData()
-    await formAddEventListener()
-}
 
-init()
+
