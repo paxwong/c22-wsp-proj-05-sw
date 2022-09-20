@@ -197,7 +197,8 @@ async function checkSession() {
       const content = await res.json();
       //   console.log(content + "message back on earth")
       if (res.ok) {
-        // displayMessage( messageObject.message)
+        let messageBody = document.querySelector('.chat-messages');
+        messageBody.scrollTop = messageBody.scrollHeight - messageBody.clientHeight;
       }
 
     })
