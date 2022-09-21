@@ -15,7 +15,7 @@ async function login() {
             })
         })
         if (res.ok) {
-            location.replace('http://localhost:8080/homepage.html')
+            location.replace('/index.html')
         }
 })}
 
