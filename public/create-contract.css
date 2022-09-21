@@ -388,3 +388,16 @@ textarea {
     height: 100%;
     border-radius: 50%;
 }
+
+.redirect {
+    font-size: 0.8rem;
+}
+
+.redirect a {
+    color: rgb(33, 214, 205);
+    text-shadow: 0.1px 0.1px #fff;
+}
+
+.redirect a:hover {
+    font-size: 0.8rem !important;
+}

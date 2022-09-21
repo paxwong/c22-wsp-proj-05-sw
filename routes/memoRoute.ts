@@ -24,7 +24,7 @@ memosRoutes.post('/order', async (req, res) => {
 	try {
 		// console.log(req)
 		const {
-			// files,
+			files,
 			fields
 		}: any = await formParseBetter(req);
 
@@ -39,22 +39,28 @@ memosRoutes.post('/order', async (req, res) => {
 		)
 		let isMatched = target.rows[0]
 		if (!isMatched) {
+			console.log('testing1')
 			res.status(400).json({ message: 'invalid target' })
 			return
-		} else {
+		}
+		if (isMatched) {
+			console.log('testing2')
 			let result = await client.query(
 				`INSERT INTO orders 
 				(bounty, target_id, created_at, status, description, client_id) values 
 			($1, $2, NOW(), $3, $4, $5) `,
 				[parseInt(bounty), target.rows[0].id, 'pending', missionDescription, req.session['user'].id]  //added descriptions
 			)
-			res.json({
+			res.status(200).json({
 				message: 'Upload successful'
 			})
+			return
 		}
+
 	} catch (e) {
 		console.log(e)
-		res.status(400).send('Upload Fail')
+		console.log('testing3')
+		res.status(400).json({ message: 'error' })
 		return
 	}
 })
@@ -64,12 +70,12 @@ memosRoutes.get('/admin-order', async (req: any, res: any) => {
 		res.status(401).json({ message: 'Unauthorized access' })
 		return
 	}
-	let clientResult = await client.query(`select photos.photo as photo, orders.id as id, orders.bounty as bounty, orders.description as description, orders.status as status, orders.description as description, target_list.name as name, target_list.nationality as nationality, target_list.age as age, target_list.company as company, target_list.living_district as location, target_list.remarks as remarks from orders join target_list on orders.target_id = target_list.id join photos on photos.target_id = target_list.id where status = 'pending'`)
+	let clientResult = await client.query(`select photos.photo as photo, orders.id as id, orders.bounty as bounty, orders.description as description, orders.status as status, orders.description as description, target_list.name as name, target_list.nationality as nationality, target_list.age as age, target_list.company as company, target_list.living_district as location, target_list.remarks as remarks from orders join target_list on orders.target_id = target_list.id left outer join photos on photos.target_id = target_list.id where status = 'pending'`)
 	res.json(clientResult)
 })
 
 memosRoutes.get('/completedJobs', async (req: any, res: any) => {
-	let completedCases = await client.query(`select photos.photo as photo, orders.id as id, orders.bounty as bounty, orders.description as description, orders.status as status, orders.description as description, target_list.name as name, target_list.nationality as nationality, target_list.age as age, target_list.company as company, target_list.living_district as location, target_list.remarks as remarks from orders join target_list on orders.target_id = target_list.id join photos on photos.target_id = target_list.id where status = 'completed'`)
+	let completedCases = await client.query(`select photos.photo as photo, orders.id as id, orders.bounty as bounty, orders.description as description, orders.status as status, orders.description as description, target_list.name as name, target_list.nationality as nationality, target_list.age as age, target_list.company as company, target_list.living_district as location, target_list.remarks as remarks from orders join target_list on orders.target_id = target_list.id left outer join photos on photos.target_id = target_list.id where status = 'completed'`)
 	res.json(completedCases)
 })
 
@@ -79,13 +85,35 @@ memosRoutes.get('/presentJobs', async (req: any, res: any) => {
 		return
 	}
 
-	let pendingCases = await client.query(`select photos.photo as photo, orders.id as id, orders.bounty as bounty, orders.description as description, orders.status as status, orders.description as description, target_list.name as name, target_list.nationality as nationality, target_list.age as age, target_list.company as company, target_list.living_district as location, target_list.remarks as remarks from orders join target_list on orders.target_id = target_list.id join photos on photos.target_id = target_list.id where status = 'approved'`)
+	let pendingCases = await client.query(`select photos.photo as photo, orders.id as id, orders.bounty as bounty, orders.description as description, orders.status as status, orders.description as description, target_list.name as name, target_list.nationality as nationality, target_list.age as age, target_list.company as company, target_list.living_district as location, target_list.remarks as remarks from orders join target_list on orders.target_id = target_list.id let outer join photos on photos.target_id = target_list.id where status = 'approved'`)
 	res.json(pendingCases)
 })
 
 memosRoutes.get('/targetList', async (req, res) => {
-	let targetList = await client.query(`SELECT target_list.name as name, photos.photo as photo FROM target_list LEFT OUTER JOIN photos ON photos.target_id = target_list.id`)	
-	res.json(targetList)
+	let targetName = req.query.inputName
+	console.log(targetName)
+	// select all target from targetlist
+	if (!targetName) {
+		let targetList = await client.query(`SELECT target_list.name as name, photos.photo as photo FROM target_list LEFT OUTER JOIN photos ON photos.target_id = target_list.id`)
+		res.json(targetList.rows)
+		return
+	}
+
+	// search specific target name from targetlist
+
+	let targetList = await client.query(`SELECT target_list.name as name, photos.photo as photo FROM target_list LEFT OUTER JOIN photos ON photos.target_id = target_list.id where name = $1`, [targetName])
+	if (targetList.rowCount == 0) {
+		res.status(200).json({
+			message: "Name not found, ok to add"
+
+		})
+		return
+	}
+	res.status(400).json({
+		message: "Name is used"
+	})
+
+
 })
 
 memosRoutes.post('/evidences', async (req, res) => {
@@ -109,19 +137,22 @@ memosRoutes.post('/evidences', async (req, res) => {
 memosRoutes.post('/evidence-decision', async (req, res) => {
 	const id = req.body.id
 	const status = req.body.status
-	if (status === 'rejected'){
+	const killerID = req.body.killer
+
+	if (status === 'rejected') {
 		await client.query('DELETE FROM evidence where id =$1', [id])
-		res.status(200).json({message: 'removed'})
+		res.status(200).json({ message: 'removed' })
 		return
 	}
-	if (status === 'approved'){
+	if (status === 'approved') {
 		let orderID = await client.query('SELECT * from evidence where id = $1', [id])
 		let idInput = orderID.rows[0].order_id
 		await client.query(`UPDATE orders SET status = 'completed' where id = $1`, [idInput])
-		res.status(200).json({message: 'amended'})
+		await client.query(`UPDATE users SET task_completion = task_completion + 1 WHERE id = $1`, [killerID])
+		res.status(200).json({ message: 'amended' })
 		return
 	}
-	res.status(200).json({message: 'Success'})
+	res.status(200).json({ message: 'Success' })
 
 })
 
@@ -130,13 +161,17 @@ memosRoutes.get('/evidences', async (req, res) => {
 		res.status(401).json({ message: 'Unauthorized access' })
 		return
 	}
-	let results = await client.query(`SELECT photos.photo as target_photo, evidence.id as evidence_id, evidence.photo as evidence_photo, orders.bounty as bounty, orders.status as status, orders.description as description, target_list.name as name, target_list.nationality as nationality, target_list.age as age, target_list.company as company, target_list.living_district as location, target_list.remarks as target_remarks FROM evidence JOIN orders ON evidence.order_id = orders.id JOIN target_list ON orders.target_id = target_list.id join photos on photos.target_id = target_list.id where orders.status = 'approved'`)
+	let results = await client.query(`SELECT evidence.killer_id as killer_ID, photos.photo as target_photo, evidence.id as evidence_id, evidence.photo as evidence_photo, orders.bounty as bounty, orders.status as status, orders.description as description, target_list.name as name, target_list.nationality as nationality, target_list.age as age, target_list.company as company, target_list.living_district as location, target_list.remarks as target_remarks FROM evidence JOIN orders ON evidence.order_id = orders.id JOIN target_list ON orders.target_id = target_list.id left outer join photos on photos.target_id = target_list.id where orders.status = 'approved'`)
 	res.json(results)
 
 })
 
 memosRoutes.get('/user-order', async (req: any, res: any) => {
-	let clientResult = await client.query(`select photos.photo as photo, orders.client_id as id, orders.bounty as bounty, orders.description as description, orders.status as status, orders.description as description, target_list.name as name, target_list.nationality as nationality, target_list.age as age, target_list.company as company, target_list.living_district as location, target_list.remarks as remarks from orders join target_list on orders.target_id = target_list.id join photos on photos.target_id = target_list.id where orders.client_id = $1`, [req.session.user.id])
+	if (!req.session.user) {
+		res.status(401).json({ message: 'Unauthorized access' })
+		return
+	}
+	let clientResult = await client.query(`select photos.photo as photo, orders.client_id as id, orders.bounty as bounty, orders.description as description, orders.status as status, orders.description as description, target_list.name as name, target_list.nationality as nationality, target_list.age as age, target_list.company as company, target_list.living_district as location, target_list.remarks as remarks from orders join target_list on orders.target_id = target_list.id left outer join photos on photos.target_id = target_list.id where orders.client_id = $1`, [req.session.user.id])
 	res.json(clientResult)
 })
 
@@ -188,22 +223,27 @@ memosRoutes.post('/target', async (req, res) => {
 		INSERT INTO target_list
 		(name, nationality, age, company, living_district, remarks, created_at) values
 		($1, $2, $3, $4, $5, $6, NOW())`,
-		[targetName, nationality, !age ? null : age, company, location, remarks])
+			[targetName, nationality, !age ? null : age, company, location, remarks])
 
 		let id = await client.query(`select id from target_list ORDER BY id DESC LIMIT 1`)
 		// console.log(`ID IS`, id.rows[0])
 		// let idInput = id.rows[0] * 1
 
-		
 
-		await client.query(`
+
+		if (filename) {
+			await client.query(`
 		INSERT INTO photos
 		(target_id, photo) values 
 		($1, $2)`,
-		[id.rows[0].id,filename])
-		
-		res.status(200).json({ message: 'Upload successful' })
-		return;
+				[id.rows[0].id, filename])
+
+			res.status(200).json({ message: 'Uploaded photos + target successful' })
+			return;
+		}
+
+		res.status(200).json({ message: 'Uploaded target successful' })
+
 	} catch (e) {
 		console.log(e)
 		res.status(400).json({ message: 'Upload Fail' })
