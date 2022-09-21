@@ -13,6 +13,7 @@ body {
     color: rgb(25, 169, 161);
     /* font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif; */
     margin: 0;
+    text-align: center;
 }
 
 .header {
