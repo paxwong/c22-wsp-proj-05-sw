@@ -24,7 +24,7 @@ memosRoutes.post('/order', async (req, res) => {
 	try {
 		// console.log(req)
 		const {
-			// files,
+			files,
 			fields
 		}: any = await formParseBetter(req);
 
@@ -39,22 +39,28 @@ memosRoutes.post('/order', async (req, res) => {
 		)
 		let isMatched = target.rows[0]
 		if (!isMatched) {
+			console.log('testing1')
 			res.status(400).json({ message: 'invalid target' })
 			return
-		} else {
+		}
+		if (isMatched) {
+			console.log('testing2')
 			let result = await client.query(
 				`INSERT INTO orders 
 				(bounty, target_id, created_at, status, description, client_id) values 
 			($1, $2, NOW(), $3, $4, $5) `,
 				[parseInt(bounty), target.rows[0].id, 'pending', missionDescription, req.session['user'].id]  //added descriptions
 			)
-			res.json({
+			res.status(200).json({
 				message: 'Upload successful'
 			})
+			return
 		}
+
 	} catch (e) {
 		console.log(e)
-		res.status(400).send('Upload Fail')
+		console.log('testing3')
+		res.status(400).json({ message: 'error' })
 		return
 	}
 })
