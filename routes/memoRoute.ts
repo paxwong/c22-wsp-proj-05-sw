@@ -70,12 +70,12 @@ memosRoutes.get('/admin-order', async (req: any, res: any) => {
 		res.status(401).json({ message: 'Unauthorized access' })
 		return
 	}
-	let clientResult = await client.query(`select photos.photo as photo, orders.id as id, orders.bounty as bounty, orders.description as description, orders.status as status, orders.description as description, target_list.name as name, target_list.nationality as nationality, target_list.age as age, target_list.company as company, target_list.living_district as location, target_list.remarks as remarks from orders join target_list on orders.target_id = target_list.id join photos on photos.target_id = target_list.id where status = 'pending'`)
+	let clientResult = await client.query(`select photos.photo as photo, orders.id as id, orders.bounty as bounty, orders.description as description, orders.status as status, orders.description as description, target_list.name as name, target_list.nationality as nationality, target_list.age as age, target_list.company as company, target_list.living_district as location, target_list.remarks as remarks from orders join target_list on orders.target_id = target_list.id left outer join photos on photos.target_id = target_list.id where status = 'pending'`)
 	res.json(clientResult)
 })
 
 memosRoutes.get('/completedJobs', async (req: any, res: any) => {
-	let completedCases = await client.query(`select photos.photo as photo, orders.id as id, orders.bounty as bounty, orders.description as description, orders.status as status, orders.description as description, target_list.name as name, target_list.nationality as nationality, target_list.age as age, target_list.company as company, target_list.living_district as location, target_list.remarks as remarks from orders join target_list on orders.target_id = target_list.id join photos on photos.target_id = target_list.id where status = 'completed'`)
+	let completedCases = await client.query(`select photos.photo as photo, orders.id as id, orders.bounty as bounty, orders.description as description, orders.status as status, orders.description as description, target_list.name as name, target_list.nationality as nationality, target_list.age as age, target_list.company as company, target_list.living_district as location, target_list.remarks as remarks from orders join target_list on orders.target_id = target_list.id left outer join photos on photos.target_id = target_list.id where status = 'completed'`)
 	res.json(completedCases)
 })
 
@@ -85,7 +85,7 @@ memosRoutes.get('/presentJobs', async (req: any, res: any) => {
 		return
 	}
 
-	let pendingCases = await client.query(`select photos.photo as photo, orders.id as id, orders.bounty as bounty, orders.description as description, orders.status as status, orders.description as description, target_list.name as name, target_list.nationality as nationality, target_list.age as age, target_list.company as company, target_list.living_district as location, target_list.remarks as remarks from orders join target_list on orders.target_id = target_list.id join photos on photos.target_id = target_list.id where status = 'approved'`)
+	let pendingCases = await client.query(`select photos.photo as photo, orders.id as id, orders.bounty as bounty, orders.description as description, orders.status as status, orders.description as description, target_list.name as name, target_list.nationality as nationality, target_list.age as age, target_list.company as company, target_list.living_district as location, target_list.remarks as remarks from orders join target_list on orders.target_id = target_list.id let outer join photos on photos.target_id = target_list.id where status = 'approved'`)
 	res.json(pendingCases)
 })
 
@@ -158,13 +158,17 @@ memosRoutes.get('/evidences', async (req, res) => {
 		res.status(401).json({ message: 'Unauthorized access' })
 		return
 	}
-	let results = await client.query(`SELECT photos.photo as target_photo, evidence.id as evidence_id, evidence.photo as evidence_photo, orders.bounty as bounty, orders.status as status, orders.description as description, target_list.name as name, target_list.nationality as nationality, target_list.age as age, target_list.company as company, target_list.living_district as location, target_list.remarks as target_remarks FROM evidence JOIN orders ON evidence.order_id = orders.id JOIN target_list ON orders.target_id = target_list.id join photos on photos.target_id = target_list.id where orders.status = 'approved'`)
+	let results = await client.query(`SELECT photos.photo as target_photo, evidence.id as evidence_id, evidence.photo as evidence_photo, orders.bounty as bounty, orders.status as status, orders.description as description, target_list.name as name, target_list.nationality as nationality, target_list.age as age, target_list.company as company, target_list.living_district as location, target_list.remarks as target_remarks FROM evidence JOIN orders ON evidence.order_id = orders.id JOIN target_list ON orders.target_id = target_list.id left outer join photos on photos.target_id = target_list.id where orders.status = 'approved'`)
 	res.json(results)
 
 })
 
 memosRoutes.get('/user-order', async (req: any, res: any) => {
-	let clientResult = await client.query(`select photos.photo as photo, orders.client_id as id, orders.bounty as bounty, orders.description as description, orders.status as status, orders.description as description, target_list.name as name, target_list.nationality as nationality, target_list.age as age, target_list.company as company, target_list.living_district as location, target_list.remarks as remarks from orders join target_list on orders.target_id = target_list.id join photos on photos.target_id = target_list.id where orders.client_id = $1`, [req.session.user.id])
+	if (!req.session.user) {
+		res.status(401).json({ message: 'Unauthorized access' })
+		return
+	}
+	let clientResult = await client.query(`select photos.photo as photo, orders.client_id as id, orders.bounty as bounty, orders.description as description, orders.status as status, orders.description as description, target_list.name as name, target_list.nationality as nationality, target_list.age as age, target_list.company as company, target_list.living_district as location, target_list.remarks as remarks from orders join target_list on orders.target_id = target_list.id left outer join photos on photos.target_id = target_list.id where orders.client_id = $1`, [req.session.user.id])
 	res.json(clientResult)
 })
 

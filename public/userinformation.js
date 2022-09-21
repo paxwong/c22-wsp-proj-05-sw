@@ -88,9 +88,8 @@ userinfo.addEventListener('click', async function (event) {
 
 window.onload = function () {
     init()
-    getData()
     checkSession()
-
+    getData()
 }
 
 async function init() {
@@ -108,7 +107,13 @@ async function getData() {
     let userorders = await fetch('/memos/user-order')
     let datas = await userorders.json()
     let html = ""
-
+    if (userorders.status === 401){
+        alert('Please login first')
+        location.replace('/loginsignup.html')
+        return
+    }
+    if (userorders.ok){
+        // console.log(datas)
     for (let data of datas.rows) {
         // console.log(data["bounty"])
         html += `
@@ -150,7 +155,7 @@ async function getData() {
     const container = document.querySelector('.previous-cases')
     container.innerHTML = html
 }
-
+}
 // chatroom
 
 socket.on("private_msg", content => {
@@ -193,10 +198,6 @@ function openChatBubble() {
 async function checkSession() {
     let session = await fetch('/session')
     session.json().then(function (data) {
-        if (!data.user) {
-            let bubble = document.querySelector('#chat-bubble')
-            bubble.parentNode.removeChild(bubble)
-        }
         if (data.user) {
             document.querySelector('.chatchatchat').innerHTML = `
         <div id="chat-bubble">
@@ -234,9 +235,8 @@ async function checkSession() {
       </div>
     </div>
     </div>`
-        }
 
-        const messageData = document.getElementById("chat-form");
+    const messageData = document.getElementById("chat-form");
 
         messageData.addEventListener("submit", async function (e) {
             e.preventDefault();
@@ -263,5 +263,8 @@ async function checkSession() {
             }
 
         })
+        }
+
+        
     })
 }
