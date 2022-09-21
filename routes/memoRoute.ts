@@ -137,6 +137,8 @@ memosRoutes.post('/evidences', async (req, res) => {
 memosRoutes.post('/evidence-decision', async (req, res) => {
 	const id = req.body.id
 	const status = req.body.status
+	const killerID = req.body.killer
+
 	if (status === 'rejected') {
 		await client.query('DELETE FROM evidence where id =$1', [id])
 		res.status(200).json({ message: 'removed' })
@@ -146,6 +148,7 @@ memosRoutes.post('/evidence-decision', async (req, res) => {
 		let orderID = await client.query('SELECT * from evidence where id = $1', [id])
 		let idInput = orderID.rows[0].order_id
 		await client.query(`UPDATE orders SET status = 'completed' where id = $1`, [idInput])
+		await client.query(`UPDATE users SET task_completion = task_completion + 1 WHERE id = $1`, [killerID])
 		res.status(200).json({ message: 'amended' })
 		return
 	}
@@ -158,7 +161,7 @@ memosRoutes.get('/evidences', async (req, res) => {
 		res.status(401).json({ message: 'Unauthorized access' })
 		return
 	}
-	let results = await client.query(`SELECT photos.photo as target_photo, evidence.id as evidence_id, evidence.photo as evidence_photo, orders.bounty as bounty, orders.status as status, orders.description as description, target_list.name as name, target_list.nationality as nationality, target_list.age as age, target_list.company as company, target_list.living_district as location, target_list.remarks as target_remarks FROM evidence JOIN orders ON evidence.order_id = orders.id JOIN target_list ON orders.target_id = target_list.id left outer join photos on photos.target_id = target_list.id where orders.status = 'approved'`)
+	let results = await client.query(`SELECT evidence.killer_id as killer_ID, photos.photo as target_photo, evidence.id as evidence_id, evidence.photo as evidence_photo, orders.bounty as bounty, orders.status as status, orders.description as description, target_list.name as name, target_list.nationality as nationality, target_list.age as age, target_list.company as company, target_list.living_district as location, target_list.remarks as target_remarks FROM evidence JOIN orders ON evidence.order_id = orders.id JOIN target_list ON orders.target_id = target_list.id left outer join photos on photos.target_id = target_list.id where orders.status = 'approved'`)
 	res.json(results)
 
 })

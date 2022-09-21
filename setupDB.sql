@@ -11,7 +11,7 @@ CREATE TABLE users (
     created_at TIMESTAMP NOT NULL,
     updated_at TIMESTAMP DEFAULT NOW(),
     account_type VARCHAR(255) NOT NULL,
-    task_completion INTEGER 
+    task_completion INTEGER DEFAULT 0
     -- skills_id INTEGER,
 );
 CREATE TABLE target_list (

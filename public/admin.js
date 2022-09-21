@@ -167,6 +167,7 @@ async function getEvidence() {
                         <div class="remarks">Target Remark: ${data.remarks}</div>
                     </li>
                     <form class="evidence-decision-form">
+                        <label for="id"><input name="killer" value="${data.killer_id}"></label>
                         <label for="id"><input name="id" value="${data.evidence_id}"></label>
                         <label for="decision" value="123">Status</label>
                         <select name="decision" id="status">
@@ -250,6 +251,7 @@ async function evidenceAddEventListener() {
     for (let evidence of evidences) {
         evidence.addEventListener('submit', async (event) => {
             event.preventDefault();
+            const killer = event.target.killer.value
             const id = event.target.id.value;
             const status = event.target.decision.value;
             // console.log(id, status)
@@ -260,7 +262,8 @@ async function evidenceAddEventListener() {
                 },
                 body: JSON.stringify({
                     id,
-                    status
+                    status,
+                    killer
                 })
             })
             if (res.ok) {
