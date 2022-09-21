@@ -122,7 +122,7 @@ a:-webkit-any-link {
     align-items: center;
 }
 
-.completedJobs{
+.completedJobs {
     min-height: 50px;
     text-decoration: rgb(25, 169, 161);
     z-index: 10;
@@ -258,7 +258,7 @@ h3 {
     flex-wrap: wrap;
     flex-direction: column;
     width: 300px;
-    height: 600px;
+    /* height: 600px; */
     margin: 20px;
     background-image: linear-gradient(rgb(12, 20, 21), rgb(5, 34, 32));
     border-radius: 12px;
@@ -350,8 +350,8 @@ h3 {
     width: 90%;
 }
 
-label[for='id']{
-    display:none;
+label[for='id'] {
+    display: none;
 }
 
 .target-picture img {
