@@ -36,6 +36,7 @@ contractData.addEventListener("submit", async function (e) {
     }
     if (res.ok) {
         alert(`Order pending admin's approval`)
+        location.replace('/userinformation.html')
         return
         // location.replace('/homepage.html')
     }
