@@ -70,7 +70,7 @@ async function refreshCounter() {
 
 async function switchImage() {
     const res = await fetch(
-      'http://localhost:8080/bobdie.gif',
+      '/bobdie.gif',
     )
     const result = await res.blob()
     const objectURL = URL.createObjectURL(result)
