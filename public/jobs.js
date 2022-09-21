@@ -11,7 +11,7 @@ async function getPresentJobs() {
         html += `
             <div class="contract-container">
                 <div class="contract-profile">
-                    <div class="target-picture"></div>
+                    <div class="target-picture"><img src="${job.photo}"></img></div>
                 </div>
                 <div class="target-details">
                     <li>
@@ -65,7 +65,7 @@ async function getCompletedJobs() {
         html += `
         <div class="contract-container">
         <div class="contract-profile">
-            <div class="target-picture"></div>
+            <div class="target-picture"><img src="${job.photo}"></img></div>
         </div>
         <div class="target-details">
             <li>

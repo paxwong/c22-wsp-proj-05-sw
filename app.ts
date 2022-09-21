@@ -202,6 +202,9 @@ app.get('/userinformation', async (req, res) => {
 const uploadDir = 'uploads'
 const form = formidable({
 	uploadDir,
+	// filename(name, ext, part, form) {
+	// 	return `${new Date().getDay}`
+	// },
 	keepExtensions: true,
 	maxFiles: 1,
 	maxFileSize: 20000 * 1024 ** 2,

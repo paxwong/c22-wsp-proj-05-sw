@@ -20,8 +20,6 @@ contractData.addEventListener("submit", async function (e) {
 
     const res = await fetch('/memos/order', {
         method: "POST",
-
-
         body: formData,
     })
     const result = await res.json()
@@ -60,3 +58,26 @@ contractData.addEventListener("submit", async function (e) {
 // <input type="submit" value="Submit" />
 // </form>
 
+async function loadPhoto() {
+    let res = await fetch('/memos/targetList')
+    if (res.ok) {
+        let html = ``
+        res.json().then(function (datas) {
+            for (let data of datas.rows) {
+                html += `
+                <option>${data.name}</option>
+                `
+            }
+            document.querySelector('#chosen-target').innerHTML = html
+            document.querySelector('#chosen-target').addEventListener('change', function() {
+                for (let data of datas.rows) {
+                    if (document.querySelector('#chosen-target').value == data.name){
+                        console.log(document.querySelector('.target-picture'))
+                document.querySelector('.target-picture').innerHTML = `<img src="${data.photo}"></img>`
+            }
+            }})
+        })
+    }
+}
+
+loadPhoto()

@@ -64,13 +64,15 @@
     </div>
     <div class="contract-container">
         <form id="contract-form">
+            <div class="contract-profile">
+                <div class="target-picture"></div>
+            </div>
             <div class="target-name">
                 <label for="targetName">Target Name :
-                    <input type="text" name="targetName" id="targetName" />
+                    <select name="target" id="chosen-target">
+                    </select>
                 </label>
             </div>
-
-
             <div class="mission-description">
                 <label for="mission-description">Mission description :
                     <textarea name="missionDescription" id="missionDescription"></textarea>
@@ -79,11 +81,6 @@
             <div class="bounty">
                 <label for="bounty">Target Bounty :
                     <input type="number" name="bounty" id="bounty" />
-                </label>
-            </div>
-            <div class="profile">
-                <label for="profile"> Taget Profile :
-                    <input type="file" name="image" id="image" placeholder="upload" multiple />
                 </label>
             </div>
             <div class="submit-button">

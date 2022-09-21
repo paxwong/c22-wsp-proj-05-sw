@@ -24,6 +24,8 @@ contractData.addEventListener("submit", async function (e) {
     })
     const result = await res.json()
     console.log('form result', result)
+    alert('Target uploaded successfully, please create order')
+    location.replace('/create-contract.html')
     // const result = await res.json()
     // document.querySelector('#contract-form').innerHTML = result
 

@@ -7,6 +7,7 @@ async function init() {
     await getData()
     await formAddEventListener()
     await getEvidence()
+    await evidenceAddEventListener()
 }
 
 init()
@@ -141,7 +142,7 @@ async function getEvidence() {
         html += `
         <div class="contract-container">
                 <div class="contract-profile">
-                    <div class="target-picture"><img src="/${data.photo}"></img></div>
+                    <div class="target-picture"><img src="/${data.target_photo}"></img></div>
                 </div>
                 <div class="target-details">
                     <li>
@@ -165,8 +166,8 @@ async function getEvidence() {
                     <li>
                         <div class="remarks">Target Remark: ${data.remarks}</div>
                     </li>
-                    <form class="decision-form">
-                        <label for="id"><input name="id" value="${data.id}"></label>
+                    <form class="evidence-decision-form">
+                        <label for="id"><input name="id" value="${data.evidence_id}"></label>
                         <label for="decision" value="123">Status</label>
                         <select name="decision" id="status">
                             <option value="approved">Approve</option>
@@ -175,6 +176,9 @@ async function getEvidence() {
                         <input type="submit" value="Submit" />
                     </form>
                 </div>
+                <div class="contract-profile">
+                <div class="target-picture"><img src="/${data.evidence_photo}"></img></div>
+            </div>
             </div>`
     }
     const container = document.querySelector('.pendingEvidences')
@@ -195,7 +199,7 @@ async function getData() {
         html += `
             <div class="contract-container">
                 <div class="contract-profile">
-                    <div class="target-picture"></div>
+                    <div class="target-picture"><img src="/${data.photo}"></img></div>
                 </div>
                 <div class="target-details">
                     <li>
@@ -240,6 +244,32 @@ async function getData() {
 
 
 
+
+async function evidenceAddEventListener() {
+    let evidences = document.querySelectorAll('.evidence-decision-form')
+    for (let evidence of evidences) {
+        evidence.addEventListener('submit', async (event) => {
+            event.preventDefault();
+            const id = event.target.id.value;
+            const status = event.target.decision.value;
+            // console.log(id, status)
+            const res = await fetch('/memos/evidence-decision', {
+                method: 'POST',
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    id,
+                    status
+                })
+            })
+            if (res.ok) {
+                init()
+            }
+        }
+        )
+    }
+}
 
 async function formAddEventListener() {
     let decisions = document.querySelectorAll('.decision-form')

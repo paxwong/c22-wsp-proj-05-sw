@@ -133,10 +133,6 @@ window.onload = (function () {
 async function checkSession() {
     let session = await fetch('/session')
     session.json().then(function (data) {
-        if (!data.user) {
-            let bubble = document.querySelector('#chat-bubble')
-            bubble.parentNode.removeChild(bubble)
-        }
         if (data.user) {
             document.querySelector('.chatchatchat').innerHTML = `
         <div id="chat-bubble">
@@ -174,9 +170,8 @@ async function checkSession() {
       </div>
     </div>
     </div>`
-        }
 
-        const messageData = document.getElementById("chat-form");
+    const messageData = document.getElementById("chat-form");
 
         messageData.addEventListener("submit", async function (e) {
             e.preventDefault();
@@ -203,5 +198,8 @@ async function checkSession() {
             }
 
         })
+        }
+
+        
     })
 }
