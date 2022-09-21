@@ -84,8 +84,30 @@ memosRoutes.get('/presentJobs', async (req: any, res: any) => {
 })
 
 memosRoutes.get('/targetList', async (req, res) => {
-	let targetList = await client.query(`SELECT target_list.name as name, photos.photo as photo FROM target_list LEFT OUTER JOIN photos ON photos.target_id = target_list.id`)	
-	res.json(targetList)
+	let targetName = req.query.inputName
+	console.log(targetName)
+	// select all target from targetlist
+	if (!targetName) {
+		let targetList = await client.query(`SELECT target_list.name as name, photos.photo as photo FROM target_list LEFT OUTER JOIN photos ON photos.target_id = target_list.id`)
+		res.json(targetList.rows)
+		return
+	}
+
+	// search specific target name from targetlist
+
+	let targetList = await client.query(`SELECT target_list.name as name, photos.photo as photo FROM target_list LEFT OUTER JOIN photos ON photos.target_id = target_list.id where name = $1`, [targetName])
+	if (targetList.rowCount == 0) {
+		res.status(200).json({
+			message: "Name not found, ok to add"
+
+		})
+		return
+	}
+	res.status(400).json({
+		message: "Name is used"
+	})
+
+
 })
 
 memosRoutes.post('/evidences', async (req, res) => {
@@ -109,19 +131,19 @@ memosRoutes.post('/evidences', async (req, res) => {
 memosRoutes.post('/evidence-decision', async (req, res) => {
 	const id = req.body.id
 	const status = req.body.status
-	if (status === 'rejected'){
+	if (status === 'rejected') {
 		await client.query('DELETE FROM evidence where id =$1', [id])
-		res.status(200).json({message: 'removed'})
+		res.status(200).json({ message: 'removed' })
 		return
 	}
-	if (status === 'approved'){
+	if (status === 'approved') {
 		let orderID = await client.query('SELECT * from evidence where id = $1', [id])
 		let idInput = orderID.rows[0].order_id
 		await client.query(`UPDATE orders SET status = 'completed' where id = $1`, [idInput])
-		res.status(200).json({message: 'amended'})
+		res.status(200).json({ message: 'amended' })
 		return
 	}
-	res.status(200).json({message: 'Success'})
+	res.status(200).json({ message: 'Success' })
 
 })
 
@@ -188,22 +210,27 @@ memosRoutes.post('/target', async (req, res) => {
 		INSERT INTO target_list
 		(name, nationality, age, company, living_district, remarks, created_at) values
 		($1, $2, $3, $4, $5, $6, NOW())`,
-		[targetName, nationality, !age ? null : age, company, location, remarks])
+			[targetName, nationality, !age ? null : age, company, location, remarks])
 
 		let id = await client.query(`select id from target_list ORDER BY id DESC LIMIT 1`)
 		// console.log(`ID IS`, id.rows[0])
 		// let idInput = id.rows[0] * 1
 
-		
 
-		await client.query(`
+
+		if (filename) {
+			await client.query(`
 		INSERT INTO photos
 		(target_id, photo) values 
 		($1, $2)`,
-		[id.rows[0].id,filename])
-		
-		res.status(200).json({ message: 'Upload successful' })
-		return;
+				[id.rows[0].id, filename])
+
+			res.status(200).json({ message: 'Uploaded photos + target successful' })
+			return;
+		}
+
+		res.status(200).json({ message: 'Uploaded target successful' })
+
 	} catch (e) {
 		console.log(e)
 		res.status(400).json({ message: 'Upload Fail' })

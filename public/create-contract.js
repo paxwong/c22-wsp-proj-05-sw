@@ -63,14 +63,14 @@ async function loadPhoto() {
     if (res.ok) {
         let html = ``
         res.json().then(function (datas) {
-            for (let data of datas.rows) {
+            for (let data of datas) {
                 html += `
                 <option>${data.name}</option>
                 `
             }
             document.querySelector('#chosen-target').innerHTML = html
             document.querySelector('#chosen-target').addEventListener('change', function () {
-                for (let data of datas.rows) {
+                for (let data of datas) {
                     if (document.querySelector('#chosen-target').value == data.name) {
                         if (data.photo === null) {
                             document.querySelector('.target-picture').innerHTML = `<img src="question-mark.png"></img>`
