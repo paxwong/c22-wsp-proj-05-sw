@@ -12,6 +12,7 @@ body {
     /* color: rgb(16, 79, 77) */
     color: rgb(25, 169, 161);
     /* font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif; */
+    margin: 0;
 }
 
 .header {
@@ -332,6 +333,10 @@ textarea {
     width: 140px;
 }
 
+input[type=number] {
+    -webkit-appearance: none;
+}
+
 /* input[type=text] {
     color: rgb(25, 169, 161);
 } */
@@ -391,6 +396,7 @@ textarea {
 
 .redirect {
     font-size: 0.8rem;
+    text-align: center;
 }
 
 .redirect a {
