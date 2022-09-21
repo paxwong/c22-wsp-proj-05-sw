@@ -85,7 +85,7 @@ memosRoutes.get('/presentJobs', async (req: any, res: any) => {
 		return
 	}
 
-	let pendingCases = await client.query(`select photos.photo as photo, orders.id as id, orders.bounty as bounty, orders.description as description, orders.status as status, orders.description as description, target_list.name as name, target_list.nationality as nationality, target_list.age as age, target_list.company as company, target_list.living_district as location, target_list.remarks as remarks from orders join target_list on orders.target_id = target_list.id let outer join photos on photos.target_id = target_list.id where status = 'approved'`)
+	let pendingCases = await client.query(`select photos.photo as photo, orders.id as id, orders.bounty as bounty, orders.description as description, orders.status as status, orders.description as description, target_list.name as name, target_list.nationality as nationality, target_list.age as age, target_list.company as company, target_list.living_district as location, target_list.remarks as remarks from orders join target_list on orders.target_id = target_list.id left outer join photos on photos.target_id = target_list.id where status = 'approved'`)
 	res.json(pendingCases)
 })
 
