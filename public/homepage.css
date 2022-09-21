@@ -2,6 +2,7 @@ body {
     font-family: 'Cinzel', serif;
     width: 100vw;
     height: 100vh;
+    margin: 0;
     background-color: rgb(12, 20, 21);
     /* color: rgb(16, 79, 77) */
     color: rgb(25, 169, 161);
@@ -247,7 +248,7 @@ a:-webkit-any-link:hover {
 } */
 
 * {
-    box-sizing: border-box;
+    box-sizing: border-box !important;
 }
 
 /* The popup form - hidden by default */
