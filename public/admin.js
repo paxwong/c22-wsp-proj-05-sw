@@ -21,7 +21,7 @@ async function logout() {
         })
         if (res.ok) {
             // alert('Logout successfully')
-            location.replace('http://localhost:8080/index.html')
+            location.replace('/index.html')
         }
     })
 }

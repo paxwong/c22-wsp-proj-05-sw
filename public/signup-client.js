@@ -16,7 +16,7 @@ async function signup() {
         })
         if (res.ok) {
             alert("Account created successfully")
-            location.replace('http://localhost:8080/login.html')
+            location.replace('/index.html')
         }
 })}
 
